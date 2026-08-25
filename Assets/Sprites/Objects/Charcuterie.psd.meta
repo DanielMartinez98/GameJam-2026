@@ -1,0 +1,737 @@
+fileFormatVersion: 2
+guid: 7b8cbd35e2a58dd4c9698c1d7d392a72
+importerOverride:
+  nativeImporterType: 2089858483
+  scriptedImporterType:
+    serializedVersion: 2
+    Hash: b10b55a1aa6a1aa32521bc0cab59632e
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: b2a9591990af98743ba3ff7cf1000886, type: 3}
+  textureImporterSettings:
+    alphaSource: 1
+    mipMapMode: 0
+    enableMipMap: 1
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+    convertToNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+    swizzle: 50462976
+    isReadable: 0
+    streamingMipmaps: 0
+    streamingMipmapsPriority: 0
+    vTOnly: 0
+    ignoreMipmapLimit: 0
+    nPOTScale: 1
+    sRGBTexture: 1
+    spriteMode: 2
+    spriteExtrude: 1
+    spriteMeshType: 1
+    alignment: 0
+    spritePivot: {x: 0.5, y: 0.5}
+    spritePixelsToUnits: 100
+    spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+    spriteGenerateFallbackPhysicsShape: 0
+    generateCubemap: 6
+    cubemapConvolution: 0
+    seamlessCubemap: 0
+    alphaIsTransparency: 1
+    spriteTessellationDetail: -1
+    textureType: 8
+    textureShape: 1
+    singleChannelComponent: 0
+    flipbookRows: 0
+    flipbookColumns: 0
+    ignorePngGamma: 0
+    cookieMode: 0
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 0
+    wrapV: 0
+    wrapW: 0
+    normalMap: 0
+    textureFormat: 0
+    maxTextureSize: 0
+    lightmap: 0
+    compressionQuality: 0
+    linearTexture: 0
+    grayScaleToAlpha: 0
+    rGBM: 0
+    cubemapConvolutionSteps: 0
+    cubemapConvolutionExponent: 0
+    maxTextureSizeSet: 0
+    compressionQualitySet: 0
+    textureFormatSet: 0
+    applyGammaDecoding: 0
+  singleSpriteImportData:
+  - name: 
+    originalName: 
+    pivot: {x: 0, y: 0}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    spriteID: 8501f3be083ee1e4c906aef0c1f91fa0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+    spritePosition: {x: 0, y: 0}
+  multiSpriteImportData: []
+  layeredSpriteImportData:
+  - name: Garnish
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 194
+      y: 3310
+      width: 158
+      height: 168
+    spriteID: 41e623176b0345046a0287c3539d0097
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 194, y: 3310}
+    spritePosition: {x: 927, y: 473}
+  - name: BlueBerries
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 1479
+      y: 3163
+      width: 122
+      height: 94
+    spriteID: 0b33daccbbbc21746960bacf192e2084
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 1479, y: 3163}
+    spritePosition: {x: 774, y: 598}
+  - name: Strawberry
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 360
+      y: 3310
+      width: 138
+      height: 192
+    spriteID: 7977ff9fd69b5734dba37da579a29a4e
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 360, y: 3310}
+    spritePosition: {x: 805, y: 503}
+  - name: OrangeSlice
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 1753
+      y: 2491
+      width: 268
+      height: 268
+    spriteID: cba92540caacd144483b6abdaaa18b7d
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 1753, y: 2491}
+    spritePosition: {x: 1458, y: 620}
+  - name: Cracker
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 3310
+      width: 182
+      height: 218
+    spriteID: 79079ba016b01a14fb0c5f961487e372
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 3310}
+    spritePosition: {x: 868, y: 460}
+  - name: Salami
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 1700
+      y: 2941
+      width: 165
+      height: 261
+    spriteID: f9a74fc5644100441927b736358692a9
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 1700, y: 2941}
+    spritePosition: {x: 890, y: 393}
+  - name: Salami2
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 1479
+      y: 2941
+      width: 213
+      height: 214
+    spriteID: dd847a47470bfa849a05d6e9dad557c3
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 1479, y: 2941}
+    spritePosition: {x: 845, y: 475}
+  - name: Pickles
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 378
+      y: 2941
+      width: 308
+      height: 316
+    spriteID: a9580df1c8a50174688e7f493883f629
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 378, y: 2941}
+    spritePosition: {x: 244, y: 542}
+  - name: Nuts
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 1753
+      y: 2767
+      width: 206
+      height: 141
+    spriteID: adb93678c3a2c89449e66111e74030a8
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 1753, y: 2767}
+    spritePosition: {x: 900, y: 451}
+  - name: CheeseSlice1
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 1873
+      y: 2941
+      width: 134
+      height: 295
+    spriteID: 637e295b110db4b4686bac3cf4d753c4
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 1873, y: 2941}
+    spritePosition: {x: 897, y: 377}
+  - name: CheeseSlice2
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 694
+      y: 2941
+      width: 230
+      height: 311
+    spriteID: b797c2f88abca6645a13ce3dd4289de7
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 694, y: 2941}
+    spritePosition: {x: 834, y: 412}
+  - name: CheeseSlice3
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 1753
+      y: 2180
+      width: 281
+      height: 303
+    spriteID: d166e8e317d2eb64e85f322324b574c8
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 1753, y: 2180}
+    spritePosition: {x: 505, y: 269}
+  - name: CheeseSlice4
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 932
+      y: 2941
+      width: 264
+      height: 255
+    spriteID: edeab815aaf4465419ec50f7a5fbd291
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 932, y: 2941}
+    spritePosition: {x: 461, y: 174}
+  - name: Grapes
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 1204
+      y: 2941
+      width: 267
+      height: 250
+    spriteID: e157e66c878ebc6409da1c9956aec43e
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 1204, y: 2941}
+    spritePosition: {x: 503, y: 654}
+  - name: Plate
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 2941
+      width: 366
+      height: 361
+    spriteID: af6b714214b246741a36c17b03a327e6
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 2941}
+    spritePosition: {x: 1332, y: 194}
+  - name: Charcuterie  Board
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 2180
+      width: 1741
+      height: 753
+    spriteID: a2ec2c9b38c6cf84d934b7e841fc6a43
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 2180}
+    spritePosition: {x: 92, y: 162}
+  - name: Charcuteriebackground
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 1920
+      height: 1080
+    spriteID: 64d8979a177ad05499a7030740a3afbc
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 4}
+    spritePosition: {x: 0, y: 0}
+  - name: Background
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 1092
+      width: 1920
+      height: 1080
+    spriteID: 7e93d24fdfdc1d24b887f580cc725bfb
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 1092}
+    spritePosition: {x: 0, y: 0}
+  spriteImportData: []
+  rigSpriteImportData: []
+  sharedRigSpriteImportData: []
+  mosaicSpriteImportData: []
+  sharedRigCharacterData:
+    bones: []
+    parts: []
+    dimension: {x: 0, y: 0}
+    characterGroups: []
+    pivot: {x: 0, y: 0}
+    boneReadOnly: 0
+  characterData:
+    bones: []
+    parts: []
+    dimension: {x: 0, y: 0}
+    characterGroups: []
+    pivot: {x: 0, y: 0}
+    boneReadOnly: 0
+  platformSettings: []
+  mosaicLayers: 1
+  characterMode: 1
+  documentPivot: {x: 0, y: 0}
+  documentAlignment: 7
+  importHiddenLayers: 0
+  layerMappingOption: 2
+  generatePhysicsShape: 0
+  paperDollMode: 0
+  keepDupilcateSpriteName: 1
+  generateTileAssets: 0
+  tilePaletteCellLayout: 0
+  tilePaletteHexagonLayout: 0
+  tilePaletteCellSize: {x: 1, y: 1, z: 0}
+  tilePaletteCellSizing: 0
+  transparencySortMode: 0
+  transparencySortAxis: {x: 0, y: 0, z: 1}
+  tileTemplate: {instanceID: 0}
+  padding: 4
+  spriteSizeExpand: 0
+  skeletonAssetReferenceID: 
+  pipeline: {instanceID: 0}
+  pipelineVersion: 
+  spriteCategoryList:
+    categories: []
+  spritePackingTag: 
+  resliceFromLayer: 0
+  pSDLayerImportSetting: []
+  psdLayers:
+  - name: Garnish
+    spriteName: Garnish
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 41e623176b0345046a0287c3539d0097
+    layerID: 0
+    mosaicPosition: {x: 194, y: 3310}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: BlueBerries
+    spriteName: BlueBerries
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 0b33daccbbbc21746960bacf192e2084
+    layerID: 584484910
+    mosaicPosition: {x: 1479, y: 3163}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: Strawberry
+    spriteName: Strawberry
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 7977ff9fd69b5734dba37da579a29a4e
+    layerID: -1407941567
+    mosaicPosition: {x: 360, y: 3310}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: OrangeSlice
+    spriteName: OrangeSlice
+    isGroup: 0
+    parentIndex: -1
+    spriteID: cba92540caacd144483b6abdaaa18b7d
+    layerID: -1395636814
+    mosaicPosition: {x: 1753, y: 2491}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: Cracker
+    spriteName: Cracker
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 79079ba016b01a14fb0c5f961487e372
+    layerID: 1197918867
+    mosaicPosition: {x: 4, y: 3310}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: Salami
+    spriteName: Salami
+    isGroup: 0
+    parentIndex: -1
+    spriteID: f9a74fc5644100441927b736358692a9
+    layerID: -410881453
+    mosaicPosition: {x: 1700, y: 2941}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: Salami2
+    spriteName: Salami2
+    isGroup: 0
+    parentIndex: -1
+    spriteID: dd847a47470bfa849a05d6e9dad557c3
+    layerID: 1485078849
+    mosaicPosition: {x: 1479, y: 2941}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: Pickles
+    spriteName: Pickles
+    isGroup: 0
+    parentIndex: -1
+    spriteID: a9580df1c8a50174688e7f493883f629
+    layerID: 527437843
+    mosaicPosition: {x: 378, y: 2941}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: Nuts
+    spriteName: Nuts
+    isGroup: 0
+    parentIndex: -1
+    spriteID: adb93678c3a2c89449e66111e74030a8
+    layerID: 1246232462
+    mosaicPosition: {x: 1753, y: 2767}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: CheeseSlice1
+    spriteName: CheeseSlice1
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 637e295b110db4b4686bac3cf4d753c4
+    layerID: 1187058094
+    mosaicPosition: {x: 1873, y: 2941}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: CheeseSlice2
+    spriteName: CheeseSlice2
+    isGroup: 0
+    parentIndex: -1
+    spriteID: b797c2f88abca6645a13ce3dd4289de7
+    layerID: 783773567
+    mosaicPosition: {x: 694, y: 2941}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: CheeseSlice3
+    spriteName: CheeseSlice3
+    isGroup: 0
+    parentIndex: -1
+    spriteID: d166e8e317d2eb64e85f322324b574c8
+    layerID: -1945109788
+    mosaicPosition: {x: 1753, y: 2180}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: CheeseSlice4
+    spriteName: CheeseSlice4
+    isGroup: 0
+    parentIndex: -1
+    spriteID: edeab815aaf4465419ec50f7a5fbd291
+    layerID: 1590342621
+    mosaicPosition: {x: 932, y: 2941}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: Grapes
+    spriteName: Grapes
+    isGroup: 0
+    parentIndex: -1
+    spriteID: e157e66c878ebc6409da1c9956aec43e
+    layerID: -1799932054
+    mosaicPosition: {x: 1204, y: 2941}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: Plate
+    spriteName: Plate
+    isGroup: 0
+    parentIndex: -1
+    spriteID: af6b714214b246741a36c17b03a327e6
+    layerID: -858262014
+    mosaicPosition: {x: 4, y: 2941}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: Charcuterie  Board
+    spriteName: Charcuterie  Board
+    isGroup: 0
+    parentIndex: -1
+    spriteID: a2ec2c9b38c6cf84d934b7e841fc6a43
+    layerID: 289610143
+    mosaicPosition: {x: 4, y: 2180}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: Charcuteriebackground
+    spriteName: Charcuteriebackground
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 64d8979a177ad05499a7030740a3afbc
+    layerID: -437674413
+    mosaicPosition: {x: 4, y: 4}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: Background
+    spriteName: Background
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 7e93d24fdfdc1d24b887f580cc725bfb
+    layerID: 332801758
+    mosaicPosition: {x: 4, y: 1092}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  mosaicPSDLayers: []
+  rigPSDLayers: []
+  sharedRigPSDLayers: []
+  importFileNodeState: 1
+  platformSettingsDirtyTick: 0
+  spriteSizeExpandChanged: 0
+  generateGOHierarchy: 0
+  textureAssetName: 
+  prefabAssetName: 
+  spriteLibAssetName: 
+  skeletonAssetName: 
+  secondarySpriteTextures: []
