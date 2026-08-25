@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 13c212666657c2940bb5a4c21681f049
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 184761
+  packageName: Classic Dungeon Crawler LowPoly
+  packageVersion: 1.1
+  assetPath: Assets/Leycarno/Classic DungeonCrawler LP/Scripts/Ley/LeyWaypoint.cs
+  uploadId: 461756

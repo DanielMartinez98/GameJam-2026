@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 74862541b9a69e045871eefae2279291
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 184761
+  packageName: Classic Dungeon Crawler LowPoly
+  packageVersion: 1.1
+  assetPath: Assets/Leycarno/Classic DungeonCrawler LP/Scripts/Ley/Builder/LeyDirectionBuilder.cs
+  uploadId: 461756

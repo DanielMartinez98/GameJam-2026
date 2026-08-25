@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 282206ecfd34bc543a8d12d26fde5b9e
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 184761
+  packageName: Classic Dungeon Crawler LowPoly
+  packageVersion: 1.1
+  assetPath: Assets/Leycarno/Classic DungeonCrawler LP/Scripts/Ley/LeyWall.cs
+  uploadId: 461756

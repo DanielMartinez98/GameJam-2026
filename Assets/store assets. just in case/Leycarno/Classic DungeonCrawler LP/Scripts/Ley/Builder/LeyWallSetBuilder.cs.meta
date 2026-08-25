@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: d0ea45d04dfc2974c81409c797c15dbd
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 184761
+  packageName: Classic Dungeon Crawler LowPoly
+  packageVersion: 1.1
+  assetPath: Assets/Leycarno/Classic DungeonCrawler LP/Scripts/Ley/Builder/LeyWallSetBuilder.cs
+  uploadId: 461756
