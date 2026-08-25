@@ -1036,7 +1036,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: -1904719284554991718, guid: b138e447e0f4595418f0adb8dbdbd140, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -2128,6 +2128,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1653630382}
   - {fileID: 850808697}
   - {fileID: 697940703}
   - {fileID: 906184720}
@@ -2136,7 +2137,6 @@ Transform:
   - {fileID: 1754194289}
   - {fileID: 518842521}
   - {fileID: 1763043941}
-  - {fileID: 1653630382}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1649206006

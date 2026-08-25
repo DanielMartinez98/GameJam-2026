@@ -411,7 +411,7 @@ Camera:
   m_ShutterSpeed: 0.005
   m_Aperture: 16
   m_FocusDistance: 10
-  m_FocalLength: 51.162262
+  m_FocalLength: 64.12143
   m_BladeCount: 5
   m_Curvature: {x: 2, y: 11}
   m_BarrelClipping: 0.25
@@ -426,7 +426,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 21.2
+  field of view: 32
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -452,13 +452,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 306081235}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.499244, y: 0, z: 0, w: 0.86646146}
-  m_LocalPosition: {x: 0, y: 80, z: -34.36}
+  m_LocalRotation: {x: 0.3420201, y: 0, z: 0, w: 0.9396927}
+  m_LocalPosition: {x: 0, y: 35.2, z: -34.36}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 59.9, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 40, y: 0, z: 0}
 --- !u!114 &306081239
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2752,12 +2752,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 306081235}
     - target: {fileID: 5246600033495868016, guid: 7cd7a16d6f90b544e82e600194e5526d, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.025
+      objectReference: {fileID: 0}
+    - target: {fileID: 5246600033495868016, guid: 7cd7a16d6f90b544e82e600194e5526d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5246600033495868016, guid: 7cd7a16d6f90b544e82e600194e5526d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.22499
       objectReference: {fileID: 0}
     - target: {fileID: 5246600033495868016, guid: 7cd7a16d6f90b544e82e600194e5526d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2808,6 +2812,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1116365882136158015, guid: cc1acc51b47926a4b87ec6690078bf98, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.9
+      objectReference: {fileID: 0}
     - target: {fileID: 1116365882136158015, guid: cc1acc51b47926a4b87ec6690078bf98, type: 3}
       propertyPath: m_LocalPosition.x
       value: 17.22
@@ -2870,8 +2878,12 @@ PrefabInstance:
       value: Chief
       objectReference: {fileID: 0}
     - target: {fileID: 7721624907920965975, guid: d0f8bbb778fc0724d822efa7e7fb403c, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.9625
+      objectReference: {fileID: 0}
+    - target: {fileID: 7721624907920965975, guid: d0f8bbb778fc0724d822efa7e7fb403c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.27787
       objectReference: {fileID: 0}
     - target: {fileID: 7721624907920965975, guid: d0f8bbb778fc0724d822efa7e7fb403c, type: 3}
       propertyPath: m_LocalPosition.y
