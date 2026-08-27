@@ -1,16 +1,13 @@
 fileFormatVersion: 2
-guid: 3b92aae0b8493cc4c8f1c1b40023ed01
+guid: 85122c64b168ace4b9d16aaa63cf61be
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3193609833581253918
-    second: character-Pianist_0
+      213: -3670762957975898979
+    second: character-Player_0
   - first:
-      213: -7746074744180914075
-    second: character-Pianist_1
-  - first:
-      213: -7883046705823467706
-    second: character-Pianist_2
+      213: -4416147672684451690
+    second: character-Player_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -106,13 +103,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: character-Pianist_0
+      name: character-Player_0
       rect:
         serializedVersion: 2
-        x: 303
-        y: 154
-        width: 487
-        height: 1690
+        x: 241
+        y: 161
+        width: 663
+        height: 1781
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -121,8 +118,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2eae13ed6c40ea3d0800000000000000
-      internalID: -3193609833581253918
+      spriteID: d943f2bc984de0dc0800000000000000
+      internalID: -3670762957975898979
       vertices: []
       indices: 
       edges: []
@@ -131,7 +128,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 55a9694f87bf19048849c58f2bf41be6
+    spriteID: 0c92f558e6b55114b890157a437a0e1f
     internalID: 0
     vertices: []
     indices: 
@@ -141,9 +138,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      character-Pianist_0: -3193609833581253918
-      character-Pianist_1: -7746074744180914075
-      character-Pianist_2: -7883046705823467706
+      character-Player_0: -3670762957975898979
+      character-Player_1: -4416147672684451690
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

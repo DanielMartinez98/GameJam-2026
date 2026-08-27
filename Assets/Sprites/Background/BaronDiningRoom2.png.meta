@@ -1,16 +1,10 @@
 fileFormatVersion: 2
-guid: 3b92aae0b8493cc4c8f1c1b40023ed01
+guid: 15b93fbdd9bc4af4587d7239d38bcef4
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3193609833581253918
-    second: character-Pianist_0
-  - first:
-      213: -7746074744180914075
-    second: character-Pianist_1
-  - first:
-      213: -7883046705823467706
-    second: character-Pianist_2
+      213: -817027100272897854
+    second: BaronDiningRoom2_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -106,23 +100,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: character-Pianist_0
+      name: BaronDiningRoom2_0
       rect:
         serializedVersion: 2
-        x: 303
-        y: 154
-        width: 487
-        height: 1690
+        x: 0
+        y: 0
+        width: 3840
+        height: 2160
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2eae13ed6c40ea3d0800000000000000
-      internalID: -3193609833581253918
+      spriteID: 2c0dd5c5e2659a4f0800000000000000
+      internalID: -817027100272897854
       vertices: []
       indices: 
       edges: []
@@ -131,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 55a9694f87bf19048849c58f2bf41be6
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -141,9 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      character-Pianist_0: -3193609833581253918
-      character-Pianist_1: -7746074744180914075
-      character-Pianist_2: -7883046705823467706
+      BaronDiningRoom2_0: -817027100272897854
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
