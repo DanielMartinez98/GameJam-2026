@@ -10,6 +10,8 @@ public class PlayerControlsDiningRoom : MonoBehaviour
     [SerializeField] private float playerMoveSpeed = 5f;
     [SerializeField] private GameObject popup;
     [SerializeField] private GameObject focusLight;
+    [SerializeField] private GameObject CharcuterieBoard;
+
     private GameObject currentSuspect;
     private bool isCameraFollowingPlayer = true;
     // Update is called once per frame
@@ -40,38 +42,56 @@ public class PlayerControlsDiningRoom : MonoBehaviour
         position.z = Mathf.Clamp(position.z, playerMaxLimits[2], playerMaxLimits[3]);
         transform.position = position;
         //if the player is within 5 units of a suspect the camera should focus on the suspect instead of the player, until the player is no longer within 5 units of the suspect, then the camera should follow the player again
+        //find the nearest suspect in range first, so the state does not depend on the order of the array
+        currentSuspect = null;
         foreach (GameObject suspect in suspects)
         {
             if (Vector3.Distance(transform.position, suspect.transform.position) < 5f)
             {
                 currentSuspect = suspect;
-                popup.SetActive(true);
-                popup.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = "Press E to talk to " + suspect.name;
-                focusLight.SetActive(true);
-                //move the focus light to the suspect's position but 25 units above the suspect
-                focusLight.transform.position = suspect.transform.position + new Vector3(0, 25, 0);
-                camera.transform.position = new Vector3(
-                    Mathf.Clamp(suspect.transform.position.x, cameraMaxLimits[0], cameraMaxLimits[1]),
-                    camera.transform.position.y,
-                    -34.36f + Mathf.Clamp(suspect.transform.position.z, cameraMaxLimits[2], cameraMaxLimits[3])
-                    
-                );
-                isCameraFollowingPlayer = false;
-                return;
+                break;
             }
-            currentSuspect = null;
+        }
+        isCameraFollowingPlayer = currentSuspect == null;
+
+        if (currentSuspect != null)
+        {
+            popup.SetActive(true);
+            popup.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = "Press E to Serve food to " + currentSuspect.name;
+            focusLight.SetActive(true);
+            //move the focus light to the suspect's position but 25 units above the suspect
+            focusLight.transform.position = currentSuspect.transform.position + new Vector3(0, 25, 0);
+            camera.transform.position = new Vector3(
+                Mathf.Clamp(currentSuspect.transform.position.x, cameraMaxLimits[0], cameraMaxLimits[1]),
+                camera.transform.position.y,
+                -34.36f + Mathf.Clamp(currentSuspect.transform.position.z, cameraMaxLimits[2], cameraMaxLimits[3])
+            );
+        }
+        else
+        {
             popup.SetActive(false);
             focusLight.SetActive(false);
-            isCameraFollowingPlayer = true;
-        }   
-        //the camera should follow the player but up to a limit of -29 and 29 and in the z axis it should also be locked and staggered to -34.36
-        if(isCameraFollowingPlayer)
-        {
+            //the camera should follow the player but up to a limit of -29 and 29 and in the z axis it should also be locked and staggered to -34.36
             camera.transform.position = new Vector3(
                 Mathf.Clamp(transform.position.x, cameraMaxLimits[0], cameraMaxLimits[1]),
                 camera.transform.position.y,
                 -34.36f + Mathf.Clamp(transform.position.z, cameraMaxLimits[2], cameraMaxLimits[3])
             );
         }
+
+        if(Input.GetKeyDown(KeyCode.E))
+        {
+            if(currentSuspect == null) return;
+            print("Serving food to " + currentSuspect.name);
+            CharcuterieBoard.SetActive(true);
+        }
+    }
+    public void CloseCharcuterieBoard()
+    {
+        CharcuterieBoard.SetActive(false);
+    }
+    public GameObject GetCurrentSuspect()
+    {
+        return currentSuspect;
     }
 }

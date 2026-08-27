@@ -6,6 +6,21 @@ TagManager:
   tags:
   - Clickable
   - Suspect
+  - BlueBerries
+  - Cheese Blocks
+  - Cheese Rectangle
+  - Cheese
+  - Cracker
+  - Garnish
+  - Grapes
+  - Half Salami
+  - Nuts
+  - Oranges
+  - Pickles
+  - Plate
+  - Salami
+  - Strawberry
+  - Cheese Slices
   layers:
   - Default
   - TransparentFX
