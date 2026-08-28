@@ -1369,6 +1369,7 @@ GameObject:
   - component: {fileID: 958923311}
   - component: {fileID: 958923313}
   - component: {fileID: 958923312}
+  - component: {fileID: 958923314}
   m_Layer: 5
   m_Name: Phone
   m_TagString: Untagged
@@ -1433,6 +1434,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 958923310}
   m_CullTransparentMesh: 1
+--- !u!114 &958923314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 958923310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fed0244bac052145beb26db212a37c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Hover
+  hoverScale: 1.05
+  clickScale: 0.9
+  clickDuration: 0.1
 --- !u!1 &1091978495
 GameObject:
   m_ObjectHideFlags: 0
@@ -2317,6 +2333,7 @@ GameObject:
   - component: {fileID: 1684654766}
   - component: {fileID: 1684654765}
   - component: {fileID: 1684654764}
+  - component: {fileID: 1684654767}
   m_Layer: 5
   m_Name: SubjectList
   m_TagString: Untagged
@@ -2449,6 +2466,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1684654762}
   m_CullTransparentMesh: 1
+--- !u!114 &1684654767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1684654762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fed0244bac052145beb26db212a37c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Hover
+  hoverScale: 1.05
+  clickScale: 0.9
+  clickDuration: 0.1
 --- !u!1 &1685661322
 GameObject:
   m_ObjectHideFlags: 0
@@ -2461,6 +2493,7 @@ GameObject:
   - component: {fileID: 1685661325}
   - component: {fileID: 1685661324}
   - component: {fileID: 1685661323}
+  - component: {fileID: 1685661327}
   m_Layer: 5
   m_Name: NoteBook
   m_TagString: Untagged
@@ -2593,6 +2626,21 @@ RectTransform:
   m_AnchoredPosition: {x: 293.35724, y: -330.60712}
   m_SizeDelta: {x: 341.3005, y: 201.0273}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1685661327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1685661322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fed0244bac052145beb26db212a37c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Hover
+  hoverScale: 1.05
+  clickScale: 0.9
+  clickDuration: 0.1
 --- !u!1 &1711693938
 GameObject:
   m_ObjectHideFlags: 0
