@@ -11,8 +11,8 @@ public class PlayerControlsDiningRoom : MonoBehaviour
     [SerializeField] private GameObject popup;
     [SerializeField] private GameObject focusLight;
     [SerializeField] private GameObject CharcuterieBoard;
-
-    private GameObject currentSuspect;
+    [SerializeField] private GameObject gameDirector;
+    [SerializeField] private GameObject currentSuspect;
     private bool isCameraFollowingPlayer = true;
     // Update is called once per frame
     private void Start()
@@ -43,10 +43,11 @@ public class PlayerControlsDiningRoom : MonoBehaviour
         transform.position = position;
         //if the player is within 5 units of a suspect the camera should focus on the suspect instead of the player, until the player is no longer within 5 units of the suspect, then the camera should follow the player again
         //find the nearest suspect in range first, so the state does not depend on the order of the array
+        //check if the suspect has already been served in the gameDirector's memories, if so, do not focus on that suspect
         currentSuspect = null;
         foreach (GameObject suspect in suspects)
         {
-            if (Vector3.Distance(transform.position, suspect.transform.position) < 5f)
+            if (Vector3.Distance(transform.position, suspect.transform.position) < 5f && !gameDirector.GetComponent<GameDirectorMemories>().IsSuspectServed(suspect))
             {
                 currentSuspect = suspect;
                 break;
@@ -93,5 +94,16 @@ public class PlayerControlsDiningRoom : MonoBehaviour
     public GameObject GetCurrentSuspect()
     {
         return currentSuspect;
+    }
+    public void findSuspects()
+    {
+        try
+        {
+            suspects = GameObject.FindGameObjectsWithTag("Suspect");
+        }
+        catch
+        {
+            suspects = new GameObject[0];
+        }
     }
 }
