@@ -131,6 +131,7 @@ GameObject:
   - component: {fileID: 3069251}
   - component: {fileID: 3069250}
   - component: {fileID: 3069249}
+  - component: {fileID: 3069252}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -224,6 +225,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3069247}
   m_CullTransparentMesh: 1
+--- !u!95 &3069252
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3069247}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8e3c7c317c85e064eb6c6a7431a53484, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &23153335
 GameObject:
   m_ObjectHideFlags: 0
@@ -812,6 +835,7 @@ GameObject:
   - component: {fileID: 442631244}
   - component: {fileID: 442631246}
   - component: {fileID: 442631245}
+  - component: {fileID: 442631247}
   m_Layer: 5
   m_Name: Image (3)
   m_TagString: Untagged
@@ -876,6 +900,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 442631243}
   m_CullTransparentMesh: 1
+--- !u!95 &442631247
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 442631243}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: fb0144e35847fc8459079d1cdd4abb09, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &560827548
 GameObject:
   m_ObjectHideFlags: 0
@@ -1453,7 +1499,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Who dun it?
+  m_text: Red Herring
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: af9855243bf18c64db172aac44640ce0, type: 2}
   m_sharedMaterial: {fileID: -1378509619017681848, guid: af9855243bf18c64db172aac44640ce0, type: 2}
@@ -1480,7 +1526,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 120
+  m_fontSize: 130.35
   m_fontSizeBase: 100
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1519,7 +1565,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: 0, w: -30.372372}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
