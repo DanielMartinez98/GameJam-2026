@@ -17,13 +17,29 @@ public class CharcuterieBoardMinigame : MonoBehaviour
     [SerializeField] private float handSpeed = 5f;
     [SerializeField] private float entrySpacing = 20f;
     [SerializeField] private Vector2 entrySize = new Vector2(90f, 110f);
-    //The hand art is a whole forearm stretched into one big rect, and the fingers sit at the bottom
-    //of it. The pickup box is placed there instead of on the Hand anchor, which is an empty 10px dot
-    //somewhere up the wrist. Size is roughly a grip, height is how far up from the art's bottom edge
-    //the fingers actually close.
+    //The hand art is a whole forearm stretched into one big rect with the fingers at the bottom of it.
+    //Everything is measured from the Hand object; the art is slid so its fingers land on it, rather than
+    //the measuring being chased around after the art. fingertipHeight says how far up the art the fingers
+    //close. grabMargin scales how close the hand must get, as a fraction of whatever it is reaching for,
+    //so 1 is that item's own footprint and a nut demands a closer approach than a dinner plate.
     [SerializeField] private string visualHandChildName = "Visual Hand";
-    [SerializeField] private Vector2 grabBoxSize = new Vector2(60f, 60f);
     [SerializeField] private float fingertipHeight = 50f;
+    [SerializeField, Range(0.1f, 1.5f)] private float grabMargin = 0.6f;
+    //The suspect does the talking on this screen: their line sits next to a portrait, and the portrait
+    //is their own dining room sprite with everything but the head cropped away, so no separate face
+    //art has to exist for it.
+    [Header("Conversation")]
+    [SerializeField] private GameObject ConversationUI;
+    [SerializeField] private TextMeshProUGUI conversationText;
+    [SerializeField] private Image suspectPortrait;// the frame the face is cropped into, the face itself is built under it
+    [SerializeField] private string suspectFaceName = "Suspect Face";
+    //A character sprite is a whole standing body, so the portrait is that sprite blown up until only
+    //the head is left inside the frame. Both numbers are fractions of the sprite rather than pixels,
+    //so one setting fits every character whatever size its art is: faceHeight is how much of the
+    //sprite's height the frame shows, facePivot is the point on it that ends up in the middle.
+    [SerializeField, Range(0.05f, 1f)] private float faceHeight = 0.18f;
+    [SerializeField] private Vector2 facePivot = new Vector2(0.5f, 0.88f);
+    [SerializeField] private GameObject Conversation;
     private PlayerControlsDiningRoom playerControls;
     private GameObject currentSuspect;
     private GameObject handPrefab;
@@ -33,8 +49,6 @@ public class CharcuterieBoardMinigame : MonoBehaviour
     private GameDirectorMemories.SuspectSpawnInfo currentSuspectInfo;
     private readonly List<FoodItemEntry> foodItemEntries = new List<FoodItemEntry>();
     private readonly HashSet<string> unknownFoodTags = new HashSet<string>();
-    //where the fingers are, in the Hand's own local space. Zero until a hand prefab is spawned.
-    private Vector2 grabOffset = Vector2.zero;
 
     // One entry of the food items ui: the sprite of a food the suspect wants, plus how many are still owed.
     private class FoodItemEntry
@@ -88,8 +102,6 @@ public class CharcuterieBoardMinigame : MonoBehaviour
         carriedFood = null;
         carriedFoodItem = null;
         carriedFoodOriginalParent = null;
-        //a suspect with no hand prefab must not inherit the previous suspect's finger position
-        ApplyGrabBox(Vector2.zero);
         ResolvePlayerControls();
         if (playerControls != null)
         {
@@ -106,6 +118,7 @@ public class CharcuterieBoardMinigame : MonoBehaviour
             Destroy(child.gameObject);
         }
         BuildFoodItemsUI();
+        ShowConversation();
     }
 
     // Update is called once per frame
@@ -131,7 +144,7 @@ public class CharcuterieBoardMinigame : MonoBehaviour
             bool allFoodServed = true;
             foreach(GameDirectorMemories.FoodItem foodItem in currentSuspectInfo.foodItems)
             {
-                if(foodItem.quantity > 0)
+                if(foodItem.remaining > 0)
                 {
                     allFoodServed = false;
                     break;
@@ -153,7 +166,7 @@ public class CharcuterieBoardMinigame : MonoBehaviour
         {
             foreach(GameDirectorMemories.FoodItem foodItem in currentSuspectInfo.foodItems)
             {
-                if(foodItem.quantity > 0 && FindFoodInScene(foodItem.foodItemId).Length == 0)
+                if(foodItem.remaining > 0 && FindFoodInScene(foodItem.foodItemId).Length == 0)
                 {
                     needsMoreFood = true;
                     break;
@@ -175,54 +188,79 @@ public class CharcuterieBoardMinigame : MonoBehaviour
             }
         }
     }
-
-    //The hand only steers here. What it is touching is decided by the trigger boxes, which report
-    //through HandTouched, so nothing in this class measures distances to work out contact any more.
+    //The Hand object IS the grab point. Nothing here derives, projects, or compensates for where the
+    //fingers are: a pickup is decided by the Hand's own position and the target's own rect, both of
+    //which always exist. Lining the drawn fingers up with that point is done once, when the art is
+    //spawned, and is purely cosmetic - if it is off the hand looks wrong but still picks up correctly.
     private void UpdateHand()
     {
         if (carriedFood != null)
         {
-            //carrying, so head for the plate and wait for the plate's trigger
+            //carrying, so head for the plate and let go once the hand is properly over it
             MoveHandTowards(plate.transform.position);
-            return;
-        }
-        GameDirectorMemories.FoodItem wantedFoodItem;
-        GameObject nearestFoodItem = FindNearestWantedFood(out wantedFoodItem);
-        if (nearestFoodItem != null)
-        {
-            //head for the nearest wanted food and wait for its trigger
-            MoveHandTowards(nearestFoodItem.transform.position);
-        }
-    }
-
-    //HandFoodTrigger on the Hand calls this whenever the hand's trigger box overlaps another collider
-    public void HandTouched(GameObject other)
-    {
-        if (other == null || currentSuspectInfo == null || !isActiveAndEnabled)
-        {
-            return;
-        }
-        if (carriedFood != null)
-        {
-            //only the plate ends a carry, everything else is brushed past
-            if (plate != null && (other == plate || other.CompareTag("Plate")))
+            if (Reached(plate))
             {
                 DropCarriedFoodOnPlate();
             }
             return;
         }
-        GameDirectorMemories.FoodItem wantedFoodItem = FindWantedFoodItem(other.tag);
-        if (wantedFoodItem != null)
+        GameDirectorMemories.FoodItem wantedFoodItem;
+        GameObject nearestFoodItem = FindNearestWantedFood(out wantedFoodItem);
+        if (nearestFoodItem == null)
         {
-            GrabFood(other, wantedFoodItem);
+            return;
         }
+        //head for the nearest wanted food and take it on arrival
+        MoveHandTowards(nearestFoodItem.transform.position);
+        if (Reached(nearestFoodItem))
+        {
+            GrabFood(nearestFoodItem, wantedFoodItem);
+        }
+    }
+
+    //Arrived once the hand is inside the target's own footprint. The tolerance comes from the target
+    //rather than from a constant, so a pea-sized nut needs a closer approach than a dinner plate and
+    //nothing has to be retuned when the resolution changes. Only what the hand is steering towards can
+    //be reached, so a run to one item never comes back holding another.
+    private bool Reached(GameObject target)
+    {
+        if (target == null)
+        {
+            return false;
+        }
+        float tolerance = ToleranceFor(target);
+        if (tolerance <= 0f)
+        {
+            //a zero footprint means the canvas has not been laid out yet this frame, and every distance
+            //would collapse to zero with it. Nothing is close to anything until it has real size.
+            return false;
+        }
+        //Everything on this board sits on the canvas plane, so this distance is the same one the camera
+        //draws. Nothing is projected, adapted or compensated for anywhere in the pickup path.
+        return Vector3.Distance(Hand.transform.position, target.transform.position) <= tolerance;
+    }
+
+    //half the target's shorter side, measured off its drawn corners so it already carries whatever
+    //scaling the canvas is under, then trimmed by grabMargin
+    private float ToleranceFor(GameObject target)
+    {
+        RectTransform rect = target.transform as RectTransform;
+        if (rect == null)
+        {
+            return 0f;
+        }
+        Vector3[] corners = new Vector3[4];
+        rect.GetWorldCorners(corners);
+        float width = Vector3.Distance(corners[0], corners[3]);
+        float height = Vector3.Distance(corners[0], corners[1]);
+        return Mathf.Min(width, height) * 0.5f * grabMargin;
     }
 
     private GameDirectorMemories.FoodItem FindWantedFoodItem(string foodTag)
     {
         foreach (GameDirectorMemories.FoodItem foodItem in currentSuspectInfo.foodItems)
         {
-            if (foodItem != null && foodItem.quantity > 0 && foodItem.foodItemId == foodTag)
+            if (foodItem != null && foodItem.remaining > 0 && foodItem.foodItemId == foodTag)
             {
                 return foodItem;
             }
@@ -246,9 +284,9 @@ public class CharcuterieBoardMinigame : MonoBehaviour
         //which is also what lets the next suspect start from a clean plate
         carriedFood.transform.SetParent(plate.transform, true);
         carriedFood.tag = "Served";
-        if (carriedFoodItem != null && carriedFoodItem.quantity > 0)
+        if (carriedFoodItem != null && carriedFoodItem.remaining > 0)
         {
-            carriedFoodItem.quantity--;
+            carriedFoodItem.remaining--;
         }
         carriedFood = null;
         carriedFoodItem = null;
@@ -275,14 +313,15 @@ public class CharcuterieBoardMinigame : MonoBehaviour
         float nearestDistance = Mathf.Infinity;
         foreach (GameDirectorMemories.FoodItem foodItem in currentSuspectInfo.foodItems)
         {
-            if (foodItem == null || foodItem.quantity <= 0 || string.IsNullOrEmpty(foodItem.foodItemId))
+            if (foodItem == null || foodItem.remaining <= 0 || string.IsNullOrEmpty(foodItem.foodItemId))
             {
                 continue;
             }
             //check if the food item is in the scene
             foreach (GameObject foodItemInScene in FindFoodInScene(foodItem.foodItemId))
             {
-                float distance = HandDistanceBetween(GrabPointWorld(), foodItemInScene.transform.position);
+                //nearest by centre; the hand steers to that same centre, so target choice and arrival agree
+                float distance = Vector2.Distance(Hand.transform.position, foodItemInScene.transform.position);
                 if (distance < nearestDistance)
                 {
                     nearestDistance = distance;
@@ -326,7 +365,6 @@ public class CharcuterieBoardMinigame : MonoBehaviour
         if (handRect == null)
         {
             handInstance.transform.localPosition = Vector3.zero;
-            ApplyGrabBox(Vector2.zero);
             return;
         }
         handRect.anchorMin = new Vector2(0.5f, 0.5f);
@@ -335,27 +373,37 @@ public class CharcuterieBoardMinigame : MonoBehaviour
         handRect.anchoredPosition = Vector2.zero;
         handRect.localRotation = Quaternion.identity;
         handRect.localScale = Vector3.one;
-        ApplyGrabBox(FindGrabOffset(handInstance));
+        AlignFingersToHand(handRect);
     }
 
-    //The arm art is drawn from the wrist down, so the fingers are at the bottom of its rect and
-    //fingertipHeight lifts the box off the very tip. Read from the art rather than authored per hand,
-    //because every hand prefab offsets that art differently and the Hand anchor itself never moves.
-    private Vector2 FindGrabOffset(GameObject handInstance)
+    //Slides the whole arm so its drawn fingers sit on the Hand, which is the point everything else
+    //measures from. Each prefab parks its art at a different offset (-287,-71 on Baron, -339.7,-66.4 on
+    //Henchman), and normalising the root above throws those offsets away, so the shift is worked out
+    //from the art itself. Cosmetic only: getting it wrong moves the picture, never the pickup.
+    private void AlignFingersToHand(RectTransform handRect)
     {
-        RectTransform visual = FindVisualHand(handInstance);
+        RectTransform visual = FindVisualHand(handRect.gameObject);
         if (visual == null)
         {
             Debug.LogWarning("Hand prefab '" + handPrefab.name + "' has no '" + visualHandChildName +
-                "' rect, the pickup box falls back to the Hand anchor and will not line up with the fingers.");
-            return Vector2.zero;
+                "' rect, so its fingers cannot be lined up with the hand's grab point.");
+            return;
         }
-        Vector3 fingersWorld = visual.TransformPoint(new Vector3(
-            visual.rect.center.x,
-            visual.rect.yMin + fingertipHeight,
-            0f));
-        Vector3 fingersLocal = Hand.transform.InverseTransformPoint(fingersWorld);
-        return new Vector2(fingersLocal.x, fingersLocal.y);
+        //Walked up the parents rather than routed through world space. This runs from OnEnable, before
+        //the Canvas has driven its own transform for the frame, so a world round trip through it is not
+        //trustworthy here. Only the steps between the art and the Hand matter anyway.
+        Vector3 fingers = new Vector3(visual.rect.center.x, visual.rect.yMin + fingertipHeight, 0f);
+        Transform step = visual;
+        while (step != null && step != Hand.transform)
+        {
+            fingers = step.localRotation * Vector3.Scale(fingers, step.localScale) + step.localPosition;
+            step = step.parent;
+        }
+        if (step == null)
+        {
+            return;
+        }
+        handRect.anchoredPosition -= new Vector2(fingers.x, fingers.y);
     }
 
     private RectTransform FindVisualHand(GameObject handInstance)
@@ -388,42 +436,13 @@ public class CharcuterieBoardMinigame : MonoBehaviour
         return biggest;
     }
 
-    //offset and size are in the Hand's local space, which is canvas pixels, same as the art
-    private void ApplyGrabBox(Vector2 offset)
-    {
-        grabOffset = offset;
-        if (Hand == null)
-        {
-            return;
-        }
-        BoxCollider2D box = Hand.GetComponent<BoxCollider2D>();
-        if (box != null)
-        {
-            box.offset = offset;
-            box.size = grabBoxSize;
-        }
-    }
-
-    //where the pickup box actually sits, which is what has to reach the food
-    private Vector3 GrabPointWorld()
-    {
-        return Hand.transform.TransformPoint(new Vector3(grabOffset.x, grabOffset.y, 0f));
-    }
-
-    //Board and hand live on a canvas, so movement and contact are flat: x and y only, z is left alone.
-    //The Hand anchor is steered, but it is the grab point that has to land on the target, so the aim
-    //is pulled back by the gap between them. Without this the fingers overshoot to the far side.
+    //Board and hand live on a canvas, so movement is flat: x and y only, z is left alone. The Hand is
+    //steered straight at the target because the Hand is the grab point, nothing to compensate for.
     private void MoveHandTowards(Vector3 target)
     {
         Vector3 current = Hand.transform.position;
-        Vector3 aim = target - (GrabPointWorld() - current);
-        Vector2 stepped = Vector2.MoveTowards(current, aim, handSpeed * Time.deltaTime);
+        Vector2 stepped = Vector2.MoveTowards(current, target, handSpeed * Time.deltaTime);
         Hand.transform.position = new Vector3(stepped.x, stepped.y, current.z);
-    }
-
-    private static float HandDistanceBetween(Vector3 from, Vector3 to)
-    {
-        return Vector2.Distance(from, to);
     }
 
     //builds one entry under the foodItems placeholder for every food the suspect still wants
@@ -437,7 +456,7 @@ public class CharcuterieBoardMinigame : MonoBehaviour
         EnsureFoodItemsLayout();
         foreach (GameDirectorMemories.FoodItem foodItem in currentSuspectInfo.foodItems)
         {
-            if (foodItem == null || foodItem.quantity <= 0)
+            if (foodItem == null || foodItem.remaining <= 0)
             {
                 continue;
             }
@@ -524,17 +543,17 @@ public class CharcuterieBoardMinigame : MonoBehaviour
                 continue;
             }
             //when an item is fully served the ui for that item disappears
-            if (entry.foodItem.quantity <= 0)
+            if (entry.foodItem.remaining <= 0)
             {
                 Destroy(entry.root);
                 foodItemEntries.RemoveAt(i);
                 continue;
             }
-            if (entry.foodItem.quantity == entry.shownQuantity)
+            if (entry.foodItem.remaining == entry.shownQuantity)
             {
                 continue;
             }
-            entry.shownQuantity = entry.foodItem.quantity;
+            entry.shownQuantity = entry.foodItem.remaining;
             if (entry.counter != null)
             {
                 entry.counter.text = entry.foodItem.foodItemSprite != null
@@ -557,9 +576,113 @@ public class CharcuterieBoardMinigame : MonoBehaviour
         }
     }
 
+    //Only conversation1 is spoken for now, conversation2 is authored but nothing reads it yet.
+    private void ShowConversation()
+    {
+        if (ConversationUI == null)
+        {
+            return;
+        }
+        //nothing to talk to, so the panel stays out of the way
+        if (currentSuspectInfo == null)
+        {
+            ConversationUI.SetActive(false);
+            return;
+        }
+        ConversationUI.SetActive(true);
+        if (conversationText != null)
+        {
+            conversationText.text = currentSuspectInfo.conversation1;
+        }
+        BuildSuspectPortrait();
+    }
+
+    private void HideConversation()
+    {
+        ClearSuspectPortrait();
+        if (ConversationUI != null)
+        {
+            ConversationUI.SetActive(false);
+        }
+    }
+
+    //Crops the suspect's own sprite down to their face inside the portrait frame. The frame clips
+    //whatever hangs outside it, so the crop is just a matter of making the sprite far bigger than the
+    //frame and sliding the head into the middle of it. The mask is added here rather than authored on
+    //the frame so a frame dropped in from the editor crops without anyone having to remember it.
+    private void BuildSuspectPortrait()
+    {
+        ClearSuspectPortrait();
+        if (suspectPortrait == null)
+        {
+            return;
+        }
+        Sprite face = FindSuspectSprite();
+        if (face == null)
+        {
+            return;
+        }
+        Rect frame = suspectPortrait.rectTransform.rect;
+        if (frame.width <= 0f || frame.height <= 0f)
+        {
+            //a zero sized frame has no crop to speak of, and every size below would collapse with it
+            return;
+        }
+        if (suspectPortrait.GetComponent<RectMask2D>() == null)
+        {
+            suspectPortrait.gameObject.AddComponent<RectMask2D>();
+        }
+
+        GameObject faceObject = new GameObject(suspectFaceName, typeof(RectTransform), typeof(Image));
+        faceObject.layer = suspectPortrait.gameObject.layer;
+        RectTransform faceRect = (RectTransform)faceObject.transform;
+        faceRect.SetParent(suspectPortrait.transform, false);
+        faceRect.anchorMin = new Vector2(0.5f, 0.5f);
+        faceRect.anchorMax = new Vector2(0.5f, 0.5f);
+        faceRect.pivot = new Vector2(0.5f, 0.5f);
+
+        Image faceImage = faceObject.GetComponent<Image>();
+        faceImage.sprite = face;
+        faceImage.raycastTarget = false;
+
+        //blown up until the slice of the sprite named by faceHeight is as tall as the frame, keeping
+        //the sprite's own proportions, then shifted so facePivot lands in the centre of the frame
+        float height = frame.height / Mathf.Max(faceHeight, 0.01f);
+        float width = height * (face.rect.width / face.rect.height);
+        faceRect.sizeDelta = new Vector2(width, height);
+        faceRect.anchoredPosition = new Vector2((0.5f - facePivot.x) * width, (0.5f - facePivot.y) * height);
+    }
+
+    private void ClearSuspectPortrait()
+    {
+        if (suspectPortrait == null)
+        {
+            return;
+        }
+        foreach (Transform child in suspectPortrait.transform)
+        {
+            if (child.name == suspectFaceName)
+            {
+                Destroy(child.gameObject);
+            }
+        }
+    }
+
+    //the dining room suspect carries its art on a child, so the whole instance is searched
+    private Sprite FindSuspectSprite()
+    {
+        if (currentSuspect == null)
+        {
+            return null;
+        }
+        SpriteRenderer renderer = currentSuspect.GetComponentInChildren<SpriteRenderer>(true);
+        return renderer != null ? renderer.sprite : null;
+    }
+
     void OnDisable()
     {
         ClearFoodItemsUI();
+        HideConversation();
         //put any half carried food back on the board before the hand goes, it is parented to it
         ReleaseCarriedFood();
         //destroy the spawned hand

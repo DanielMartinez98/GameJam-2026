@@ -1101,8 +1101,8 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 117992002}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 1.0000373}
-  m_LocalScale: {x: 0.999463, y: 0.999463, z: 0.999463}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 629240953}
@@ -1328,7 +1328,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 134882808}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 3}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1560,6 +1560,118 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 148484439}
   m_CullTransparentMesh: 1
+--- !u!1 &151620472
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 151620473}
+  - component: {fileID: 151620476}
+  - component: {fileID: 151620475}
+  - component: {fileID: 151620474}
+  m_Layer: 0
+  m_Name: Refill Station
+  m_TagString: Refill Station
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &151620473
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 151620472}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -4.84, z: 22.56}
+  m_LocalScale: {x: 20, y: 10, z: 10}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1685278204}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &151620474
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 151620472}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &151620475
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 151620472}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_MaskInteraction: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &151620476
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 151620472}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &156548252
 GameObject:
   m_ObjectHideFlags: 0
@@ -1822,7 +1934,7 @@ MonoBehaviour:
       spawnCoordinates: {x: -50, y: 0, z: 0}
       foodItems:
       - foodItemId: BlueBerries
-        quantity: 2
+        quantity: 1
         foodItemSprite: {fileID: -6080153740424670305, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Cheese
         quantity: 0
@@ -1852,7 +1964,7 @@ MonoBehaviour:
         quantity: 0
         foodItemSprite: {fileID: -1725846796255364204, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Pickles
-        quantity: 0
+        quantity: 1
         foodItemSprite: {fileID: 3052231692086169073, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Salami
         quantity: 0
@@ -1861,6 +1973,8 @@ MonoBehaviour:
         quantity: 0
         foodItemSprite: {fileID: -7697116855385614072, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       isServed: 0
+      conversation1: 
+      conversation2: 
     - suspect: {fileID: 6005352612164674842, guid: d0f8bbb778fc0724d822efa7e7fb403c, type: 3}
       hand: {fileID: 5266195450174147428, guid: 15f373097b371384fa199b81e0877704, type: 3}
       spawnCoordinates: {x: -40, y: 0, z: 0}
@@ -1881,7 +1995,7 @@ MonoBehaviour:
         quantity: 0
         foodItemSprite: {fileID: -7376048997147925194, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Garnish
-        quantity: 0
+        quantity: 1
         foodItemSprite: {fileID: -797234318600969935, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Grapes
         quantity: 0
@@ -1905,6 +2019,8 @@ MonoBehaviour:
         quantity: 0
         foodItemSprite: {fileID: -7697116855385614072, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       isServed: 0
+      conversation1: 
+      conversation2: 
     - suspect: {fileID: 6005352612164674842, guid: 016b3cd060395b142aafe2a713d5b21e, type: 3}
       hand: {fileID: 5266195450174147428, guid: de5f3501b5c04da4183b08b140034fb8, type: 3}
       spawnCoordinates: {x: -30, y: 0, z: 0}
@@ -1934,7 +2050,7 @@ MonoBehaviour:
         quantity: 0
         foodItemSprite: {fileID: -2048464571593184402, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Nuts
-        quantity: 0
+        quantity: 2
         foodItemSprite: {fileID: 3750132874793683344, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Oranges
         quantity: 0
@@ -1949,6 +2065,8 @@ MonoBehaviour:
         quantity: 0
         foodItemSprite: {fileID: -7697116855385614072, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       isServed: 0
+      conversation1: 
+      conversation2: 
     - suspect: {fileID: 6005352612164674842, guid: dbd471d496f5cd444a3b41c3734ce0cf, type: 3}
       hand: {fileID: 5266195450174147428, guid: 2a66b65aa46eefb44a913dfafd8b1bae, type: 3}
       spawnCoordinates: {x: -20, y: 0, z: 0}
@@ -1957,7 +2075,7 @@ MonoBehaviour:
         quantity: 0
         foodItemSprite: {fileID: -6080153740424670305, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Cheese
-        quantity: 0
+        quantity: 1
         foodItemSprite: {fileID: -3455651903386829094, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Cheese Blocks
         quantity: 0
@@ -1987,12 +2105,14 @@ MonoBehaviour:
         quantity: 0
         foodItemSprite: {fileID: 3052231692086169073, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Salami
-        quantity: 0
+        quantity: 1
         foodItemSprite: {fileID: -648068547666614581, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Strawberry
         quantity: 0
         foodItemSprite: {fileID: -7697116855385614072, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       isServed: 0
+      conversation1: 
+      conversation2: 
     - suspect: {fileID: 4510430641581738031, guid: a8392fe46d8f28846a1efc097f80c317, type: 3}
       hand: {fileID: 5266195450174147428, guid: 85fd62b42363787498acda5dde61aeeb, type: 3}
       spawnCoordinates: {x: -10, y: 0, z: 0}
@@ -2016,7 +2136,7 @@ MonoBehaviour:
         quantity: 0
         foodItemSprite: {fileID: -797234318600969935, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Grapes
-        quantity: 0
+        quantity: 1
         foodItemSprite: {fileID: -8949105817906397048, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Half Salami
         quantity: 0
@@ -2037,6 +2157,8 @@ MonoBehaviour:
         quantity: 0
         foodItemSprite: {fileID: -7697116855385614072, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       isServed: 0
+      conversation1: 
+      conversation2: 
     - suspect: {fileID: 4117511751265744529, guid: cc1acc51b47926a4b87ec6690078bf98, type: 3}
       hand: {fileID: 5266195450174147428, guid: 671d9af8ae5ef8649abc67f1ea08560a, type: 3}
       spawnCoordinates: {x: 0, y: 0, z: 0}
@@ -2051,7 +2173,7 @@ MonoBehaviour:
         quantity: 0
         foodItemSprite: {fileID: 7360157024177469201, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Cheese Slices
-        quantity: 0
+        quantity: 2
         foodItemSprite: {fileID: -4609095546709445191, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Cracker
         quantity: 0
@@ -2081,6 +2203,8 @@ MonoBehaviour:
         quantity: 0
         foodItemSprite: {fileID: -7697116855385614072, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       isServed: 0
+      conversation1: 
+      conversation2: 
   - suspectSpawnInfos:
     - suspect: {fileID: 6005352612164674842, guid: d1cd7c6e5784546448afe4a7735bbade, type: 3}
       hand: {fileID: 5266195450174147428, guid: 663565842d91c6b4f8d50f4271548ff8, type: 3}
@@ -2099,6 +2223,52 @@ MonoBehaviour:
         quantity: 0
         foodItemSprite: {fileID: -4609095546709445191, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Cracker
+        quantity: 1
+        foodItemSprite: {fileID: -7376048997147925194, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Garnish
+        quantity: 0
+        foodItemSprite: {fileID: -797234318600969935, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Grapes
+        quantity: 0
+        foodItemSprite: {fileID: -8949105817906397048, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Half Salami
+        quantity: 0
+        foodItemSprite: {fileID: -2048464571593184402, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Nuts
+        quantity: 1
+        foodItemSprite: {fileID: 3750132874793683344, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Oranges
+        quantity: 0
+        foodItemSprite: {fileID: -1725846796255364204, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Pickles
+        quantity: 0
+        foodItemSprite: {fileID: 3052231692086169073, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Salami
+        quantity: 0
+        foodItemSprite: {fileID: -648068547666614581, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Strawberry
+        quantity: 0
+        foodItemSprite: {fileID: -7697116855385614072, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      isServed: 0
+      conversation1: 
+      conversation2: 
+    - suspect: {fileID: 6005352612164674842, guid: d0f8bbb778fc0724d822efa7e7fb403c, type: 3}
+      hand: {fileID: 5266195450174147428, guid: 15f373097b371384fa199b81e0877704, type: 3}
+      spawnCoordinates: {x: -50, y: 0, z: 0}
+      foodItems:
+      - foodItemId: BlueBerries
+        quantity: 0
+        foodItemSprite: {fileID: -6080153740424670305, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Cheese
+        quantity: 1
+        foodItemSprite: {fileID: -3455651903386829094, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Cheese Blocks
+        quantity: 1
+        foodItemSprite: {fileID: 7360157024177469201, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Cheese Slices
+        quantity: 0
+        foodItemSprite: {fileID: -4609095546709445191, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Cracker
         quantity: 0
         foodItemSprite: {fileID: -7376048997147925194, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Garnish
@@ -2126,6 +2296,239 @@ MonoBehaviour:
         quantity: 0
         foodItemSprite: {fileID: -7697116855385614072, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       isServed: 0
+      conversation1: 
+      conversation2: 
+    - suspect: {fileID: 6005352612164674842, guid: 016b3cd060395b142aafe2a713d5b21e, type: 3}
+      hand: {fileID: 5266195450174147428, guid: de5f3501b5c04da4183b08b140034fb8, type: 3}
+      spawnCoordinates: {x: -50, y: 0, z: 0}
+      foodItems:
+      - foodItemId: BlueBerries
+        quantity: 0
+        foodItemSprite: {fileID: -6080153740424670305, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Cheese
+        quantity: 2
+        foodItemSprite: {fileID: -3455651903386829094, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Cheese Blocks
+        quantity: 0
+        foodItemSprite: {fileID: 7360157024177469201, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Cheese Slices
+        quantity: 0
+        foodItemSprite: {fileID: -4609095546709445191, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Cracker
+        quantity: 0
+        foodItemSprite: {fileID: -7376048997147925194, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Garnish
+        quantity: 0
+        foodItemSprite: {fileID: -797234318600969935, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Grapes
+        quantity: 0
+        foodItemSprite: {fileID: -8949105817906397048, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Half Salami
+        quantity: 0
+        foodItemSprite: {fileID: -2048464571593184402, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Nuts
+        quantity: 0
+        foodItemSprite: {fileID: 3750132874793683344, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Oranges
+        quantity: 0
+        foodItemSprite: {fileID: -1725846796255364204, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Pickles
+        quantity: 0
+        foodItemSprite: {fileID: 3052231692086169073, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Salami
+        quantity: 1
+        foodItemSprite: {fileID: -648068547666614581, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Strawberry
+        quantity: 0
+        foodItemSprite: {fileID: -7697116855385614072, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      isServed: 0
+      conversation1: 
+      conversation2: 
+    - suspect: {fileID: 6005352612164674842, guid: dbd471d496f5cd444a3b41c3734ce0cf, type: 3}
+      hand: {fileID: 5266195450174147428, guid: 2a66b65aa46eefb44a913dfafd8b1bae, type: 3}
+      spawnCoordinates: {x: -50, y: 0, z: 0}
+      foodItems:
+      - foodItemId: BlueBerries
+        quantity: 0
+        foodItemSprite: {fileID: -6080153740424670305, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Cheese
+        quantity: 1
+        foodItemSprite: {fileID: -3455651903386829094, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Cheese Blocks
+        quantity: 0
+        foodItemSprite: {fileID: 7360157024177469201, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Cheese Slices
+        quantity: 0
+        foodItemSprite: {fileID: -4609095546709445191, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Cracker
+        quantity: 1
+        foodItemSprite: {fileID: -7376048997147925194, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Garnish
+        quantity: 0
+        foodItemSprite: {fileID: -797234318600969935, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Grapes
+        quantity: 0
+        foodItemSprite: {fileID: -8949105817906397048, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Half Salami
+        quantity: 0
+        foodItemSprite: {fileID: -2048464571593184402, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Nuts
+        quantity: 0
+        foodItemSprite: {fileID: 3750132874793683344, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Oranges
+        quantity: 0
+        foodItemSprite: {fileID: -1725846796255364204, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Pickles
+        quantity: 0
+        foodItemSprite: {fileID: 3052231692086169073, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Salami
+        quantity: 0
+        foodItemSprite: {fileID: -648068547666614581, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Strawberry
+        quantity: 0
+        foodItemSprite: {fileID: -7697116855385614072, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      isServed: 0
+      conversation1: 
+      conversation2: 
+    - suspect: {fileID: 4510430641581738031, guid: a8392fe46d8f28846a1efc097f80c317, type: 3}
+      hand: {fileID: 5266195450174147428, guid: 85fd62b42363787498acda5dde61aeeb, type: 3}
+      spawnCoordinates: {x: -50, y: 0, z: 0}
+      foodItems:
+      - foodItemId: BlueBerries
+        quantity: 1
+        foodItemSprite: {fileID: -6080153740424670305, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Cheese
+        quantity: 0
+        foodItemSprite: {fileID: -3455651903386829094, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Cheese Blocks
+        quantity: 0
+        foodItemSprite: {fileID: 7360157024177469201, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Cheese Slices
+        quantity: 0
+        foodItemSprite: {fileID: -4609095546709445191, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Cracker
+        quantity: 0
+        foodItemSprite: {fileID: -7376048997147925194, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Garnish
+        quantity: 0
+        foodItemSprite: {fileID: -797234318600969935, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Grapes
+        quantity: 0
+        foodItemSprite: {fileID: -8949105817906397048, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Half Salami
+        quantity: 0
+        foodItemSprite: {fileID: -2048464571593184402, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Nuts
+        quantity: 0
+        foodItemSprite: {fileID: 3750132874793683344, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Oranges
+        quantity: 2
+        foodItemSprite: {fileID: -1725846796255364204, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Pickles
+        quantity: 0
+        foodItemSprite: {fileID: 3052231692086169073, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Salami
+        quantity: 0
+        foodItemSprite: {fileID: -648068547666614581, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Strawberry
+        quantity: 0
+        foodItemSprite: {fileID: -7697116855385614072, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      isServed: 0
+      conversation1: 
+      conversation2: 
+    - suspect: {fileID: 4117511751265744529, guid: cc1acc51b47926a4b87ec6690078bf98, type: 3}
+      hand: {fileID: 5266195450174147428, guid: 671d9af8ae5ef8649abc67f1ea08560a, type: 3}
+      spawnCoordinates: {x: -50, y: 0, z: 0}
+      foodItems:
+      - foodItemId: BlueBerries
+        quantity: 0
+        foodItemSprite: {fileID: -6080153740424670305, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Cheese
+        quantity: 0
+        foodItemSprite: {fileID: -3455651903386829094, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Cheese Blocks
+        quantity: 0
+        foodItemSprite: {fileID: 7360157024177469201, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Cheese Slices
+        quantity: 0
+        foodItemSprite: {fileID: -4609095546709445191, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Cracker
+        quantity: 1
+        foodItemSprite: {fileID: -7376048997147925194, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Garnish
+        quantity: 0
+        foodItemSprite: {fileID: -797234318600969935, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Grapes
+        quantity: 0
+        foodItemSprite: {fileID: -8949105817906397048, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Half Salami
+        quantity: 0
+        foodItemSprite: {fileID: -2048464571593184402, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Nuts
+        quantity: 0
+        foodItemSprite: {fileID: 3750132874793683344, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Oranges
+        quantity: 1
+        foodItemSprite: {fileID: -1725846796255364204, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Pickles
+        quantity: 0
+        foodItemSprite: {fileID: 3052231692086169073, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Salami
+        quantity: 0
+        foodItemSprite: {fileID: -648068547666614581, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Strawberry
+        quantity: 1
+        foodItemSprite: {fileID: -7697116855385614072, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      isServed: 0
+      conversation1: 
+      conversation2: 
+  - suspectSpawnInfos:
+    - suspect: {fileID: 6005352612164674842, guid: d1cd7c6e5784546448afe4a7735bbade, type: 3}
+      hand: {fileID: 5266195450174147428, guid: 663565842d91c6b4f8d50f4271548ff8, type: 3}
+      spawnCoordinates: {x: -50, y: 0, z: 0}
+      foodItems:
+      - foodItemId: BlueBerries
+        quantity: 0
+        foodItemSprite: {fileID: -6080153740424670305, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Cheese
+        quantity: 0
+        foodItemSprite: {fileID: -3455651903386829094, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Cheese Blocks
+        quantity: 0
+        foodItemSprite: {fileID: 7360157024177469201, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Cheese Slices
+        quantity: 0
+        foodItemSprite: {fileID: -4609095546709445191, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Cracker
+        quantity: 2
+        foodItemSprite: {fileID: -7376048997147925194, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Garnish
+        quantity: 0
+        foodItemSprite: {fileID: -797234318600969935, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Grapes
+        quantity: 0
+        foodItemSprite: {fileID: -8949105817906397048, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Half Salami
+        quantity: 0
+        foodItemSprite: {fileID: -2048464571593184402, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Nuts
+        quantity: 0
+        foodItemSprite: {fileID: 3750132874793683344, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Oranges
+        quantity: 0
+        foodItemSprite: {fileID: -1725846796255364204, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Pickles
+        quantity: 0
+        foodItemSprite: {fileID: 3052231692086169073, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Salami
+        quantity: 0
+        foodItemSprite: {fileID: -648068547666614581, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      - foodItemId: Strawberry
+        quantity: 1
+        foodItemSprite: {fileID: -7697116855385614072, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+      isServed: 0
+      conversation1: 
+      conversation2: 
     - suspect: {fileID: 6005352612164674842, guid: d0f8bbb778fc0724d822efa7e7fb403c, type: 3}
       hand: {fileID: 5266195450174147428, guid: 15f373097b371384fa199b81e0877704, type: 3}
       spawnCoordinates: {x: -50, y: 0, z: 0}
@@ -2140,7 +2543,7 @@ MonoBehaviour:
         quantity: 0
         foodItemSprite: {fileID: 7360157024177469201, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Cheese Slices
-        quantity: 0
+        quantity: 1
         foodItemSprite: {fileID: -4609095546709445191, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Cracker
         quantity: 0
@@ -2170,12 +2573,14 @@ MonoBehaviour:
         quantity: 0
         foodItemSprite: {fileID: -7697116855385614072, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       isServed: 0
+      conversation1: 
+      conversation2: 
     - suspect: {fileID: 6005352612164674842, guid: 016b3cd060395b142aafe2a713d5b21e, type: 3}
       hand: {fileID: 5266195450174147428, guid: de5f3501b5c04da4183b08b140034fb8, type: 3}
       spawnCoordinates: {x: -50, y: 0, z: 0}
       foodItems:
       - foodItemId: BlueBerries
-        quantity: 0
+        quantity: 1
         foodItemSprite: {fileID: -6080153740424670305, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Cheese
         quantity: 0
@@ -2202,7 +2607,7 @@ MonoBehaviour:
         quantity: 0
         foodItemSprite: {fileID: 3750132874793683344, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Oranges
-        quantity: 0
+        quantity: 1
         foodItemSprite: {fileID: -1725846796255364204, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Pickles
         quantity: 0
@@ -2211,9 +2616,11 @@ MonoBehaviour:
         quantity: 0
         foodItemSprite: {fileID: -648068547666614581, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Strawberry
-        quantity: 0
+        quantity: 1
         foodItemSprite: {fileID: -7697116855385614072, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       isServed: 0
+      conversation1: 
+      conversation2: 
     - suspect: {fileID: 6005352612164674842, guid: dbd471d496f5cd444a3b41c3734ce0cf, type: 3}
       hand: {fileID: 5266195450174147428, guid: 2a66b65aa46eefb44a913dfafd8b1bae, type: 3}
       spawnCoordinates: {x: -50, y: 0, z: 0}
@@ -2222,7 +2629,7 @@ MonoBehaviour:
         quantity: 0
         foodItemSprite: {fileID: -6080153740424670305, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Cheese
-        quantity: 0
+        quantity: 1
         foodItemSprite: {fileID: -3455651903386829094, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Cheese Blocks
         quantity: 0
@@ -2252,12 +2659,14 @@ MonoBehaviour:
         quantity: 0
         foodItemSprite: {fileID: 3052231692086169073, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Salami
-        quantity: 0
+        quantity: 3
         foodItemSprite: {fileID: -648068547666614581, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Strawberry
         quantity: 0
         foodItemSprite: {fileID: -7697116855385614072, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       isServed: 0
+      conversation1: 
+      conversation2: 
     - suspect: {fileID: 4510430641581738031, guid: a8392fe46d8f28846a1efc097f80c317, type: 3}
       hand: {fileID: 5266195450174147428, guid: 85fd62b42363787498acda5dde61aeeb, type: 3}
       spawnCoordinates: {x: -50, y: 0, z: 0}
@@ -2272,7 +2681,7 @@ MonoBehaviour:
         quantity: 0
         foodItemSprite: {fileID: 7360157024177469201, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Cheese Slices
-        quantity: 0
+        quantity: 1
         foodItemSprite: {fileID: -4609095546709445191, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Cracker
         quantity: 0
@@ -2302,6 +2711,8 @@ MonoBehaviour:
         quantity: 0
         foodItemSprite: {fileID: -7697116855385614072, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       isServed: 0
+      conversation1: 
+      conversation2: 
     - suspect: {fileID: 4117511751265744529, guid: cc1acc51b47926a4b87ec6690078bf98, type: 3}
       hand: {fileID: 5266195450174147428, guid: 671d9af8ae5ef8649abc67f1ea08560a, type: 3}
       spawnCoordinates: {x: -50, y: 0, z: 0}
@@ -2343,277 +2754,13 @@ MonoBehaviour:
         quantity: 0
         foodItemSprite: {fileID: -648068547666614581, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Strawberry
-        quantity: 0
+        quantity: 1
         foodItemSprite: {fileID: -7697116855385614072, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       isServed: 0
-  - suspectSpawnInfos:
-    - suspect: {fileID: 6005352612164674842, guid: d1cd7c6e5784546448afe4a7735bbade, type: 3}
-      hand: {fileID: 5266195450174147428, guid: 663565842d91c6b4f8d50f4271548ff8, type: 3}
-      spawnCoordinates: {x: -50, y: 0, z: 0}
-      foodItems:
-      - foodItemId: BlueBerries
-        quantity: 0
-        foodItemSprite: {fileID: -6080153740424670305, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Cheese
-        quantity: 0
-        foodItemSprite: {fileID: -3455651903386829094, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Cheese Blocks
-        quantity: 0
-        foodItemSprite: {fileID: 7360157024177469201, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Cheese Slices
-        quantity: 0
-        foodItemSprite: {fileID: -4609095546709445191, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Cracker
-        quantity: 0
-        foodItemSprite: {fileID: -7376048997147925194, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Garnish
-        quantity: 0
-        foodItemSprite: {fileID: -797234318600969935, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Grapes
-        quantity: 0
-        foodItemSprite: {fileID: -8949105817906397048, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Half Salami
-        quantity: 0
-        foodItemSprite: {fileID: -2048464571593184402, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Nuts
-        quantity: 0
-        foodItemSprite: {fileID: 3750132874793683344, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Oranges
-        quantity: 0
-        foodItemSprite: {fileID: -1725846796255364204, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Pickles
-        quantity: 0
-        foodItemSprite: {fileID: 3052231692086169073, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Salami
-        quantity: 0
-        foodItemSprite: {fileID: -648068547666614581, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Strawberry
-        quantity: 0
-        foodItemSprite: {fileID: -7697116855385614072, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      isServed: 0
-    - suspect: {fileID: 6005352612164674842, guid: d0f8bbb778fc0724d822efa7e7fb403c, type: 3}
-      hand: {fileID: 5266195450174147428, guid: 15f373097b371384fa199b81e0877704, type: 3}
-      spawnCoordinates: {x: -50, y: 0, z: 0}
-      foodItems:
-      - foodItemId: BlueBerries
-        quantity: 0
-        foodItemSprite: {fileID: -6080153740424670305, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Cheese
-        quantity: 0
-        foodItemSprite: {fileID: -3455651903386829094, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Cheese Blocks
-        quantity: 0
-        foodItemSprite: {fileID: 7360157024177469201, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Cheese Slices
-        quantity: 0
-        foodItemSprite: {fileID: -4609095546709445191, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Cracker
-        quantity: 0
-        foodItemSprite: {fileID: -7376048997147925194, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Garnish
-        quantity: 0
-        foodItemSprite: {fileID: -797234318600969935, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Grapes
-        quantity: 0
-        foodItemSprite: {fileID: -8949105817906397048, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Half Salami
-        quantity: 0
-        foodItemSprite: {fileID: -2048464571593184402, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Nuts
-        quantity: 0
-        foodItemSprite: {fileID: 3750132874793683344, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Oranges
-        quantity: 0
-        foodItemSprite: {fileID: -1725846796255364204, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Pickles
-        quantity: 0
-        foodItemSprite: {fileID: 3052231692086169073, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Salami
-        quantity: 0
-        foodItemSprite: {fileID: -648068547666614581, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Strawberry
-        quantity: 0
-        foodItemSprite: {fileID: -7697116855385614072, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      isServed: 0
-    - suspect: {fileID: 6005352612164674842, guid: 016b3cd060395b142aafe2a713d5b21e, type: 3}
-      hand: {fileID: 5266195450174147428, guid: de5f3501b5c04da4183b08b140034fb8, type: 3}
-      spawnCoordinates: {x: -50, y: 0, z: 0}
-      foodItems:
-      - foodItemId: BlueBerries
-        quantity: 0
-        foodItemSprite: {fileID: -6080153740424670305, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Cheese
-        quantity: 0
-        foodItemSprite: {fileID: -3455651903386829094, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Cheese Blocks
-        quantity: 0
-        foodItemSprite: {fileID: 7360157024177469201, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Cheese Slices
-        quantity: 0
-        foodItemSprite: {fileID: -4609095546709445191, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Cracker
-        quantity: 0
-        foodItemSprite: {fileID: -7376048997147925194, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Garnish
-        quantity: 0
-        foodItemSprite: {fileID: -797234318600969935, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Grapes
-        quantity: 0
-        foodItemSprite: {fileID: -8949105817906397048, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Half Salami
-        quantity: 0
-        foodItemSprite: {fileID: -2048464571593184402, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Nuts
-        quantity: 0
-        foodItemSprite: {fileID: 3750132874793683344, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Oranges
-        quantity: 0
-        foodItemSprite: {fileID: -1725846796255364204, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Pickles
-        quantity: 0
-        foodItemSprite: {fileID: 3052231692086169073, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Salami
-        quantity: 0
-        foodItemSprite: {fileID: -648068547666614581, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Strawberry
-        quantity: 0
-        foodItemSprite: {fileID: -7697116855385614072, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      isServed: 0
-    - suspect: {fileID: 6005352612164674842, guid: dbd471d496f5cd444a3b41c3734ce0cf, type: 3}
-      hand: {fileID: 5266195450174147428, guid: 2a66b65aa46eefb44a913dfafd8b1bae, type: 3}
-      spawnCoordinates: {x: -50, y: 0, z: 0}
-      foodItems:
-      - foodItemId: BlueBerries
-        quantity: 0
-        foodItemSprite: {fileID: -6080153740424670305, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Cheese
-        quantity: 0
-        foodItemSprite: {fileID: -3455651903386829094, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Cheese Blocks
-        quantity: 0
-        foodItemSprite: {fileID: 7360157024177469201, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Cheese Slices
-        quantity: 0
-        foodItemSprite: {fileID: -4609095546709445191, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Cracker
-        quantity: 0
-        foodItemSprite: {fileID: -7376048997147925194, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Garnish
-        quantity: 0
-        foodItemSprite: {fileID: -797234318600969935, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Grapes
-        quantity: 0
-        foodItemSprite: {fileID: -8949105817906397048, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Half Salami
-        quantity: 0
-        foodItemSprite: {fileID: -2048464571593184402, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Nuts
-        quantity: 0
-        foodItemSprite: {fileID: 3750132874793683344, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Oranges
-        quantity: 0
-        foodItemSprite: {fileID: -1725846796255364204, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Pickles
-        quantity: 0
-        foodItemSprite: {fileID: 3052231692086169073, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Salami
-        quantity: 0
-        foodItemSprite: {fileID: -648068547666614581, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Strawberry
-        quantity: 0
-        foodItemSprite: {fileID: -7697116855385614072, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      isServed: 0
-    - suspect: {fileID: 4510430641581738031, guid: a8392fe46d8f28846a1efc097f80c317, type: 3}
-      hand: {fileID: 5266195450174147428, guid: 85fd62b42363787498acda5dde61aeeb, type: 3}
-      spawnCoordinates: {x: -50, y: 0, z: 0}
-      foodItems:
-      - foodItemId: BlueBerries
-        quantity: 0
-        foodItemSprite: {fileID: -6080153740424670305, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Cheese
-        quantity: 0
-        foodItemSprite: {fileID: -3455651903386829094, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Cheese Blocks
-        quantity: 0
-        foodItemSprite: {fileID: 7360157024177469201, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Cheese Slices
-        quantity: 0
-        foodItemSprite: {fileID: -4609095546709445191, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Cracker
-        quantity: 0
-        foodItemSprite: {fileID: -7376048997147925194, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Garnish
-        quantity: 0
-        foodItemSprite: {fileID: -797234318600969935, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Grapes
-        quantity: 0
-        foodItemSprite: {fileID: -8949105817906397048, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Half Salami
-        quantity: 0
-        foodItemSprite: {fileID: -2048464571593184402, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Nuts
-        quantity: 0
-        foodItemSprite: {fileID: 3750132874793683344, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Oranges
-        quantity: 0
-        foodItemSprite: {fileID: -1725846796255364204, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Pickles
-        quantity: 0
-        foodItemSprite: {fileID: 3052231692086169073, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Salami
-        quantity: 0
-        foodItemSprite: {fileID: -648068547666614581, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Strawberry
-        quantity: 0
-        foodItemSprite: {fileID: -7697116855385614072, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      isServed: 0
-    - suspect: {fileID: 4117511751265744529, guid: cc1acc51b47926a4b87ec6690078bf98, type: 3}
-      hand: {fileID: 5266195450174147428, guid: 671d9af8ae5ef8649abc67f1ea08560a, type: 3}
-      spawnCoordinates: {x: -50, y: 0, z: 0}
-      foodItems:
-      - foodItemId: BlueBerries
-        quantity: 0
-        foodItemSprite: {fileID: -6080153740424670305, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Cheese
-        quantity: 0
-        foodItemSprite: {fileID: -3455651903386829094, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Cheese Blocks
-        quantity: 0
-        foodItemSprite: {fileID: 7360157024177469201, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Cheese Slices
-        quantity: 0
-        foodItemSprite: {fileID: -4609095546709445191, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Cracker
-        quantity: 0
-        foodItemSprite: {fileID: -7376048997147925194, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Garnish
-        quantity: 0
-        foodItemSprite: {fileID: -797234318600969935, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Grapes
-        quantity: 0
-        foodItemSprite: {fileID: -8949105817906397048, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Half Salami
-        quantity: 0
-        foodItemSprite: {fileID: -2048464571593184402, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Nuts
-        quantity: 0
-        foodItemSprite: {fileID: 3750132874793683344, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Oranges
-        quantity: 0
-        foodItemSprite: {fileID: -1725846796255364204, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Pickles
-        quantity: 0
-        foodItemSprite: {fileID: 3052231692086169073, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Salami
-        quantity: 0
-        foodItemSprite: {fileID: -648068547666614581, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Strawberry
-        quantity: 0
-        foodItemSprite: {fileID: -7697116855385614072, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      isServed: 0
+      conversation1: 
+      conversation2: 
   CharactersParent: {fileID: 942661512}
   Player: {fileID: 1924154322}
-  randomizeFoodOnMemoryStart: 1
   charcuterieFoodParent: {fileID: 1309673798}
   minFoodTypesPerSuspect: 1
   maxFoodTypesPerSuspect: 3
@@ -2650,7 +2797,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 209411292}
   m_LocalRotation: {x: 0, y: 0, z: -0.99150175, w: 0.13009357}
-  m_LocalPosition: {x: 0, y: 0, z: 3}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2949,7 +3096,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 223375506}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 3}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3714,7 +3861,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 364742348}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 3}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4066,7 +4213,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 418006934}
   m_LocalRotation: {x: 0, y: 0, z: -0.41802564, w: 0.9084353}
-  m_LocalPosition: {x: 0, y: 0, z: 3}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5129,7 +5276,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 508409790}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 3}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5386,7 +5533,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 553390841}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 3}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5665,7 +5812,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 571802308}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.00009322793}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6213,6 +6360,83 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 613140004}
   m_CullTransparentMesh: 1
+--- !u!1 &621732722
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 621732723}
+  - component: {fileID: 621732725}
+  - component: {fileID: 621732724}
+  m_Layer: 5
+  m_Name: Conversation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &621732723
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 621732722}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 867435399}
+  - {fileID: 1582579152}
+  m_Father: {fileID: 629240953}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -314.7}
+  m_SizeDelta: {x: 800, y: 200}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &621732724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 621732722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.57762086, g: 0.50213593, b: 0.735849, a: 0.7176471}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &621732725
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 621732722}
+  m_CullTransparentMesh: 1
 --- !u!1 &629240952
 GameObject:
   m_ObjectHideFlags: 0
@@ -6246,7 +6470,9 @@ RectTransform:
   - {fileID: 839389290}
   - {fileID: 1309673799}
   - {fileID: 752979475}
+  - {fileID: 621732723}
   - {fileID: 117992003}
+  - {fileID: 700100002}
   m_Father: {fileID: 2128110201}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -6781,7 +7007,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 677848301}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 3}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7306,6 +7532,83 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 717069552}
   m_CullTransparentMesh: 1
+--- !u!1 &719603271
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 719603272}
+  - component: {fileID: 719603274}
+  - component: {fileID: 719603273}
+  m_Layer: 5
+  m_Name: Conversation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &719603272
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 719603271}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children:
+  - {fileID: 971659028}
+  - {fileID: 1108408700}
+  m_Father: {fileID: 2104049764}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -9.27, y: -335.69}
+  m_SizeDelta: {x: 800, y: 200}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &719603273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 719603271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.57762086, g: 0.50213593, b: 0.735849, a: 0.7176471}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &719603274
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 719603271}
+  m_CullTransparentMesh: 1
 --- !u!224 &721750109 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8146908427794422894, guid: 83df760fa803cb744b644a2fdec3fdb3, type: 3}
@@ -7338,7 +7641,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 742188248}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 3}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7459,8 +7762,8 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 752979474}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 1.0000373}
-  m_LocalScale: {x: 0.999463, y: 0.999463, z: 0.999463}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 571802309}
@@ -7839,7 +8142,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 811785182}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 3}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8039,7 +8342,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 823669663}
   m_LocalRotation: {x: 0, y: 0, z: 0.65671736, w: 0.75413686}
-  m_LocalPosition: {x: 0, y: 0, z: 3}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8517,9 +8820,6 @@ GameObject:
   - component: {fileID: 858081723}
   - component: {fileID: 858081725}
   - component: {fileID: 858081724}
-  - component: {fileID: 858081728}
-  - component: {fileID: 858081727}
-  - component: {fileID: 858081726}
   m_Layer: 5
   m_Name: Hand
   m_TagString: Untagged
@@ -8584,92 +8884,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 858081722}
   m_CullTransparentMesh: 1
---- !u!114 &858081726
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 858081722}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c223737331189fe4e82e695e33c0f6a4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HandFoodTrigger
-  minigame: {fileID: 2128110202}
---- !u!50 &858081727
-Rigidbody2D:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 858081722}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 1
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 0
-  m_CollisionDetection: 0
-  m_Constraints: 0
---- !u!61 &858081728
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 858081722}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 10, y: 10}
-  m_EdgeRadius: 0
 --- !u!1 &858394029
 GameObject:
   m_ObjectHideFlags: 0
@@ -8744,6 +8958,143 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 858394029}
+  m_CullTransparentMesh: 1
+--- !u!1 &867435398
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 867435399}
+  - component: {fileID: 867435401}
+  - component: {fileID: 867435400}
+  m_Layer: 5
+  m_Name: Text (TMP)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &867435399
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 867435398}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 621732723}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 100, y: 0}
+  m_SizeDelta: {x: -200, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &867435400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 867435398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: 
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 50
+  m_fontSizeBase: 50
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_characterHorizontalScale: 1
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_TextWrappingMode: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 0
+  m_ActiveFontFeatures: 6e72656b
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_EmojiFallbackSupport: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &867435401
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 867435398}
   m_CullTransparentMesh: 1
 --- !u!1 &880581004
 GameObject:
@@ -9503,6 +9854,143 @@ Transform:
   - {fileID: 1031837087}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &971659027
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 971659028}
+  - component: {fileID: 971659030}
+  - component: {fileID: 971659029}
+  m_Layer: 5
+  m_Name: Text (TMP)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &971659028
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 971659027}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 719603272}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 100, y: 0}
+  m_SizeDelta: {x: -200, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &971659029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 971659027}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: 
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 50
+  m_fontSizeBase: 50
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_characterHorizontalScale: 1
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_TextWrappingMode: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 0
+  m_ActiveFontFeatures: 6e72656b
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_EmojiFallbackSupport: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &971659030
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 971659027}
+  m_CullTransparentMesh: 1
 --- !u!1 &974440673
 GameObject:
   m_ObjectHideFlags: 0
@@ -9605,7 +10093,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 975303583}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 3}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9942,7 +10430,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1011446599}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 3}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10973,6 +11461,81 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1105694158}
   m_CullTransparentMesh: 1
+--- !u!1 &1108408699
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1108408700}
+  - component: {fileID: 1108408702}
+  - component: {fileID: 1108408701}
+  m_Layer: 5
+  m_Name: Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1108408700
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1108408699}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 719603272}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 100, y: 0}
+  m_SizeDelta: {x: 180, y: 180}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1108408701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1108408699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.6394635, g: 0.15723258, b: 0.66666657, a: 0.63529414}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1108408702
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1108408699}
+  m_CullTransparentMesh: 1
 --- !u!1 &1128433598
 GameObject:
   m_ObjectHideFlags: 0
@@ -11000,7 +11563,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1128433598}
   m_LocalRotation: {x: 0, y: 0, z: 0.65671736, w: 0.75413686}
-  m_LocalPosition: {x: 0, y: 0, z: 3}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -11122,7 +11685,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1147610919}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 3}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -11469,7 +12032,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1209801758}
   m_LocalRotation: {x: -0, y: 0, z: -0.9238796, w: -0.38268328}
-  m_LocalPosition: {x: 0, y: 0, z: 3}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -12130,7 +12693,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1269341519}
   m_LocalRotation: {x: 0, y: 0, z: -0.8069603, w: 0.5906058}
-  m_LocalPosition: {x: 0, y: 0, z: 3}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -12333,7 +12896,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1294528494}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 3}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -12509,7 +13072,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -19.7, y: -139.6}
+  m_AnchoredPosition: {x: -19.7, y: -232.39}
   m_SizeDelta: {x: 1334, y: 636}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1309673800
@@ -12816,7 +13379,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1357468069}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 3}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -13088,7 +13651,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1419684353}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 3}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -13998,7 +14561,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1484426379}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 3}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -14620,6 +15183,81 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1578838640}
   m_CullTransparentMesh: 1
+--- !u!1 &1582579151
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1582579152}
+  - component: {fileID: 1582579154}
+  - component: {fileID: 1582579153}
+  m_Layer: 5
+  m_Name: Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1582579152
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1582579151}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 621732723}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 100, y: 0}
+  m_SizeDelta: {x: 180, y: 180}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1582579153
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1582579151}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.6394635, g: 0.15723258, b: 0.66666657, a: 0.63529414}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1582579154
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1582579151}
+  m_CullTransparentMesh: 1
 --- !u!1 &1589980209
 GameObject:
   m_ObjectHideFlags: 0
@@ -14647,7 +15285,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1589980209}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 3}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -14844,7 +15482,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1609569002}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 3}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -15032,7 +15670,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1644573422}
   m_LocalRotation: {x: -0, y: 0, z: -0.6045992, w: -0.79652995}
-  m_LocalPosition: {x: 0, y: 0, z: 3}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -15433,6 +16071,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8419820}
+  - {fileID: 151620473}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1693207421
@@ -16570,7 +17209,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1842830621}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 3}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -18126,7 +18765,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2010157859}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 3}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -18701,8 +19340,8 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2036786757}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 1.47083}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -18711,7 +19350,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 5.07491, y: -9.66188}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!1 &2043140684
@@ -18741,7 +19380,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2043140684}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 3}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -19071,7 +19710,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2097237758}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 3}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -19263,6 +19902,7 @@ RectTransform:
   - {fileID: 1856766244}
   - {fileID: 125228955}
   - {fileID: 1720515814}
+  - {fileID: 719603272}
   m_Father: {fileID: 1811273836}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -19345,6 +19985,125 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2104247680}
   m_CullTransparentMesh: 1
+--- !u!1 &700100001
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 700100002}
+  - component: {fileID: 700100003}
+  - component: {fileID: 700100004}
+  m_Layer: 5
+  m_Name: Refill Panel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &700100002
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 700100001}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 629240953}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 310}
+  m_SizeDelta: {x: 1800, y: 400}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &700100003
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 700100001}
+  m_CullTransparentMesh: 1
+--- !u!114 &700100004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 700100001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.12156863, g: 0.09411765, b: 0.16078432, a: 0.8039216}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!114 &700100005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2128110197}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7f3c19d4b0e42d8ae5f6c2b91d07e34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RefillStationMinigame
+  player: {fileID: 1924154322}
+  board: {fileID: 1309673799}
+  refillPanel: {fileID: 700100001}
+  hiddenWhileRefilling:
+  - {fileID: 858081722}
+  - {fileID: 621732722}
+  - {fileID: 752979474}
+  - {fileID: 839389289}
+  - {fileID: 117992002}
+  boardCapacity: 20
+  foodPrefabs:
+  - {fileID: 3309292579336335050, guid: 99a9cef48d044284f983a9401025f020, type: 3}
+  - {fileID: 3451509647251433702, guid: 066dec54e27299841919f34fef79dbfb, type: 3}
+  - {fileID: 5206508459672505049, guid: 41ca7c3c36381744e9394462e77d23c0, type: 3}
+  - {fileID: 2826339964633447255, guid: 6354f4f51aa3ea840ac9217a3c00e25d, type: 3}
+  - {fileID: 8995212789569499061, guid: 91cf948e10cf2614db4d8ab99b248208, type: 3}
+  - {fileID: 7113635171668910694, guid: 46fc467335a89e74e8d8fc5253cebdd9, type: 3}
+  - {fileID: 3971515854988713061, guid: b90b410022fc7824cbb0b8f8277c16c1, type: 3}
+  - {fileID: 5238695932558221501, guid: 83df760fa803cb744b644a2fdec3fdb3, type: 3}
+  - {fileID: 3877950583969363606, guid: 4fea347ca1353c64496986644ba4def8, type: 3}
+  - {fileID: 1283670775856871659, guid: f6110646c1ae3b6429053eddd626b211, type: 3}
+  - {fileID: 5508881910170067247, guid: 9fd4ace6cccd9cd44ba4a13040de59b6, type: 3}
+  - {fileID: 5465952532055802124, guid: f055bb36a81ecbd4888658968defe996, type: 3}
+  - {fileID: 8996745641009345545, guid: 8f1ad7630b73eb14ea5f0dcaae16f48a, type: 3}
+  - {fileID: 1060913647749383360, guid: 82ed1042027b79547b9bd2f86065f76f, type: 3}
+  plateSprite: {fileID: -1425062130279650551, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
+  plateSize: {x: 150, y: 150}
+  plateSpacing: {x: 24, y: 12}
+  plateFoodScale: 0.62
+  headerHeight: 74
+  hint: Hold right click on a plate to take food and drag it onto the board. Drop it
+    back on the plates to take it off. Press E to leave.
 --- !u!1 &2128110197
 GameObject:
   m_ObjectHideFlags: 0
@@ -19358,6 +20117,7 @@ GameObject:
   - component: {fileID: 2128110199}
   - component: {fileID: 2128110198}
   - component: {fileID: 2128110202}
+  - component: {fileID: 700100005}
   m_Layer: 5
   m_Name: Charcuterie Board Game
   m_TagString: Untagged
@@ -19395,9 +20155,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.CanvasScaler
   m_UiScaleMode: 0
-  m_ReferencePixelsPerUnit: 100
+  m_ReferencePixelsPerUnit: 1
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -19414,7 +20174,7 @@ Canvas:
   m_GameObject: {fileID: 2128110197}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 306081237}
   m_PlaneDistance: 10
   m_PixelPerfect: 0
@@ -19422,11 +20182,11 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
+  m_VertexColorAlwaysGammaSpace: 1
   m_AdditionalShaderChannelsFlag: 25
-  m_UpdateRectTransformForStandalone: 0
+  m_UpdateRectTransformForStandalone: 1
   m_SortingLayerID: 10934805
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!224 &2128110201
 RectTransform:
@@ -19469,9 +20229,18 @@ MonoBehaviour:
   foodItemEntryPrefab: {fileID: 0}
   gameDirector: {fileID: 196063167}
   canExit: 0
-  handSpeed: 1.5
+  handSpeed: 200
   entrySpacing: 20
   entrySize: {x: 90, y: 110}
+  visualHandChildName: Visual Hand
+  fingertipHeight: 50
+  grabMargin: 0.6
+  ConversationUI: {fileID: 621732722}
+  conversationText: {fileID: 867435400}
+  suspectPortrait: {fileID: 1582579153}
+  suspectFaceName: Suspect Face
+  faceHeight: 0.18
+  facePivot: {x: 0.5, y: 0.88}
 --- !u!1 &2145314372
 GameObject:
   m_ObjectHideFlags: 0
@@ -19679,7 +20448,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6569370146804409232, guid: f6110646c1ae3b6429053eddd626b211, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6569370146804409232, guid: f6110646c1ae3b6429053eddd626b211, type: 3}
       propertyPath: m_LocalRotation.w
@@ -19776,7 +20545,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8146908427794422894, guid: 83df760fa803cb744b644a2fdec3fdb3, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8146908427794422894, guid: 83df760fa803cb744b644a2fdec3fdb3, type: 3}
       propertyPath: m_LocalRotation.w
@@ -19869,7 +20638,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 122779448408800621, guid: 8f1ad7630b73eb14ea5f0dcaae16f48a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 122779448408800621, guid: 8f1ad7630b73eb14ea5f0dcaae16f48a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -19944,6 +20713,14 @@ PrefabInstance:
       propertyPath: CharcuterieBoard
       value: 
       objectReference: {fileID: 2128110197}
+    - target: {fileID: 1566921568050635018, guid: 7cd7a16d6f90b544e82e600194e5526d, type: 3}
+      propertyPath: refillStation
+      value: 
+      objectReference: {fileID: 151620472}
+    - target: {fileID: 1566921568050635018, guid: 7cd7a16d6f90b544e82e600194e5526d, type: 3}
+      propertyPath: refillRange
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5246600033495868016, guid: 7cd7a16d6f90b544e82e600194e5526d, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.18509
@@ -20051,7 +20828,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6887912394223660824, guid: 6354f4f51aa3ea840ac9217a3c00e25d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6887912394223660824, guid: 6354f4f51aa3ea840ac9217a3c00e25d, type: 3}
       propertyPath: m_LocalRotation.w
@@ -20342,7 +21119,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7730003862702684395, guid: f055bb36a81ecbd4888658968defe996, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7730003862702684395, guid: f055bb36a81ecbd4888658968defe996, type: 3}
       propertyPath: m_LocalRotation.w
@@ -20532,7 +21309,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7155426234823836578, guid: 91cf948e10cf2614db4d8ab99b248208, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7155426234823836578, guid: 91cf948e10cf2614db4d8ab99b248208, type: 3}
       propertyPath: m_LocalRotation.w
@@ -20730,7 +21507,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9123123716212724147, guid: 4fea347ca1353c64496986644ba4def8, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9123123716212724147, guid: 4fea347ca1353c64496986644ba4def8, type: 3}
       propertyPath: m_LocalRotation.w
@@ -20823,7 +21600,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6630924631582722618, guid: 46fc467335a89e74e8d8fc5253cebdd9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6630924631582722618, guid: 46fc467335a89e74e8d8fc5253cebdd9, type: 3}
       propertyPath: m_LocalRotation.w
@@ -20920,7 +21697,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 439975981920530278, guid: 41ca7c3c36381744e9394462e77d23c0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 439975981920530278, guid: 41ca7c3c36381744e9394462e77d23c0, type: 3}
       propertyPath: m_LocalRotation.w
@@ -21021,7 +21798,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7905134016962420490, guid: 82ed1042027b79547b9bd2f86065f76f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7905134016962420490, guid: 82ed1042027b79547b9bd2f86065f76f, type: 3}
       propertyPath: m_LocalRotation.w
@@ -21114,7 +21891,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2684344417918014213, guid: b90b410022fc7824cbb0b8f8277c16c1, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2684344417918014213, guid: b90b410022fc7824cbb0b8f8277c16c1, type: 3}
       propertyPath: m_LocalRotation.w

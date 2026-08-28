@@ -13,7 +13,16 @@ public class PlayerControlsDiningRoom : MonoBehaviour
     [SerializeField] private GameObject CharcuterieBoard;
     [SerializeField] private GameObject gameDirector;
     [SerializeField] private GameObject currentSuspect;
+    //The board is served from and refilled at two different places in the room, so the same screen is
+    //opened in one of two modes: the suspect's own charcuterie run, or the refill station's.
+    [SerializeField] private GameObject refillStation;
+    [SerializeField] private float refillRange = 3f;
     private bool isCameraFollowingPlayer = true;
+    private bool atRefillStation;
+    private CharcuterieBoardMinigame serveMinigame;
+    private RefillStationMinigame refillMinigame;
+    private Collider refillStationCollider;
+    private int boardClosedFrame = -1;
     // Update is called once per frame
     private void Start()
     {
@@ -54,6 +63,9 @@ public class PlayerControlsDiningRoom : MonoBehaviour
             }
         }
         isCameraFollowingPlayer = currentSuspect == null;
+        //the station is only offered when nobody is waiting to be served, so one prompt is on screen
+        //at a time and the suspect in front of the player always comes first
+        atRefillStation = currentSuspect == null && IsAtRefillStation();
 
         if (currentSuspect != null)
         {
@@ -70,7 +82,11 @@ public class PlayerControlsDiningRoom : MonoBehaviour
         }
         else
         {
-            popup.SetActive(false);
+            popup.SetActive(atRefillStation);
+            if (atRefillStation)
+            {
+                popup.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = "Press E to refill the charcuterie board";
+            }
             focusLight.SetActive(false);
             //the camera should follow the player but up to a limit of -29 and 29 and in the z axis it should also be locked and staggered to -34.36
             camera.transform.position = new Vector3(
@@ -82,14 +98,68 @@ public class PlayerControlsDiningRoom : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.E))
         {
-            if(currentSuspect == null) return;
-            print("Serving food to " + currentSuspect.name);
-            CharcuterieBoard.SetActive(true);
+            //the E that just closed the board must not walk straight back into it, and neither must an
+            //E the player is pressing inside a screen that is already open
+            if(CharcuterieBoard.activeSelf || Time.frameCount == boardClosedFrame) return;
+            if(currentSuspect != null)
+            {
+                print("Serving food to " + currentSuspect.name);
+                OpenCharcuterieBoard(false);
+            }
+            else if(atRefillStation)
+            {
+                OpenCharcuterieBoard(true);
+            }
         }
     }
+
+    //Measured to the station's own collider rather than to its middle: it is a wide slab, and a player
+    //standing at one end of it is as much at it as one standing in the centre.
+    private bool IsAtRefillStation()
+    {
+        if(refillStation == null || !refillStation.activeInHierarchy)
+        {
+            return false;
+        }
+        if(refillStationCollider == null)
+        {
+            refillStationCollider = refillStation.GetComponent<Collider>();
+        }
+        if(refillStationCollider == null)
+        {
+            return Vector3.Distance(transform.position, refillStation.transform.position) < refillRange;
+        }
+        return Vector3.Distance(transform.position, refillStationCollider.ClosestPoint(transform.position)) < refillRange;
+    }
+
+    //One canvas, two minigames. Whichever component is left enabled is the one whose OnEnable runs when
+    //the board comes up, so exactly one of them ever has the screen.
+    private void OpenCharcuterieBoard(bool refilling)
+    {
+        if(serveMinigame == null)
+        {
+            serveMinigame = CharcuterieBoard.GetComponent<CharcuterieBoardMinigame>();
+        }
+        if(refillMinigame == null)
+        {
+            refillMinigame = CharcuterieBoard.GetComponent<RefillStationMinigame>();
+        }
+        if(serveMinigame != null)
+        {
+            serveMinigame.enabled = !refilling;
+        }
+        if(refillMinigame != null)
+        {
+            refillMinigame.enabled = refilling;
+        }
+        CharcuterieBoard.SetActive(true);
+    }
+
     public void CloseCharcuterieBoard()
     {
         CharcuterieBoard.SetActive(false);
+        //remembered so the same key press cannot reopen it further down the frame
+        boardClosedFrame = Time.frameCount;
     }
     public GameObject GetCurrentSuspect()
     {

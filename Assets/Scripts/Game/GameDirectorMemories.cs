@@ -18,12 +18,18 @@ public class GameDirectorMemories : MonoBehaviour
     [SerializeField] private GameObject CharactersParent; // parent object that will hold all the characters in the scene
     [SerializeField] private GameObject Player; // player object that will be used to get the current suspect
 
-    [Header("Random food orders")]
-    [SerializeField] private bool randomizeFoodOnMemoryStart = true;
+    [Header("Food orders")]
+    //An order is authored data, not something rolled while the game runs: every quantity below is a
+    //constant sitting in the scene, and the same suspect asks for the same thing every play. The
+    //component's "Randomise Food Orders" context menu rolls one fresh set into the scene when a new
+    //spread is wanted, and the settings under it only steer that roll.
+#if UNITY_EDITOR
+    //nothing but the roll reads these, and the roll only ever happens in the editor
     [SerializeField] private GameObject charcuterieFoodParent; // holds the food laid out on the board, its stock is all a suspect can actually be served
     [SerializeField] private int minFoodTypesPerSuspect = 1;
     [SerializeField] private int maxFoodTypesPerSuspect = 3;
     [SerializeField] private int maxQuantityPerFood = 3;
+#endif
 
     private void Awake()
     {
@@ -51,10 +57,7 @@ public class GameDirectorMemories : MonoBehaviour
         }
         activeMemoryIndex = memoryIndex;
         MemoryInfo memory = memories[memoryIndex];
-        if (randomizeFoodOnMemoryStart)
-        {
-            RandomizeFoodItems(memory);
-        }
+        ResetOrders(memory);
         foreach (SuspectSpawnInfo suspectInfo in memory.suspectSpawnInfos)
         {
             if (suspectInfo.suspect != null)
@@ -97,22 +100,66 @@ public class GameDirectorMemories : MonoBehaviour
         RefreshSuspectsStatusDisplay();
     }
 
-    //Rolls a fresh order for every suspect in the memory. Orders are drawn from the food actually laid
-    //out on the board, and the board is never restocked, so the stock is shared out across the suspects.
-    //Asking for food that is not there would leave a suspect unservable for the rest of the memory.
-    public void RandomizeFoodItems(MemoryInfo memory)
+    //The authored quantity is the order itself and is never written to; serving counts down a separate
+    //run time copy of it. Starting a memory hands every suspect their whole order back, so the same
+    //memory played twice asks for the same food both times.
+    private void ResetOrders(MemoryInfo memory)
     {
         if (memory == null || memory.suspectSpawnInfos == null)
         {
             return;
         }
-        Dictionary<string, int> stock = CountBoardStock();
-        List<SuspectSpawnInfo> suspects = new List<SuspectSpawnInfo>();
         foreach (SuspectSpawnInfo suspectInfo in memory.suspectSpawnInfos)
         {
-            if (suspectInfo != null && suspectInfo.foodItems != null)
+            if (suspectInfo == null)
             {
-                suspects.Add(suspectInfo);
+                continue;
+            }
+            suspectInfo.isServed = false;
+            if (suspectInfo.foodItems == null)
+            {
+                continue;
+            }
+            foreach (FoodItem foodItem in suspectInfo.foodItems)
+            {
+                if (foodItem != null)
+                {
+                    foodItem.remaining = foodItem.quantity;
+                }
+            }
+        }
+        shownServedCount = -1;
+        RefreshSuspectsStatusDisplay();
+    }
+
+#if UNITY_EDITOR
+    //Rolls one fresh set of orders straight into the scene, where they then sit as constants. Editor
+    //only on purpose: this is how the numbers are authored, the game itself only ever reads them.
+    //Orders are drawn from the food actually laid out on the board, and the board is laid out once and
+    //never restocked, so every suspect of every memory shares that one stock between them. Asking for
+    //food that is not there would leave a suspect unservable for the rest of the game.
+    [ContextMenu("Randomise Food Orders")]
+    public void RandomizeFoodOrders()
+    {
+        if (memories == null)
+        {
+            return;
+        }
+        UnityEditor.Undo.RecordObject(this, "Randomise Food Orders");
+        Dictionary<string, int> stock = CountBoardStock();
+        List<SuspectSpawnInfo> suspects = new List<SuspectSpawnInfo>();
+        foreach (MemoryInfo memory in memories)
+        {
+            if (memory == null || memory.suspectSpawnInfos == null)
+            {
+                continue;
+            }
+            foreach (SuspectSpawnInfo suspectInfo in memory.suspectSpawnInfos)
+            {
+                if (suspectInfo != null && suspectInfo.foodItems != null)
+                {
+                    suspects.Add(suspectInfo);
+                }
             }
         }
         int remainingStock = 0;
@@ -136,8 +183,8 @@ public class GameDirectorMemories : MonoBehaviour
             int budget = Mathf.Max(1, remainingStock / (suspects.Count - i));
             remainingStock -= FillOrder(suspectInfo, stock, budget);
         }
-        shownServedCount = -1;
-        RefreshSuspectsStatusDisplay();
+        UnityEditor.EditorUtility.SetDirty(this);
+        UnityEditor.SceneManagement.EditorSceneManager.MarkSceneDirty(gameObject.scene);
     }
 
     private int FillOrder(SuspectSpawnInfo suspectInfo, Dictionary<string, int> stock, int budget)
@@ -186,8 +233,8 @@ public class GameDirectorMemories : MonoBehaviour
         return ordered;
     }
 
-    //counts the food still on the board, inactive included since the board is closed most of the time.
-    //Food already served is retagged, so it drops out of the stock on the next roll.
+    //counts the food laid out on the board, inactive included since the board is closed most of the
+    //time. Anything already carrying the "Served" tag is spoken for and does not go back into the pot.
     private Dictionary<string, int> CountBoardStock()
     {
         Dictionary<string, int> stock = new Dictionary<string, int>();
@@ -208,6 +255,7 @@ public class GameDirectorMemories : MonoBehaviour
         }
         return stock;
     }
+#endif
 
     //writes "<label> served/total" for the memory on screen. Only touches the text when a
     //count actually changed, so this is cheap enough to poll and cannot miss a change.
@@ -334,6 +382,8 @@ public class GameDirectorMemories : MonoBehaviour
         public Vector3 spawnCoordinates; // x,y,z coordinates
         public FoodItem[] foodItems; // array of FoodItem for each food item served to the suspect
         public bool isServed; // true if the suspect has been served, false if not
+        public string conversation1;
+        public string conversation2;
     }
     [System.Serializable]
     public class MemoryInfo
@@ -344,8 +394,11 @@ public class GameDirectorMemories : MonoBehaviour
     public class FoodItem
     {
         public string foodItemId; // unique identifier for the food item
-        public int quantity; // quantity of the food item
+        public int quantity; // how many of this food the suspect orders, authored in the scene and constant from there on
         //a sprite for the food item that will be displayed on the UI
         public Sprite foodItemSprite; // sprite for the food item
+        //how many are still owed this run. Serving counts this down and leaves quantity untouched, so
+        //the order sitting in the scene is still there to be handed back when the memory starts again.
+        [System.NonSerialized] public int remaining;
     }
 }
