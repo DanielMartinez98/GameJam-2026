@@ -187,13 +187,14 @@ public class GameDirectorMemories : MonoBehaviour
 
     public void Update()
     {
+        /*
         //if the player presses m the game will start the first memory memory 0 and if pressed again it will start the next memory and so on until the last memory is reached then it will loop back to the first memory
         if (Input.GetKeyDown(KeyCode.M))
         {
             //a debug key for flipping through the memories, so it always deals a fresh one
             EnterMemory(CurrentMemoryIndex, false);
             CurrentMemoryIndex = (CurrentMemoryIndex + 1) % memories.Length;
-        }
+        }*/
         //the way back to the interrogation room, which is also the only thing that records how this
         //memory went, so leaving is a real action rather than just a scene change
         if (Input.GetKeyDown(leaveMemoryKey))
