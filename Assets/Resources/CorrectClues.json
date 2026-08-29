@@ -1,0 +1,44 @@
+{
+  "_comment": [
+    "The answers to the case: every clue that is actually true, and the memory it can be found in.",
+    "",
+    "'key' is a clue key: the template id and the picks joined by '|', exactly as the notebook builds",
+    "them. Do not guess them - select the GameDirector in MainScene, open the context menu on the",
+    "Interrogation Room Director component and choose 'List Clue Keys'. Every key the game can produce",
+    "is printed to the Console, ready to paste in here.",
+    "",
+    "'memoryIndex' is 0 based and matches the memories on GameDirectorMemories: 0 is the first memory.",
+    "'note' is for whoever is writing this file and is never shown to the player.",
+    "",
+    "The two entries below are written against the example clue templates that ship on the director.",
+    "Replace them once the real templates are in - a key that no template can produce is a clue the",
+    "player can never write, and it will sit in the case as permanently missing."
+  ],
+  "memories": [
+    {
+      "memoryIndex": 0,
+      "title": "the first memory",
+      "clues": [
+        {
+          "key": "allergy|The Mayor|Grapes",
+          "note": "The Mayor says it out loud in his own conversation line."
+        }
+      ]
+    },
+    {
+      "memoryIndex": 1,
+      "title": "the second memory",
+      "clues": [
+        {
+          "key": "served|The Widow|Nuts",
+          "note": "Placeholder - replace with a real clue for this memory."
+        }
+      ]
+    },
+    {
+      "memoryIndex": 2,
+      "title": "the third memory",
+      "clues": []
+    }
+  ]
+}

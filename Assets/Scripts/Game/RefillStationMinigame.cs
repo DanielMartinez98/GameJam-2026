@@ -144,6 +144,26 @@ public class RefillStationMinigame : MonoBehaviour
         }
     }
 
+    //The plates the board is stocked from, handed out by food tag. A memory resumed from the
+    //interrogation room has to put back the board the player walked out with, and the only way to bring
+    //a piece of food back is to build it from the prefab it came from. This screen owns those prefabs,
+    //so it is what answers the question.
+    public GameObject FindFoodPrefab(string foodTag)
+    {
+        if (string.IsNullOrEmpty(foodTag) || foodPrefabs == null)
+        {
+            return null;
+        }
+        foreach (GameObject foodPrefab in foodPrefabs)
+        {
+            if (foodPrefab != null && foodPrefab.CompareTag(foodTag))
+            {
+                return foodPrefab;
+            }
+        }
+        return null;
+    }
+
     //Right click picks something up: either a fresh piece of food off a plate, or a piece already on
     //the board to move it somewhere else.
     private void BeginDrag()

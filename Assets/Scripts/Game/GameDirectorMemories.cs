@@ -33,13 +33,28 @@ public class GameDirectorMemories : MonoBehaviour
     //constant sitting in the scene, and the same suspect asks for the same thing every play. The
     //component's "Randomise Food Orders" context menu rolls one fresh set into the scene when a new
     //spread is wanted, and the settings under it only steer that roll.
+    //holds the food laid out on the board, its stock is all a suspect can actually be served. The same
+    //object the refill station calls its board: rolling the orders counts what is on it, and leaving a
+    //memory writes down what is left on it so returning can put it back.
+    [SerializeField] private GameObject charcuterieFoodParent;
 #if UNITY_EDITOR
     //nothing but the roll reads these, and the roll only ever happens in the editor
-    [SerializeField] private GameObject charcuterieFoodParent; // holds the food laid out on the board, its stock is all a suspect can actually be served
     [SerializeField] private int minFoodTypesPerSuspect = 1;
     [SerializeField] private int maxFoodTypesPerSuspect = 3;
     [SerializeField] private int maxQuantityPerFood = 3;
 #endif
+
+    [Header("Leaving the memory")]
+    //The interrogation room is both where a memory is chosen and where the player comes back to when
+    //they are done with it, whether or not they served everyone.
+    [SerializeField] private string interrogationSceneName = "MainScene";
+    [SerializeField] private KeyCode leaveMemoryKey = KeyCode.Escape;
+    //Where the food on the board comes back from when a memory is resumed. Left empty it is found in
+    //the scene, since the refill screen is usually switched off and easy to forget to wire up.
+    [SerializeField] private RefillStationMinigame refillStation;
+    //the memory being restored, read by StartMemory in place of resetting the orders. Null on a fresh
+    //start, which is every entry except coming back to a memory left half served.
+    private InterrogationRoom.MemorySnapshot restoringFrom;
 
     private void Awake()
     {
@@ -73,7 +88,17 @@ public class GameDirectorMemories : MonoBehaviour
         }
         activeMemoryIndex = memoryIndex;
         MemoryInfo memory = memories[memoryIndex];
-        ResetOrders(memory);
+        //Resuming puts the orders back as they were left; anything else hands them out whole. This has
+        //to happen before the suspects are spawned below, because the focus lights are hung on whoever
+        //is still owed an order and would otherwise light up people who have already been served.
+        if (restoringFrom != null)
+        {
+            RestoreOrders(memory, restoringFrom);
+        }
+        else
+        {
+            ResetOrders(memory);
+        }
         ClearFocusLights();
         SpawnVictim(memory);
         foreach (SuspectSpawnInfo suspectInfo in memory.suspectSpawnInfos)
@@ -145,29 +170,326 @@ public class GameDirectorMemories : MonoBehaviour
         return memory != null && memory.hasVictim ? memory.victimInfo : null;
     }
 
+    //Which memory this is comes from the interrogation room, which wrote it down on its way out of its
+    //own scene. Nothing written means the dining room was opened on its own - straight from the editor,
+    //most likely - and it is left alone for the M key below to drive, exactly as it always was.
+    private void Start()
+    {
+        int requested = InterrogationRoom.CaseFile.TakeRequestedMemory();
+        if (requested >= 0)
+        {
+            //Arriving from the interrogation room, so a memory left half served is picked up where it
+            //was left. Choosing a memory from the detective threw that away on the way out, so by the
+            //time the request gets here there is only a snapshot to find if resuming was what was meant.
+            EnterMemory(requested, true);
+        }
+    }
+
     public void Update()
     {
         //if the player presses m the game will start the first memory memory 0 and if pressed again it will start the next memory and so on until the last memory is reached then it will loop back to the first memory
         if (Input.GetKeyDown(KeyCode.M))
         {
-            //delete all the suspects in the scene before spawning the new ones using the tag "Suspect"
-            try
-            {
-                GameObject[] existingSuspects = GameObject.FindGameObjectsWithTag("Suspect");
-                foreach (GameObject suspect in existingSuspects)
-                {
-                    Destroy(suspect);
-                }
-            }
-            catch
-            {
-                Debug.LogWarning("No suspects found to destroy.");
-            }
-            StartMemory(CurrentMemoryIndex);
-            Player.GetComponent<PlayerControlsDiningRoom>().findSuspects();
+            //a debug key for flipping through the memories, so it always deals a fresh one
+            EnterMemory(CurrentMemoryIndex, false);
             CurrentMemoryIndex = (CurrentMemoryIndex + 1) % memories.Length;
         }
+        //the way back to the interrogation room, which is also the only thing that records how this
+        //memory went, so leaving is a real action rather than just a scene change
+        if (Input.GetKeyDown(leaveMemoryKey))
+        {
+            LeaveMemory();
+        }
         RefreshSuspectsStatusDisplay();
+    }
+
+    //Clears the room and puts a memory in it. Both ways in go through here, so a memory started from
+    //the interrogation room is set up exactly the same as one started with the M key.
+    public void EnterMemory(int memoryIndex, bool resumeIfSaved)
+    {
+        //delete all the suspects in the scene before spawning the new ones using the tag "Suspect"
+        try
+        {
+            GameObject[] existingSuspects = GameObject.FindGameObjectsWithTag("Suspect");
+            foreach (GameObject suspect in existingSuspects)
+            {
+                Destroy(suspect);
+            }
+        }
+        catch
+        {
+            Debug.LogWarning("No suspects found to destroy.");
+        }
+        restoringFrom = resumeIfSaved ? InterrogationRoom.CaseFile.GetSnapshot(memoryIndex) : null;
+        StartMemory(memoryIndex);
+        if (restoringFrom != null)
+        {
+            //The orders went back inside StartMemory, because the spawn had to see them. The board and
+            //the player are nothing to do with spawning, so they go back out here.
+            RestoreBoard(restoringFrom);
+            RestorePlayerPosition(restoringFrom);
+        }
+        restoringFrom = null;
+        if (Player != null)
+        {
+            PlayerControlsDiningRoom controls = Player.GetComponent<PlayerControlsDiningRoom>();
+            if (controls != null)
+            {
+                controls.findSuspects();
+            }
+        }
+    }
+
+    //Everything the player did in this memory that the scene file knows nothing about. Taken at the
+    //moment they walk out, which is the only moment it can be taken: the scene is torn down straight
+    //after and there is nothing left to read.
+    private InterrogationRoom.MemorySnapshot CaptureSnapshot()
+    {
+        InterrogationRoom.MemorySnapshot snapshot = new InterrogationRoom.MemorySnapshot();
+        snapshot.memoryIndex = activeMemoryIndex;
+        if (Player != null)
+        {
+            snapshot.hasPlayerPosition = true;
+            snapshot.playerPosition = Player.transform.position;
+        }
+        CaptureBoard(snapshot);
+        CaptureOrders(snapshot);
+        return snapshot;
+    }
+
+    //What is still on the charcuterie board, and where on it. Food that has been served is not on the
+    //board any more - it was carried onto a suspect's plate and retagged - so it never reaches here,
+    //which is what makes the board come back depleted by exactly what was handed out.
+    private void CaptureBoard(InterrogationRoom.MemorySnapshot snapshot)
+    {
+        if (charcuterieFoodParent == null)
+        {
+            return;
+        }
+        foreach (Transform child in charcuterieFoodParent.transform)
+        {
+            //the same rule the order roll counts stock by: untagged things are scenery and "Served"
+            //food is spoken for
+            if (child.CompareTag("Untagged") || child.CompareTag("Served"))
+            {
+                continue;
+            }
+            snapshot.board.Add(new InterrogationRoom.MemorySnapshot.BoardItem
+            {
+                foodTag = child.tag,
+                localPosition = child.localPosition,
+                localRotation = child.localRotation,
+                localScale = child.localScale
+            });
+        }
+    }
+
+    private void CaptureOrders(InterrogationRoom.MemorySnapshot snapshot)
+    {
+        MemoryInfo memory = GetActiveMemory();
+        if (memory == null || memory.suspectSpawnInfos == null)
+        {
+            return;
+        }
+        foreach (SuspectSpawnInfo suspectInfo in memory.suspectSpawnInfos)
+        {
+            InterrogationRoom.MemorySnapshot.SuspectState state =
+                new InterrogationRoom.MemorySnapshot.SuspectState();
+            //an empty entry still takes its place in the list, so the positions keep lining up with the
+            //memory's own array on the way back in
+            if (suspectInfo != null)
+            {
+                state.suspectName = suspectInfo.suspect != null ? suspectInfo.suspect.name : null;
+                state.isServed = suspectInfo.isServed;
+                if (suspectInfo.foodItems != null)
+                {
+                    foreach (FoodItem foodItem in suspectInfo.foodItems)
+                    {
+                        if (foodItem != null)
+                        {
+                            state.foods.Add(new InterrogationRoom.MemorySnapshot.FoodRemaining
+                            {
+                                foodItemId = foodItem.foodItemId,
+                                remaining = foodItem.remaining
+                            });
+                        }
+                    }
+                }
+            }
+            snapshot.suspects.Add(state);
+        }
+    }
+
+    //The other side of ResetOrders: instead of handing everyone their whole order back, everyone gets
+    //back exactly what they were still owed, and whoever had already been served stays served.
+    private void RestoreOrders(MemoryInfo memory, InterrogationRoom.MemorySnapshot snapshot)
+    {
+        if (memory == null || memory.suspectSpawnInfos == null)
+        {
+            return;
+        }
+        for (int i = 0; i < memory.suspectSpawnInfos.Length; i++)
+        {
+            SuspectSpawnInfo suspectInfo = memory.suspectSpawnInfos[i];
+            if (suspectInfo == null)
+            {
+                continue;
+            }
+            InterrogationRoom.MemorySnapshot.SuspectState state = i < snapshot.suspects.Count
+                ? snapshot.suspects[i]
+                : null;
+            if (state == null)
+            {
+                //nothing was written down for this one, so it starts the memory owing its whole order
+                ResetSuspectOrder(suspectInfo);
+                continue;
+            }
+            suspectInfo.isServed = state.isServed;
+            if (suspectInfo.foodItems == null)
+            {
+                continue;
+            }
+            foreach (FoodItem foodItem in suspectInfo.foodItems)
+            {
+                if (foodItem == null)
+                {
+                    continue;
+                }
+                //matched by id rather than by position, so a food missing from the snapshot falls back
+                //to its authored quantity instead of silently taking the next one's count
+                foodItem.remaining = FindRemaining(state, foodItem.foodItemId, foodItem.quantity);
+            }
+        }
+        shownServedCount = -1;
+        RefreshSuspectsStatusDisplay();
+    }
+
+    private static int FindRemaining(InterrogationRoom.MemorySnapshot.SuspectState state, string foodItemId,
+        int fallback)
+    {
+        foreach (InterrogationRoom.MemorySnapshot.FoodRemaining food in state.foods)
+        {
+            if (food.foodItemId == foodItemId)
+            {
+                return food.remaining;
+            }
+        }
+        return fallback;
+    }
+
+    //Puts back the board the player walked out carrying. The scene has just laid out its own authored
+    //board, so that is cleared first: what the player was actually holding replaces it wholesale rather
+    //than being added to it.
+    private void RestoreBoard(InterrogationRoom.MemorySnapshot snapshot)
+    {
+        if (charcuterieFoodParent == null)
+        {
+            return;
+        }
+        RefillStationMinigame station = ResolveRefillStation();
+        if (station == null)
+        {
+            Debug.LogWarning("No refill station found, so the charcuterie board cannot be put back as it was left.");
+            return;
+        }
+        Transform board = charcuterieFoodParent.transform;
+        for (int i = board.childCount - 1; i >= 0; i--)
+        {
+            Transform child = board.GetChild(i);
+            //Only the food is swapped out, on exactly the rule the capture used. Anything else the
+            //board carries was never written down and so cannot be put back, and clearing it here
+            //would quietly strip the board of it a little more every time a memory is resumed.
+            if (child.CompareTag("Untagged") || child.CompareTag("Served"))
+            {
+                continue;
+            }
+            //unparented first: Destroy only takes effect at the end of the frame, and the restored food
+            //is going in right now, which would otherwise leave the board double stocked in between
+            child.SetParent(null, false);
+            Destroy(child.gameObject);
+        }
+        foreach (InterrogationRoom.MemorySnapshot.BoardItem item in snapshot.board)
+        {
+            GameObject foodPrefab = station.FindFoodPrefab(item.foodTag);
+            if (foodPrefab == null)
+            {
+                Debug.LogWarning("No food prefab tagged '" + item.foodTag + "', so that piece cannot be put back on the board.");
+                continue;
+            }
+            GameObject food = Instantiate(foodPrefab, board, false);
+            food.transform.localPosition = item.localPosition;
+            food.transform.localRotation = item.localRotation;
+            food.transform.localScale = item.localScale;
+        }
+    }
+
+    private RefillStationMinigame ResolveRefillStation()
+    {
+        if (refillStation == null)
+        {
+            //the refill screen spends most of its life switched off, so the search has to look at the
+            //objects that are not currently active too
+            refillStation = FindFirstObjectByType<RefillStationMinigame>(FindObjectsInactive.Include);
+        }
+        return refillStation;
+    }
+
+    private void RestorePlayerPosition(InterrogationRoom.MemorySnapshot snapshot)
+    {
+        if (Player == null || !snapshot.hasPlayerPosition)
+        {
+            return;
+        }
+        Player.transform.position = snapshot.playerPosition;
+        //the camera is put wherever the player is on every frame, so it lands on them by itself and
+        //there is nothing to move here
+    }
+
+    //Serving everyone is what finishes a memory. Walking out on anything less leaves it on the Memory
+    //button in the interrogation room to be picked up again, which is the whole reason that button
+    //exists, so the count is taken here at the moment the player leaves rather than assumed either way.
+    public bool IsActiveMemoryComplete()
+    {
+        MemoryInfo memory = GetActiveMemory();
+        if (memory == null || memory.suspectSpawnInfos == null)
+        {
+            return false;
+        }
+        bool anySuspects = false;
+        foreach (SuspectSpawnInfo suspectInfo in memory.suspectSpawnInfos)
+        {
+            if (suspectInfo == null || suspectInfo.suspect == null)
+            {
+                continue;
+            }
+            anySuspects = true;
+            if (!suspectInfo.isServed)
+            {
+                return false;
+            }
+        }
+        return anySuspects;
+    }
+
+    //Hands the result back to the case file and returns to the interrogation room. Public so an exit
+    //button in the dining room's own UI can leave the same way the key does.
+    public void LeaveMemory()
+    {
+        bool complete = IsActiveMemoryComplete();
+        //Written down before the result is reported, because reporting a finished memory is what throws
+        //the old snapshot away - and taken only for a memory that is actually still in progress, since
+        //a finished one is never walked back into.
+        if (activeMemoryIndex >= 0 && !complete)
+        {
+            InterrogationRoom.CaseFile.SaveSnapshot(CaptureSnapshot());
+        }
+        InterrogationRoom.CaseFile.ReportMemoryLeft(activeMemoryIndex, complete);
+        if (string.IsNullOrEmpty(interrogationSceneName))
+        {
+            Debug.LogError("No interrogation room scene set, so there is nowhere to go back to.");
+            return;
+        }
+        UnityEngine.SceneManagement.SceneManager.LoadScene(interrogationSceneName);
     }
 
     //The authored quantity is the order itself and is never written to; serving counts down a separate
@@ -181,25 +503,31 @@ public class GameDirectorMemories : MonoBehaviour
         }
         foreach (SuspectSpawnInfo suspectInfo in memory.suspectSpawnInfos)
         {
-            if (suspectInfo == null)
-            {
-                continue;
-            }
-            suspectInfo.isServed = false;
-            if (suspectInfo.foodItems == null)
-            {
-                continue;
-            }
-            foreach (FoodItem foodItem in suspectInfo.foodItems)
-            {
-                if (foodItem != null)
-                {
-                    foodItem.remaining = foodItem.quantity;
-                }
-            }
+            ResetSuspectOrder(suspectInfo);
         }
         shownServedCount = -1;
         RefreshSuspectsStatusDisplay();
+    }
+
+    //one suspect handed their whole order back, unserved
+    private static void ResetSuspectOrder(SuspectSpawnInfo suspectInfo)
+    {
+        if (suspectInfo == null)
+        {
+            return;
+        }
+        suspectInfo.isServed = false;
+        if (suspectInfo.foodItems == null)
+        {
+            return;
+        }
+        foreach (FoodItem foodItem in suspectInfo.foodItems)
+        {
+            if (foodItem != null)
+            {
+                foodItem.remaining = foodItem.quantity;
+            }
+        }
     }
 
 #if UNITY_EDITOR
