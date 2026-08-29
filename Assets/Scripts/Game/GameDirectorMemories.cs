@@ -9,6 +9,7 @@ public class GameDirectorMemories : MonoBehaviour
     private int activeMemoryIndex = -1;
     [SerializeField] private GameObject uiSuspectsStatusDisplay;
     [SerializeField] private string suspectsStatusLabel = "Clients Served";
+    [SerializeField] private GameObject conversationUI; // UI element to display the conversation lines
     private TMPro.TextMeshProUGUI suspectsStatusText;
     private int shownServedCount = -1;
     private int shownSuspectCount = -1;
@@ -20,6 +21,8 @@ public class GameDirectorMemories : MonoBehaviour
     //that can cover the drop from up there, or the light hangs above the room lighting nothing.
     [SerializeField] private Vector3 focusLightOffset = new Vector3(0f, 25f, 0f);
     private readonly Dictionary<GameObject, GameObject> focusLights = new Dictionary<GameObject, GameObject>();
+    //the victim copy standing in the room for the memory being played, if this one has a victim at all
+    private GameObject spawnedVictim;
     // Update is called once per frame
     [SerializeField] private MemoryInfo[] memories; // array of MemoryInfo for each memory in the game
     [SerializeField] private GameObject CharactersParent; // parent object that will hold all the characters in the scene
@@ -72,6 +75,7 @@ public class GameDirectorMemories : MonoBehaviour
         MemoryInfo memory = memories[memoryIndex];
         ResetOrders(memory);
         ClearFocusLights();
+        SpawnVictim(memory);
         foreach (SuspectSpawnInfo suspectInfo in memory.suspectSpawnInfos)
         {
             if (suspectInfo.suspect != null)
@@ -98,6 +102,47 @@ public class GameDirectorMemories : MonoBehaviour
                 Debug.LogError("Suspect prefab is null in memory index: " + memoryIndex);
             }
         }
+    }
+
+    //Only some memories have one, and the victim is there to be listened to rather than served: no order,
+    //no serve prompt, and deliberately no focus light. The lights mark the suspects who still owe an
+    //order, so putting one over someone who can never be served would be reading the room wrong.
+    private void SpawnVictim(MemoryInfo memory)
+    {
+        //the previous memory's victim is not tagged "Suspect", so nothing else clears it away
+        if (spawnedVictim != null)
+        {
+            Destroy(spawnedVictim);
+            spawnedVictim = null;
+        }
+        if (memory == null || !memory.hasVictim || memory.victimInfo == null || memory.victimInfo.victim == null)
+        {
+            return;
+        }
+        spawnedVictim = Instantiate(memory.victimInfo.victim, memory.victimInfo.spawnCoordinates, Quaternion.identity, CharactersParent.transform);
+        spawnedVictim.name = spawnedVictim.name.Replace("(Clone)", "").Trim();
+        //sorted against the player and the suspects from where they stand, the same as everyone else
+        if (spawnedVictim.GetComponent<CharacterDepthSort>() == null)
+        {
+            spawnedVictim.AddComponent<CharacterDepthSort>();
+        }
+    }
+
+    //the victim standing in the room right now, or null in a memory that has none
+    public GameObject GetVictim()
+    {
+        return spawnedVictim;
+    }
+
+    //the authored line and coordinates behind that victim, for whoever needs to read it out
+    public VictimInfo GetActiveVictimInfo()
+    {
+        if (activeMemoryIndex < 0 || activeMemoryIndex >= memories.Length)
+        {
+            return null;
+        }
+        MemoryInfo memory = memories[activeMemoryIndex];
+        return memory != null && memory.hasVictim ? memory.victimInfo : null;
     }
 
     public void Update()
@@ -466,6 +511,7 @@ public class GameDirectorMemories : MonoBehaviour
         public Vector3 spawnCoordinates; // x,y,z coordinates
         public FoodItem[] foodItems; // array of FoodItem for each food item served to the suspect
         public bool isServed; // true if the suspect has been served, false if not
+        public string conversation0; // conversation lines for the suspect when first aproached
         public string conversation1;
         public string conversation2;
     }
@@ -473,6 +519,8 @@ public class GameDirectorMemories : MonoBehaviour
     public class MemoryInfo
     {
         public SuspectSpawnInfo[] suspectSpawnInfos; // array of SuspectSpawnInfo for each suspect in this memory
+        public bool hasVictim; // true if the memory has a victim, false if not
+        public VictimInfo victimInfo; // VictimInfo for the victim in this memory
     }
     [System.Serializable]
     public class FoodItem
@@ -484,5 +532,12 @@ public class GameDirectorMemories : MonoBehaviour
         //how many are still owed this run. Serving counts this down and leaves quantity untouched, so
         //the order sitting in the scene is still there to be handed back when the memory starts again.
         [System.NonSerialized] public int remaining;
+    }
+    [System.Serializable]
+    public class VictimInfo
+    {
+        public GameObject victim;
+        public Vector3 spawnCoordinates; // x,y,z coordinates
+        public string conversation0; // conversation lines for the victim when first aproached
     }
 }

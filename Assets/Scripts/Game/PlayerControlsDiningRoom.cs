@@ -1,4 +1,7 @@
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class PlayerControlsDiningRoom : MonoBehaviour
 {
@@ -17,6 +20,57 @@ public class PlayerControlsDiningRoom : MonoBehaviour
     //opened in one of two modes: the suspect's own charcuterie run, or the refill station's.
     [SerializeField] private GameObject refillStation;
     [SerializeField] private float refillRange = 3f;
+    //The victim is walked up to and listened to, nothing more: no order, no serve prompt, and no
+    //spotlight - those belong to the suspects who still owe one.
+    [SerializeField] private float victimRange = 7f;
+    private GameObject currentVictim;
+    //When first approached a suspect says their piece before the board opens: the serve prompt and the
+    //E press are both held back until the line has finished typing itself out and been left up its beat.
+    //How long that is comes from the line itself, so a long one is never cut short and a short one is
+    //never sat through.
+    [SerializeField] private float charactersPerSecond = 28f;
+    [SerializeField] private float lineReadPause = 2f;
+    //words wrapped in *asterisks* in any conversation line come out in this colour, and ride a wave so
+    //they catch the eye while the rest of the line sits still
+    [SerializeField] private Color highlightColor = new Color(1f, 0.85f, 0.4f, 1f);
+    [SerializeField] private float waveAmplitude = 4f;
+    [SerializeField] private float waveFrequency = 6f;
+    [SerializeField] private float waveCharacterStep = 0.55f;
+    //where the highlighted words landed in the line currently up, for the wave to find them again
+    private readonly List<Vector2Int> highlightRanges = new List<Vector2Int>();
+    //the wait worked out for whichever line is on screen, and when it went up
+    private float lineDuration;
+    //The suspect does the talking when first approached, the same as on the serving board: their line
+    //sits in its own panel next to a portrait cropped from their own dining room sprite, so no separate
+    //face art has to exist for it.
+    [Header("Conversation")]
+    [SerializeField] private GameObject ConversationUI;
+    [SerializeField] private TextMeshProUGUI conversationText;
+    [SerializeField] private Image suspectPortrait;// the frame the face is cropped into
+    [SerializeField] private string suspectFaceName = "Suspect Face";
+    [SerializeField, Range(0.05f, 1f)] private float faceHeight = 0.18f;
+    [SerializeField] private Vector2 facePivot = new Vector2(0.5f, 0.88f);
+    //the suspect whose line is currently playing, and when it started. Walking away and back, or on to
+    //a different suspect, restarts the line from the top.
+    private GameObject conversationSuspect;
+    private float conversationStartTime;
+    //After serving, the suspect gets the last word: conversation2 plays in the same panel and the
+    //player is held in place until it is done, then the panel closes and they are free to walk off.
+    //It is timed the same way as the greeting, off the length of the line being spoken.
+    private GameObject servedConversationSuspect;
+    private float servedConversationEndTime = -1f;
+    //Both lines make the player wait - the first holds back the serve prompt, the second holds the
+    //player still - and a panel of text with nothing moving on it reads as the game having hung. A ring
+    //that empties as the wait runs down says "this is going somewhere" without adding another line to
+    //read. It is built in code so it needs nothing wired up in the scene to appear.
+    [Header("Conversation timer")]
+    [SerializeField] private float timerRingSize = 54f;
+    //Zero sits the ring's centre exactly on the panel's top left corner, straddling it. This is a nudge
+    //away from there, not a position, so it can be left alone. Renamed from the old inset field on
+    //purpose: that one still holds a corner inset, and reusing it would drag the ring back inwards.
+    [SerializeField] private Vector2 timerRingNudge = Vector2.zero;
+    [SerializeField] private Color timerRingColor = new Color(1f, 0.85f, 0.4f, 0.95f);
+    private Image timerRing;
     private bool isCameraFollowingPlayer = true;
     private bool atRefillStation;
     private CharcuterieBoardMinigame serveMinigame;
@@ -119,6 +173,21 @@ public class PlayerControlsDiningRoom : MonoBehaviour
     }
     void Update()
     {
+        //ahead of the early return below, so the ring keeps counting down through the served line too
+        UpdateConversationTimer();
+        //a suspect just served is having the last word; the player is frozen and every other check is
+        //skipped until conversation2 has been up its four seconds
+        if (servedConversationSuspect != null)
+        {
+            if (Time.time < servedConversationEndTime)
+            {
+                SetWalking(false);
+                return;
+            }
+            HideConversation();
+            servedConversationSuspect = null;
+            servedConversationEndTime = -1f;
+        }
         //basic wasd movement but up to a limit of -29 and 29 and in the z axis it should also be locked and staggered to 17.97
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
@@ -165,14 +234,34 @@ public class PlayerControlsDiningRoom : MonoBehaviour
             }
         }
         isCameraFollowingPlayer = currentSuspect == null;
+        //a suspect waiting to be served always comes first, so the victim is only listened to when
+        //nobody is owed an order nearby
+        currentVictim = currentSuspect == null ? FindVictimInRange() : null;
         //the station is only offered when nobody is waiting to be served, so one prompt is on screen
         //at a time and the suspect in front of the player always comes first
         atRefillStation = currentSuspect == null && IsAtRefillStation();
 
         if (currentSuspect != null)
         {
-            popup.SetActive(true);
-            popup.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = "Press E to Serve food to " + currentSuspect.name;
+            //start the line over whenever the suspect being faced changes
+            if (currentSuspect != conversationSuspect)
+            {
+                conversationSuspect = currentSuspect;
+                conversationStartTime = Time.time;
+                GameDirectorMemories.SuspectSpawnInfo info = GetSuspectInfo(currentSuspect);
+                ShowConversation(currentSuspect, info != null ? info.conversation0 : string.Empty);
+            }
+            //the line plays first, then it steps aside for the serve prompt
+            if (ConversationFinished())
+            {
+                HideConversation();
+                popup.SetActive(true);
+                popup.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = "Press E to Serve food to " + currentSuspect.name;
+            }
+            else
+            {
+                popup.SetActive(false);
+            }
             focusLight.SetActive(true);
             //move the focus light to the suspect's position but 25 units above the suspect
             focusLight.transform.position = currentSuspect.transform.position + new Vector3(0, 25, 0);
@@ -184,6 +273,28 @@ public class PlayerControlsDiningRoom : MonoBehaviour
         }
         else
         {
+            //The victim talks on approach and that is the whole of it: he is never served, so there is no
+            //prompt to hold his line back for and it simply plays for as long as the player stands there.
+            if (currentVictim != null)
+            {
+                //start the line over whenever the player walks up to him again
+                if (currentVictim != conversationSuspect)
+                {
+                    conversationSuspect = currentVictim;
+                    conversationStartTime = Time.time;
+                    GameDirectorMemories.VictimInfo victimInfo = GetVictimInfo();
+                    ShowConversation(currentVictim, victimInfo != null ? victimInfo.conversation0 : string.Empty);
+                }
+            }
+            else
+            {
+                //nobody in front of us, so no line is playing
+                if (conversationSuspect != null)
+                {
+                    HideConversation();
+                }
+                conversationSuspect = null;
+            }
             popup.SetActive(atRefillStation);
             if (atRefillStation)
             {
@@ -205,6 +316,8 @@ public class PlayerControlsDiningRoom : MonoBehaviour
             if(CharcuterieBoard.activeSelf || Time.frameCount == boardClosedFrame) return;
             if(currentSuspect != null)
             {
+                //E does nothing until the suspect has finished their line
+                if(!ConversationFinished()) return;
                 print("Serving food to " + currentSuspect.name);
                 OpenCharcuterieBoard(false);
             }
@@ -361,6 +474,188 @@ public class PlayerControlsDiningRoom : MonoBehaviour
     public GameObject GetCurrentSuspect()
     {
         return currentSuspect;
+    }
+
+    //true once the current suspect's opening line has been on screen long enough to serve them
+    private bool ConversationFinished()
+    {
+        return conversationSuspect == null || Time.time - conversationStartTime >= lineDuration;
+    }
+
+    //Only conversation0 is spoken here: the suspect's opening line when first approached.
+    private void ShowConversation(GameObject suspect, string line)
+    {
+        //nothing to talk to, so the panel stays out of the way
+        if (suspect == null)
+        {
+            HideConversation();
+            return;
+        }
+        if (ConversationUI != null)
+        {
+            ConversationUI.SetActive(true);
+        }
+        //the clock starts here rather than at the call sites, so every line is timed from the moment it
+        //actually goes up and the served line gets the same treatment as the greeting
+        conversationStartTime = Time.time;
+        lineDuration = ConversationLine.Begin(conversationText, line, highlightColor,
+                                              charactersPerSecond, lineReadPause, highlightRanges);
+        BuildSuspectPortrait(suspect);
+    }
+
+    private GameDirectorMemories.SuspectSpawnInfo GetSuspectInfo(GameObject suspect)
+    {
+        if (suspect == null || gameDirector == null)
+        {
+            return null;
+        }
+        return gameDirector.GetComponent<GameDirectorMemories>().GetSuspectSpawnInfo(suspect);
+    }
+
+    //Called by the serving board the moment an order is filled and the board hands the room back. The
+    //suspect says their closing line in the same panel and the player is frozen until it finishes.
+    public void BeginServedConversation(GameObject suspect)
+    {
+        if (suspect == null)
+        {
+            return;
+        }
+        GameDirectorMemories.SuspectSpawnInfo info = GetSuspectInfo(suspect);
+        servedConversationSuspect = suspect;
+        ShowConversation(suspect, info != null ? info.conversation2 : string.Empty);
+        //ShowConversation has just worked out what this particular line needs, so the hold matches it
+        servedConversationEndTime = conversationStartTime + lineDuration;
+    }
+
+    //Shows what is left of whichever wait is running, and nothing at all when none is. The victim is
+    //deliberately absent from this: his line is not holding anything back, so there is nothing to wait
+    //for and a countdown over it would be a promise of something that never arrives.
+    private void UpdateConversationTimer()
+    {
+        if (timerRing == null)
+        {
+            timerRing = ConversationTimerRing.Create(ConversationUI, "Conversation Timer");
+        }
+        if (timerRing == null)
+        {
+            return;
+        }
+        float remaining = 0f;
+        float duration = 0f;
+        if (servedConversationSuspect != null && servedConversationEndTime > 0f)
+        {
+            //the last word after serving, with the player held in place until it is done
+            remaining = servedConversationEndTime - Time.time;
+            duration = lineDuration;
+        }
+        else if (currentSuspect != null && conversationSuspect != null && !ConversationFinished())
+        {
+            //the greeting, which the serve prompt is waiting on
+            remaining = lineDuration - (Time.time - conversationStartTime);
+            duration = lineDuration;
+        }
+        //Typed out whoever is speaking, the victim included: his line is not holding anything back, so
+        //he gets no ring above, but it still arrives a word at a time like everyone else's.
+        ConversationLine.Reveal(conversationText, Time.time - conversationStartTime, charactersPerSecond);
+        //after the reveal, so the wave only ever lifts letters that have already been typed out
+        ConversationLine.Wave(conversationText, highlightRanges, Time.time,
+                              waveAmplitude, waveFrequency, waveCharacterStep);
+        //reapplied while it is on screen, so the size, nudge and colour picker can all be dragged around
+        //in play mode and the result seen straight away
+        if (remaining > 0f && duration > 0f)
+        {
+            ConversationTimerRing.ApplyStyle(timerRing, timerRingSize, timerRingNudge, timerRingColor);
+        }
+        ConversationTimerRing.ShowRemaining(timerRing, remaining, duration);
+    }
+
+    //The director owns the victim, the same as it owns the suspects, so he is asked for rather than
+    //hunted down by tag - which also keeps him out of the "Suspect" sweep that serves and clears them.
+    private GameObject FindVictimInRange()
+    {
+        GameDirectorMemories memories = gameDirector != null ? gameDirector.GetComponent<GameDirectorMemories>() : null;
+        GameObject victim = memories != null ? memories.GetVictim() : null;
+        if (victim == null)
+        {
+            return null;
+        }
+        //measured across the floor, so standing beside him counts however tall he or the player is
+        float range = victimRange > 0f ? victimRange : 7f;
+        return FloorDistance(victim.transform.position) < range ? victim : null;
+    }
+
+    private GameDirectorMemories.VictimInfo GetVictimInfo()
+    {
+        GameDirectorMemories memories = gameDirector != null ? gameDirector.GetComponent<GameDirectorMemories>() : null;
+        return memories != null ? memories.GetActiveVictimInfo() : null;
+    }
+
+    private void HideConversation()
+    {
+        ClearSuspectPortrait();
+        if (ConversationUI != null)
+        {
+            ConversationUI.SetActive(false);
+        }
+    }
+
+    //Crops the suspect's own sprite down to their face inside the portrait frame, exactly as the
+    //serving board does: the frame clips whatever hangs outside it, so the crop is a matter of making
+    //the sprite far bigger than the frame and sliding the head into the middle of it.
+    private void BuildSuspectPortrait(GameObject suspect)
+    {
+        ClearSuspectPortrait();
+        if (suspectPortrait == null || suspect == null)
+        {
+            return;
+        }
+        SpriteRenderer renderer = suspect.GetComponentInChildren<SpriteRenderer>(true);
+        Sprite face = renderer != null ? renderer.sprite : null;
+        if (face == null)
+        {
+            return;
+        }
+        Rect frame = suspectPortrait.rectTransform.rect;
+        if (frame.width <= 0f || frame.height <= 0f)
+        {
+            return;
+        }
+        if (suspectPortrait.GetComponent<RectMask2D>() == null)
+        {
+            suspectPortrait.gameObject.AddComponent<RectMask2D>();
+        }
+
+        GameObject faceObject = new GameObject(suspectFaceName, typeof(RectTransform), typeof(Image));
+        faceObject.layer = suspectPortrait.gameObject.layer;
+        RectTransform faceRect = (RectTransform)faceObject.transform;
+        faceRect.SetParent(suspectPortrait.transform, false);
+        faceRect.anchorMin = new Vector2(0.5f, 0.5f);
+        faceRect.anchorMax = new Vector2(0.5f, 0.5f);
+        faceRect.pivot = new Vector2(0.5f, 0.5f);
+
+        Image faceImage = faceObject.GetComponent<Image>();
+        faceImage.sprite = face;
+        faceImage.raycastTarget = false;
+
+        float height = frame.height / Mathf.Max(faceHeight, 0.01f);
+        float width = height * (face.rect.width / face.rect.height);
+        faceRect.sizeDelta = new Vector2(width, height);
+        faceRect.anchoredPosition = new Vector2((0.5f - facePivot.x) * width, (0.5f - facePivot.y) * height);
+    }
+
+    private void ClearSuspectPortrait()
+    {
+        if (suspectPortrait == null)
+        {
+            return;
+        }
+        foreach (Transform child in suspectPortrait.transform)
+        {
+            if (child.name == suspectFaceName)
+            {
+                Destroy(child.gameObject);
+            }
+        }
     }
     public void findSuspects()
     {

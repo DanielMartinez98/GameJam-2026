@@ -26,17 +26,27 @@ public class RefillStationMinigame : MonoBehaviour
     [SerializeField] private Vector2 plateSpacing = new Vector2(24f, 12f);
     [SerializeField, Range(0.2f, 1f)] private float plateFoodScale = 0.62f;
     [SerializeField] private float headerHeight = 74f;
-    [SerializeField] private string hint = "Hold right click on a plate to take food and drag it onto the board. Drop it back on the plates to take it off. Press E to leave.";
+    [SerializeField] private string hint = "Click and hold on a plate to take food, or on food already on the board to move it. Drop it anywhere off the board to get rid of it. Press E to leave.";
+    //Refusing to hand over food is the one thing this screen does that the player cannot see the reason
+    //for, so it says so along the bottom rather than just ignoring the click.
+    [SerializeField] private string boardFullMessage = "The board is full. Take something off it before adding more.";
+    [SerializeField] private float boardFullMessageSeconds = 2.5f;
+    [SerializeField] private float boardFullMessageHeight = 90f;
 
     private PlayerControlsDiningRoom playerControls;
     private Canvas canvas;
     private TextMeshProUGUI capacityText;
+    private TextMeshProUGUI boardFullText;
+    //when the message stops showing; unscaled so a paused game would still clear it
+    private float boardFullHideTime;
     private RectTransform plateGrid;
     //what each built plate hands out, so a right click on one knows what to make
     private readonly Dictionary<GameObject, GameObject> plateFood = new Dictionary<GameObject, GameObject>();
     private readonly List<RaycastResult> raycastResults = new List<RaycastResult>();
     private RectTransform draggedFood;
     private bool draggedFromPlate;
+    //which button started the drag, so letting go of that same button is what drops the food
+    private int draggingButton = -1;
     private Vector3 draggedFrom;
     private int shownCount = -1;
     private int openedFrame = -1;
@@ -86,21 +96,33 @@ public class RefillStationMinigame : MonoBehaviour
         {
             return;
         }
-        if (Input.GetMouseButtonDown(1))
+        //Either button picks food up. Right click is what this screen has always asked for, but dragging
+        //with the left is what a player reaches for first, and nothing else on this screen wants a click.
+        if (draggedFood == null)
         {
-            BeginDrag();
+            if (Input.GetMouseButtonDown(0))
+            {
+                draggingButton = 0;
+                BeginDrag();
+            }
+            else if (Input.GetMouseButtonDown(1))
+            {
+                draggingButton = 1;
+                BeginDrag();
+            }
         }
         if (draggedFood != null)
         {
             DragTo(Input.mousePosition);
             //asked as "is the button still held" rather than "was it released", so a click that goes
             //down and up inside one frame still lets go of the food
-            if (!Input.GetMouseButton(1))
+            if (draggingButton < 0 || !Input.GetMouseButton(draggingButton))
             {
                 EndDrag();
             }
         }
         RefreshCapacity();
+        ExpireBoardFullMessage();
         if (Input.GetKeyDown(KeyCode.E) && draggedFood == null && playerControls != null)
         {
             playerControls.CloseCharcuterieBoard();
@@ -132,11 +154,19 @@ public class RefillStationMinigame : MonoBehaviour
             return;
         }
         GameObject foodPrefab = FindPlateFood(hit);
+        //TEMPORARY diagnostic - delete once the plate/board pattern is understood
+        Debug.Log("[Refill] DOWN hit=" + hit.name
+            + " parent=" + (hit.transform.parent != null ? hit.transform.parent.name : "none")
+            + " | resolvedPlate=" + (foodPrefab != null ? foodPrefab.name : "no")
+            + " | resolvedBoardFood=" + (FindBoardFood(hit) != null ? FindBoardFood(hit).name : "no")
+            + " | boardChildren=" + board.childCount
+            + " | count=" + CountBoardItems() + "/" + boardCapacity);
         if (foodPrefab != null)
         {
             //the plate never runs out, only the board fills up
             if (CountBoardItems() >= boardCapacity)
             {
+                ShowBoardFullMessage();
                 return;
             }
             GameObject food = Instantiate(foodPrefab, board, false);
@@ -157,9 +187,11 @@ public class RefillStationMinigame : MonoBehaviour
         draggedFood = food;
         draggedFromPlate = fromPlate;
         draggedFrom = food.position;
-        //carried on the canvas itself so it is never lost behind the board or under the plates.
-        //Keeping the world transform means it neither jumps nor resizes on the way out or back.
-        food.SetParent(transform, true);
+        //Carried inside the board rather than lifted out onto the canvas. The board is where the food was
+        //drawn and where it is going, and leaving it there means it keeps rendering exactly as it did
+        //sitting still - lifting it out was what made it vanish for the trip. Last sibling so it rides
+        //over the rest of the food instead of under it.
+        food.SetParent(board, true);
         food.SetAsLastSibling();
         DragTo(Input.mousePosition);
     }
@@ -177,34 +209,32 @@ public class RefillStationMinigame : MonoBehaviour
 
     private void EndDrag()
     {
-        Vector2 mouse = Input.mousePosition;
-        if (OverPlates(mouse))
+        //TEMPORARY diagnostic - delete alongside the one in BeginDrag
+        Debug.Log("[Refill] UP   food=" + (draggedFood != null ? draggedFood.name : "null")
+            + " fromPlate=" + draggedFromPlate
+            + " | onBoard=" + FoodIsOnBoard(draggedFood)
+            + " -> " + (FoodIsOnBoard(draggedFood) ? "KEPT" : "DELETED")
+            + " | localPos=" + (draggedFood != null && board != null
+                ? board.InverseTransformPoint(draggedFood.position).ToString() : "n/a")
+            + " | boardRect=" + (board != null ? board.rect.ToString() : "n/a"));
+        if (FoodIsOnBoard(draggedFood))
         {
-            //put back where the food comes from, so the board simply does not have it
-            Destroy(draggedFood.gameObject);
-        }
-        else if (RectTransformUtility.RectangleContainsScreenPoint(board, mouse, UICamera()))
-        {
-            //left exactly where the player let go of it, and back under the board so it is stock again
-            draggedFood.SetParent(board, true);
+            //left exactly where the player let go of it
             draggedFood.SetAsLastSibling();
-        }
-        else if (draggedFromPlate)
-        {
-            //never reached the board, so nothing came off the plate after all
-            Destroy(draggedFood.gameObject);
         }
         else
         {
-            //let go over nothing, so the board keeps it where it was picked up from
-            draggedFood.SetParent(board, true);
-            draggedFood.position = draggedFrom;
+            //Off the board is a discard, the plates included. Food only exists on the board, so letting
+            //go of a piece anywhere else is how it is taken back off - whether it came from a plate a
+            //moment ago or had been sitting on the board all along.
+            Destroy(draggedFood.gameObject);
         }
         draggedFood = null;
+        draggingButton = -1;
     }
 
-    //leaving mid drag must not strand a food item on the canvas, where it is neither on the board nor
-    //back on its plate
+    //leaving mid drag must not strand a piece halfway: one taken off a plate never made it onto the
+    //board, and one already on the board has a spot of its own to go back to
     private void CancelDrag()
     {
         if (draggedFood == null)
@@ -217,16 +247,25 @@ public class RefillStationMinigame : MonoBehaviour
         }
         else
         {
-            draggedFood.SetParent(board, true);
+            //walking out mid drag is not a discard, so it goes back where it was picked up from
             draggedFood.position = draggedFrom;
         }
         draggedFood = null;
+        draggingButton = -1;
     }
 
-    private bool OverPlates(Vector2 screenPoint)
+    //Asked of the food rather than of the cursor, and answered in the board's own local space: the food
+    //is a child of the board, so this is a straight transform comparison with no screen or camera
+    //conversion in it. Going through screen coordinates is what made a piece dropped squarely on the
+    //board read as off it.
+    private bool FoodIsOnBoard(RectTransform food)
     {
-        RectTransform panel = refillPanel != null ? refillPanel.transform as RectTransform : null;
-        return panel != null && RectTransformUtility.RectangleContainsScreenPoint(panel, screenPoint, UICamera());
+        if (food == null || board == null)
+        {
+            return false;
+        }
+        Vector3 local = board.InverseTransformPoint(food.position);
+        return board.rect.Contains(new Vector2(local.x, local.y));
     }
 
     //what the cursor is over, topmost first, so overlapping food picks the one the player can see
@@ -295,12 +334,8 @@ public class RefillStationMinigame : MonoBehaviour
                 }
             }
         }
-        //whatever is in the player's hand either came off the board or is on its way onto it, so the
-        //count does not dip while a drag is in the air
-        if (draggedFood != null && IsFood(draggedFood))
-        {
-            count++;
-        }
+        //food in hand stays parented to the board for the whole drag, so it is already in the count
+        //above - the total does not dip while a piece is in the air, and it is not counted twice either
         return count;
     }
 
@@ -313,6 +348,7 @@ public class RefillStationMinigame : MonoBehaviour
             return;
         }
         BuildPanelLayout();
+        BuildBoardFullMessage();
         foreach (GameObject foodPrefab in foodPrefabs)
         {
             if (foodPrefab != null)
@@ -424,6 +460,12 @@ public class RefillStationMinigame : MonoBehaviour
         plateFood.Clear();
         capacityText = null;
         plateGrid = null;
+        //this one hangs off the canvas rather than the panel, so clearing the panel would leave it behind
+        if (boardFullText != null)
+        {
+            Destroy(boardFullText.gameObject);
+            boardFullText = null;
+        }
         if (refillPanel == null)
         {
             return;
@@ -451,6 +493,62 @@ public class RefillStationMinigame : MonoBehaviour
         string countColour = count >= boardCapacity ? "#FF8A6E" : "#FFFFFF";
         capacityText.text = "<size=130%><color=" + countColour + ">" + count + "</color> / " + boardCapacity +
             " on the board</size>\n" + hint;
+    }
+
+    //The message hangs off the canvas root rather than the plate panel, because the panel is up at the
+    //top of the screen and a refusal belongs along the bottom, near the board the player is aiming at.
+    private void BuildBoardFullMessage()
+    {
+        GameObject message = new GameObject("Board Full Message", typeof(RectTransform), typeof(TextMeshProUGUI));
+        message.layer = gameObject.layer;
+        RectTransform rect = (RectTransform)message.transform;
+        rect.SetParent(transform, false);
+        rect.anchorMin = new Vector2(0f, 0f);
+        rect.anchorMax = new Vector2(1f, 0f);
+        rect.pivot = new Vector2(0.5f, 0f);
+        //held a little off the bottom edge rather than flush against it
+        rect.anchoredPosition = new Vector2(0f, 24f);
+        //these fields were added to a component that was already sitting in the scene, so Unity can hand
+        //them back as zero rather than as the value written above. A zero height is an invisible message.
+        rect.sizeDelta = new Vector2(0f, boardFullMessageHeight > 0f ? boardFullMessageHeight : 90f);
+        //drawn after the board and the plates, so it is never hidden behind them
+        rect.SetAsLastSibling();
+        boardFullText = message.GetComponent<TextMeshProUGUI>();
+        boardFullText.alignment = TextAlignmentOptions.Bottom;
+        boardFullText.fontSize = 30f;
+        //the same warning colour the counter turns when the board is full
+        boardFullText.color = new Color32(0xFF, 0x8A, 0x6E, 0xFF);
+        boardFullText.raycastTarget = false;
+        message.SetActive(false);
+    }
+
+    //shown on the click that was refused, so the reason arrives with the click that caused it
+    private void ShowBoardFullMessage()
+    {
+        if (boardFullText == null)
+        {
+            return;
+        }
+        //same reason as the height above: an empty string or a zero delay would swallow the message
+        boardFullText.text = string.IsNullOrEmpty(boardFullMessage)
+            ? "The board is full. Take something off it before adding more."
+            : boardFullMessage;
+        boardFullText.gameObject.SetActive(true);
+        //food dragged onto the canvas is parented here too, so the message is lifted back on top
+        boardFullText.rectTransform.SetAsLastSibling();
+        boardFullHideTime = Time.unscaledTime + (boardFullMessageSeconds > 0f ? boardFullMessageSeconds : 2.5f);
+    }
+
+    private void ExpireBoardFullMessage()
+    {
+        if (boardFullText == null || !boardFullText.gameObject.activeSelf)
+        {
+            return;
+        }
+        if (Time.unscaledTime >= boardFullHideTime)
+        {
+            boardFullText.gameObject.SetActive(false);
+        }
     }
 
     //an overlay canvas takes a null camera, anything else needs the one it renders through

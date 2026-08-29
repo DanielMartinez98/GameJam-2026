@@ -58,6 +58,28 @@ public class CharcuterieBoardMinigame : MonoBehaviour
     [SerializeField, Range(0.1f, 1f)] private float plateSpread = 0.8f;
     //counting down while the finished board is being held; negative means nothing is pending
     private float servedExitCountdown = -1f;
+    //The one wait on this screen is that hold, where the order is already done and the player is
+    //watching a finished plate with no idea anything is still coming. The same ring the dining room
+    //uses says how much of it is left. Centred on the conversation panel's top left corner.
+    [Header("Conversation timer")]
+    [SerializeField] private float timerRingSize = 54f;
+    [SerializeField] private Vector2 timerRingNudge = Vector2.zero;
+    [SerializeField] private Color timerRingColor = new Color(1f, 0.85f, 0.4f, 0.95f);
+    //the suspect's line types itself out at this rate and is then left up for the pause, exactly as in
+    //the dining room, so the two screens speak at the same speed
+    [SerializeField] private float charactersPerSecond = 28f;
+    [SerializeField] private float lineReadPause = 2f;
+    //words wrapped in *asterisks* in the suspect's line come out in this colour, and ride a wave so they
+    //catch the eye while the rest of the line sits still
+    [SerializeField] private Color highlightColor = new Color(1f, 0.85f, 0.4f, 1f);
+    [SerializeField] private float waveAmplitude = 4f;
+    [SerializeField] private float waveFrequency = 6f;
+    [SerializeField] private float waveCharacterStep = 0.55f;
+    //where the highlighted words landed in the line currently up, for the wave to find them again
+    private readonly List<Vector2Int> highlightRanges = new List<Vector2Int>();
+    private float conversationStartTime;
+    private float lineDuration;
+    private Image timerRing;
     private PlayerControlsDiningRoom playerControls;
     private GameObject currentSuspect;
     private GameObject handPrefab;
@@ -201,6 +223,8 @@ public class CharcuterieBoardMinigame : MonoBehaviour
         // in the food item display the food that the suspect desires should be displayed. with a counter of how many items are left to serve.
         //once the suspect eats all the food they desire the suspects served status should be set to true in the game director's memories
         // and the minigame should end and return to the dining room.
+        //ahead of the early return below, so the ring keeps counting down through the hold it is timing
+        UpdateConversationTimer();
         //The order is already complete and the screen is on its way out, so the rest of this is done
         //with: the hand has nothing left to fetch, and no prompt should appear over the finished board
         //in the beat before it goes.
@@ -210,7 +234,11 @@ public class CharcuterieBoardMinigame : MonoBehaviour
             if(servedExitCountdown <= 0f)
             {
                 servedExitCountdown = -1f;
+                //captured before the board closes: closing disables this component and clears it
+                GameObject servedSuspect = currentSuspect;
                 playerControls.CloseCharcuterieBoard();
+                //the suspect gets the last word out in the room, with the player held in place for it
+                playerControls.BeginServedConversation(servedSuspect);
             }
             return;
         }
@@ -250,7 +278,9 @@ public class CharcuterieBoardMinigame : MonoBehaviour
                 }
                 else
                 {
+                    GameObject servedSuspect = currentSuspect;
                     playerControls.CloseCharcuterieBoard();
+                    playerControls.BeginServedConversation(servedSuspect);
                 }
                 return;
             }
@@ -739,6 +769,47 @@ public class CharcuterieBoardMinigame : MonoBehaviour
         }
     }
 
+    //The suspect's line sits up for the whole screen and is not holding anything back, so it gets no
+    //ring. The hold after the order is finished does: everything is done, the plate is just being looked
+    //at, and without this the wait reads as the game having stopped rather than as a beat.
+    private void UpdateConversationTimer()
+    {
+        if (timerRing == null)
+        {
+            timerRing = ConversationTimerRing.Create(ConversationUI, "Conversation Timer");
+        }
+        if (timerRing == null)
+        {
+            return;
+        }
+        //the line arrives a character at a time whether or not anything is waiting on it
+        ConversationLine.Reveal(conversationText, Time.time - conversationStartTime, charactersPerSecond);
+        //after the reveal, so the wave only ever lifts letters that have already been typed out
+        ConversationLine.Wave(conversationText, highlightRanges, Time.time,
+                              waveAmplitude, waveFrequency, waveCharacterStep);
+
+        float remaining;
+        float duration;
+        if (servedExitCountdown >= 0f)
+        {
+            //the screen is on its way out, which outranks anything the suspect is still saying
+            remaining = servedExitCountdown;
+            duration = servedExitDelay;
+        }
+        else
+        {
+            //the suspect's line, timed off its own length
+            remaining = lineDuration - (Time.time - conversationStartTime);
+            duration = lineDuration;
+        }
+        //reapplied while it is on screen so the fields can be tuned in play mode and seen straight away
+        if (remaining > 0f && duration > 0f)
+        {
+            ConversationTimerRing.ApplyStyle(timerRing, timerRingSize, timerRingNudge, timerRingColor);
+        }
+        ConversationTimerRing.ShowRemaining(timerRing, remaining, duration);
+    }
+
     //Only conversation1 is spoken for now, conversation2 is authored but nothing reads it yet.
     private void ShowConversation()
     {
@@ -753,10 +824,12 @@ public class CharcuterieBoardMinigame : MonoBehaviour
             return;
         }
         ConversationUI.SetActive(true);
-        if (conversationText != null)
-        {
-            conversationText.text = currentSuspectInfo.conversation1;
-        }
+        //timed off the line itself, the same as the dining room: as long as it takes to type, plus a
+        //beat to read it whole
+        conversationStartTime = Time.time;
+        lineDuration = ConversationLine.Begin(conversationText, currentSuspectInfo.conversation1,
+                                              highlightColor, charactersPerSecond, lineReadPause,
+                                              highlightRanges);
         BuildSuspectPortrait();
     }
 

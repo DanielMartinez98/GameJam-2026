@@ -646,7 +646,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1193354434980615184, guid: 4591248b9dad9704b9eb3685fb7f30de, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 19.165653
+      value: -12.494345
       objectReference: {fileID: 0}
     - target: {fileID: 1193354434980615184, guid: 4591248b9dad9704b9eb3685fb7f30de, type: 3}
       propertyPath: m_LocalPosition.y
@@ -654,7 +654,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1193354434980615184, guid: 4591248b9dad9704b9eb3685fb7f30de, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.4000639
+      value: 3.789936
       objectReference: {fileID: 0}
     - target: {fileID: 1193354434980615184, guid: 4591248b9dad9704b9eb3685fb7f30de, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1393,7 +1393,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 134882808}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1547,7 +1547,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Press E to talk to Blank
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7038e5b9ee55a3a4092c806d5504ca4c, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -1614,7 +1614,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &148484442
@@ -1879,6 +1879,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameDirectorMemories
   uiSuspectsStatusDisplay: {fileID: 125228954}
   suspectsStatusLabel: Clients Served
+  conversationUI: {fileID: 719603271}
   focusLight: {fileID: 164968801}
   focusLightOffset: {x: 0, y: 25, z: 0}
   memories:
@@ -1927,11 +1928,13 @@ MonoBehaviour:
         quantity: 0
         foodItemSprite: {fileID: -7697116855385614072, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       isServed: 0
-      conversation1: 
-      conversation2: 
+      conversation0: So, yo are the person amara hired? let me check out the refreshments
+      conversation1: looks delicious, this party is going to be great
+      conversation2: I will only give you one piece, of advice, money buys everything
+        and everyone. remember that
     - suspect: {fileID: 6005352612164674842, guid: d0f8bbb778fc0724d822efa7e7fb403c, type: 3}
       hand: {fileID: 5266195450174147428, guid: 15f373097b371384fa199b81e0877704, type: 3}
-      spawnCoordinates: {x: -40, y: 0, z: 0}
+      spawnCoordinates: {x: -13, y: 0, z: 3}
       foodItems:
       - foodItemId: BlueBerries
         quantity: 0
@@ -1973,11 +1976,13 @@ MonoBehaviour:
         quantity: 0
         foodItemSprite: {fileID: -7697116855385614072, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       isServed: 0
-      conversation1: 
-      conversation2: 
+      conversation0: i cant believe I am the only person that can see through her
+      conversation1: yum!!! \n  looks delicious
+      conversation2: i am sure, I just have to get her to spill something related
+        to her husbands death, and they have to let me reopen that case
     - suspect: {fileID: 6005352612164674842, guid: 016b3cd060395b142aafe2a713d5b21e, type: 3}
       hand: {fileID: 5266195450174147428, guid: de5f3501b5c04da4183b08b140034fb8, type: 3}
-      spawnCoordinates: {x: -30, y: 0, z: 0}
+      spawnCoordinates: {x: 0, y: 0, z: -9}
       foodItems:
       - foodItemId: BlueBerries
         quantity: 0
@@ -2019,11 +2024,14 @@ MonoBehaviour:
         quantity: 0
         foodItemSprite: {fileID: -7697116855385614072, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       isServed: 0
-      conversation1: 
-      conversation2: 
+      conversation0: hey there, start working, i dont pay you to stay arround, let
+        me see that charcuterie tray
+      conversation1: looks great, please try and keep the Grapes away from the cheese,
+        *<color=#FFD966>I am allergic to Grapes</color>*
+      conversation2: great job, please offer food to all the other clients
     - suspect: {fileID: 6005352612164674842, guid: dbd471d496f5cd444a3b41c3734ce0cf, type: 3}
       hand: {fileID: 5266195450174147428, guid: 2a66b65aa46eefb44a913dfafd8b1bae, type: 3}
-      spawnCoordinates: {x: -20, y: 0, z: 0}
+      spawnCoordinates: {x: 32, y: 0, z: 0}
       foodItems:
       - foodItemId: BlueBerries
         quantity: 0
@@ -2065,8 +2073,11 @@ MonoBehaviour:
         quantity: 0
         foodItemSprite: {fileID: -7697116855385614072, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       isServed: 0
-      conversation1: 
-      conversation2: 
+      conversation0: hey come here, im sooo hungry!!!
+      conversation1: oh yeaah, all this food looks great, though not as good as miss
+        amelia
+      conversation2: dang that hit the spot, hey wont you be a pal and be my wingman,*
+        <color=#FFD966>i need to get it on with miss amelia</color>*
     - suspect: {fileID: 4510430641581738031, guid: a8392fe46d8f28846a1efc097f80c317, type: 3}
       hand: {fileID: 5266195450174147428, guid: 85fd62b42363787498acda5dde61aeeb, type: 3}
       spawnCoordinates: {x: 1, y: 0, z: 12}
@@ -2111,11 +2122,14 @@ MonoBehaviour:
         quantity: 0
         foodItemSprite: {fileID: -7697116855385614072, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       isServed: 0
-      conversation1: 
-      conversation2: 
+      conversation0: hey come here, the baron told me I could get some food
+      conversation1: yum good stuff, you and me we are in the same situation, living
+        paycheck to paycheck, but let me tell you something i got a plan
+      conversation2: you see that woman over there, she is a recent widow, and she
+        inhererited a lot of money, that my friend is how you get an easy life
     - suspect: {fileID: 4117511751265744529, guid: cc1acc51b47926a4b87ec6690078bf98, type: 3}
       hand: {fileID: 5266195450174147428, guid: 671d9af8ae5ef8649abc67f1ea08560a, type: 3}
-      spawnCoordinates: {x: 0, y: 0, z: 0}
+      spawnCoordinates: {x: 16, y: 0, z: 8}
       foodItems:
       - foodItemId: BlueBerries
         quantity: 0
@@ -2157,15 +2171,24 @@ MonoBehaviour:
         quantity: 0
         foodItemSprite: {fileID: -7697116855385614072, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       isServed: 0
-      conversation1: 
-      conversation2: 
+      conversation0: uhhh, oh hey there, can you please come here a sec
+      conversation1: i need your help, this creep the "Mayor" is clearly drunk and
+        wont leave me alone, can you be a dear and get rid of him
+      conversation2: ok fine, can you at least tell your friend to stop serving him
+        alocohol, he is drunk enough as it is
+    hasVictim: 1
+    victimInfo:
+      victim: {fileID: 4117511751265744529, guid: d22b7bfcf6099d341856661069cc49fe, type: 3}
+      spawnCoordinates: {x: 16, y: 0, z: -12}
+      conversation0: hey, im very nervous arround so many rich people, i feel like
+        im going to screw up
   - suspectSpawnInfos:
     - suspect: {fileID: 6005352612164674842, guid: d1cd7c6e5784546448afe4a7735bbade, type: 3}
       hand: {fileID: 5266195450174147428, guid: 663565842d91c6b4f8d50f4271548ff8, type: 3}
-      spawnCoordinates: {x: -50, y: 0, z: 0}
+      spawnCoordinates: {x: -50, y: 0, z: 5}
       foodItems:
       - foodItemId: BlueBerries
-        quantity: 0
+        quantity: 1
         foodItemSprite: {fileID: -6080153740424670305, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Cheese
         quantity: 0
@@ -2177,7 +2200,7 @@ MonoBehaviour:
         quantity: 0
         foodItemSprite: {fileID: -4609095546709445191, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Cracker
-        quantity: 1
+        quantity: 0
         foodItemSprite: {fileID: -7376048997147925194, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Garnish
         quantity: 0
@@ -2189,13 +2212,13 @@ MonoBehaviour:
         quantity: 0
         foodItemSprite: {fileID: -2048464571593184402, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Nuts
-        quantity: 1
+        quantity: 0
         foodItemSprite: {fileID: 3750132874793683344, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Oranges
         quantity: 0
         foodItemSprite: {fileID: -1725846796255364204, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Pickles
-        quantity: 0
+        quantity: 1
         foodItemSprite: {fileID: 3052231692086169073, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Salami
         quantity: 0
@@ -2204,20 +2227,22 @@ MonoBehaviour:
         quantity: 0
         foodItemSprite: {fileID: -7697116855385614072, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       isServed: 0
-      conversation1: 
-      conversation2: 
+      conversation0: So, yo are the person amara hired? let me check out the refreshments
+      conversation1: looks great, this party is going to be great
+      conversation2: I will only give you one piece, of advice, money buys everything
+        and everyone. remember that
     - suspect: {fileID: 6005352612164674842, guid: d0f8bbb778fc0724d822efa7e7fb403c, type: 3}
       hand: {fileID: 5266195450174147428, guid: 15f373097b371384fa199b81e0877704, type: 3}
-      spawnCoordinates: {x: -50, y: 0, z: 0}
+      spawnCoordinates: {x: -13, y: 0, z: 3}
       foodItems:
       - foodItemId: BlueBerries
         quantity: 0
         foodItemSprite: {fileID: -6080153740424670305, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Cheese
-        quantity: 1
+        quantity: 0
         foodItemSprite: {fileID: -3455651903386829094, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Cheese Blocks
-        quantity: 1
+        quantity: 0
         foodItemSprite: {fileID: 7360157024177469201, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Cheese Slices
         quantity: 0
@@ -2226,7 +2251,7 @@ MonoBehaviour:
         quantity: 0
         foodItemSprite: {fileID: -7376048997147925194, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Garnish
-        quantity: 0
+        quantity: 1
         foodItemSprite: {fileID: -797234318600969935, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Grapes
         quantity: 0
@@ -2250,17 +2275,19 @@ MonoBehaviour:
         quantity: 0
         foodItemSprite: {fileID: -7697116855385614072, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       isServed: 0
-      conversation1: 
-      conversation2: 
+      conversation0: i cant believe I am the only person that can see through her
+      conversation1: yum!!! \n  looks delicious
+      conversation2: i am sure, I just have to get her to admit that she killed her
+        husband, and they have to reopen that case
     - suspect: {fileID: 6005352612164674842, guid: 016b3cd060395b142aafe2a713d5b21e, type: 3}
       hand: {fileID: 5266195450174147428, guid: de5f3501b5c04da4183b08b140034fb8, type: 3}
-      spawnCoordinates: {x: -50, y: 0, z: 0}
+      spawnCoordinates: {x: 0, y: 0, z: -9}
       foodItems:
       - foodItemId: BlueBerries
         quantity: 0
         foodItemSprite: {fileID: -6080153740424670305, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Cheese
-        quantity: 2
+        quantity: 0
         foodItemSprite: {fileID: -3455651903386829094, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Cheese Blocks
         quantity: 0
@@ -2281,7 +2308,7 @@ MonoBehaviour:
         quantity: 0
         foodItemSprite: {fileID: -2048464571593184402, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Nuts
-        quantity: 0
+        quantity: 2
         foodItemSprite: {fileID: 3750132874793683344, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Oranges
         quantity: 0
@@ -2290,17 +2317,20 @@ MonoBehaviour:
         quantity: 0
         foodItemSprite: {fileID: 3052231692086169073, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Salami
-        quantity: 1
+        quantity: 0
         foodItemSprite: {fileID: -648068547666614581, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Strawberry
         quantity: 0
         foodItemSprite: {fileID: -7697116855385614072, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       isServed: 0
-      conversation1: 
-      conversation2: 
+      conversation0: hey there, start working, i dont pay you to stay arround, let
+        me see that charcuterie tray
+      conversation1: looks great, please try and keep the Grapes away from the cheese,
+        <color=#FFD966>I am allergic to Grapes</color>
+      conversation2: great job, please offer food to all the other clients
     - suspect: {fileID: 6005352612164674842, guid: dbd471d496f5cd444a3b41c3734ce0cf, type: 3}
       hand: {fileID: 5266195450174147428, guid: 2a66b65aa46eefb44a913dfafd8b1bae, type: 3}
-      spawnCoordinates: {x: -50, y: 0, z: 0}
+      spawnCoordinates: {x: 32, y: 0, z: 0}
       foodItems:
       - foodItemId: BlueBerries
         quantity: 0
@@ -2315,7 +2345,7 @@ MonoBehaviour:
         quantity: 0
         foodItemSprite: {fileID: -4609095546709445191, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Cracker
-        quantity: 1
+        quantity: 0
         foodItemSprite: {fileID: -7376048997147925194, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Garnish
         quantity: 0
@@ -2336,20 +2366,23 @@ MonoBehaviour:
         quantity: 0
         foodItemSprite: {fileID: 3052231692086169073, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Salami
-        quantity: 0
+        quantity: 1
         foodItemSprite: {fileID: -648068547666614581, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Strawberry
         quantity: 0
         foodItemSprite: {fileID: -7697116855385614072, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       isServed: 0
-      conversation1: 
-      conversation2: 
+      conversation0: hey come here, im sooo hungry!!!
+      conversation1: oh yeaah, all this food looks great, though not as good as miss
+        amelia
+      conversation2: dang that hit the spot, hey wont you be a pal and be my wingman,
+        <color=#FFD966>i need to get it on with miss amelia</color>
     - suspect: {fileID: 4510430641581738031, guid: a8392fe46d8f28846a1efc097f80c317, type: 3}
       hand: {fileID: 5266195450174147428, guid: 85fd62b42363787498acda5dde61aeeb, type: 3}
-      spawnCoordinates: {x: -50, y: 0, z: 0}
+      spawnCoordinates: {x: 1, y: 0, z: 12}
       foodItems:
       - foodItemId: BlueBerries
-        quantity: 1
+        quantity: 0
         foodItemSprite: {fileID: -6080153740424670305, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Cheese
         quantity: 0
@@ -2367,7 +2400,7 @@ MonoBehaviour:
         quantity: 0
         foodItemSprite: {fileID: -797234318600969935, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Grapes
-        quantity: 0
+        quantity: 1
         foodItemSprite: {fileID: -8949105817906397048, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Half Salami
         quantity: 0
@@ -2376,7 +2409,7 @@ MonoBehaviour:
         quantity: 0
         foodItemSprite: {fileID: 3750132874793683344, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Oranges
-        quantity: 2
+        quantity: 0
         foodItemSprite: {fileID: -1725846796255364204, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Pickles
         quantity: 0
@@ -2388,11 +2421,14 @@ MonoBehaviour:
         quantity: 0
         foodItemSprite: {fileID: -7697116855385614072, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       isServed: 0
-      conversation1: 
-      conversation2: 
+      conversation0: hey come here, the baron told me I could get some food
+      conversation1: yum good stuff, you and me we are in the same situation, living
+        paycheck to paycheck, but let me tell you something i got a plan
+      conversation2: you see that woman over there, she is a recent widow, and she
+        inhererited a lot of money, that my friend is how you get an easy life
     - suspect: {fileID: 4117511751265744529, guid: cc1acc51b47926a4b87ec6690078bf98, type: 3}
       hand: {fileID: 5266195450174147428, guid: 671d9af8ae5ef8649abc67f1ea08560a, type: 3}
-      spawnCoordinates: {x: -50, y: 0, z: 0}
+      spawnCoordinates: {x: 16, y: 0, z: 8}
       foodItems:
       - foodItemId: BlueBerries
         quantity: 0
@@ -2404,10 +2440,10 @@ MonoBehaviour:
         quantity: 0
         foodItemSprite: {fileID: 7360157024177469201, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Cheese Slices
-        quantity: 0
+        quantity: 2
         foodItemSprite: {fileID: -4609095546709445191, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Cracker
-        quantity: 1
+        quantity: 0
         foodItemSprite: {fileID: -7376048997147925194, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Garnish
         quantity: 0
@@ -2422,7 +2458,7 @@ MonoBehaviour:
         quantity: 0
         foodItemSprite: {fileID: 3750132874793683344, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Oranges
-        quantity: 1
+        quantity: 0
         foodItemSprite: {fileID: -1725846796255364204, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Pickles
         quantity: 0
@@ -2431,18 +2467,27 @@ MonoBehaviour:
         quantity: 0
         foodItemSprite: {fileID: -648068547666614581, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Strawberry
-        quantity: 1
+        quantity: 0
         foodItemSprite: {fileID: -7697116855385614072, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       isServed: 0
-      conversation1: 
-      conversation2: 
+      conversation0: uhhh, oh hey there, can you please come here a sec
+      conversation1: i need your help, this creep the "Mayor" is clearly drunk and
+        wont leave me alone, can you be a dear and get rid of him
+      conversation2: ok fine, can you at least tell your friend to stop serving him
+        alocohol, he is drunk enough as it is
+    hasVictim: 1
+    victimInfo:
+      victim: {fileID: 4117511751265744529, guid: d22b7bfcf6099d341856661069cc49fe, type: 3}
+      spawnCoordinates: {x: 16, y: 0, z: -12}
+      conversation0: hey, im very nervous arround so many rich people, i feel like
+        im going to screw up
   - suspectSpawnInfos:
     - suspect: {fileID: 6005352612164674842, guid: d1cd7c6e5784546448afe4a7735bbade, type: 3}
       hand: {fileID: 5266195450174147428, guid: 663565842d91c6b4f8d50f4271548ff8, type: 3}
-      spawnCoordinates: {x: -50, y: 0, z: 0}
+      spawnCoordinates: {x: -50, y: 0, z: 5}
       foodItems:
       - foodItemId: BlueBerries
-        quantity: 0
+        quantity: 1
         foodItemSprite: {fileID: -6080153740424670305, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Cheese
         quantity: 0
@@ -2454,7 +2499,7 @@ MonoBehaviour:
         quantity: 0
         foodItemSprite: {fileID: -4609095546709445191, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Cracker
-        quantity: 2
+        quantity: 0
         foodItemSprite: {fileID: -7376048997147925194, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Garnish
         quantity: 0
@@ -2472,20 +2517,22 @@ MonoBehaviour:
         quantity: 0
         foodItemSprite: {fileID: -1725846796255364204, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Pickles
-        quantity: 0
+        quantity: 1
         foodItemSprite: {fileID: 3052231692086169073, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Salami
         quantity: 0
         foodItemSprite: {fileID: -648068547666614581, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Strawberry
-        quantity: 1
+        quantity: 0
         foodItemSprite: {fileID: -7697116855385614072, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       isServed: 0
-      conversation1: 
-      conversation2: 
+      conversation0: So, yo are the person amara hired? let me check out the refreshments
+      conversation1: looks great, this party is going to be great
+      conversation2: I will only give you one piece, of advice, money buys everything
+        and everyone. remember that
     - suspect: {fileID: 6005352612164674842, guid: d0f8bbb778fc0724d822efa7e7fb403c, type: 3}
       hand: {fileID: 5266195450174147428, guid: 15f373097b371384fa199b81e0877704, type: 3}
-      spawnCoordinates: {x: -50, y: 0, z: 0}
+      spawnCoordinates: {x: -13, y: 0, z: 3}
       foodItems:
       - foodItemId: BlueBerries
         quantity: 0
@@ -2497,13 +2544,13 @@ MonoBehaviour:
         quantity: 0
         foodItemSprite: {fileID: 7360157024177469201, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Cheese Slices
-        quantity: 1
+        quantity: 0
         foodItemSprite: {fileID: -4609095546709445191, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Cracker
         quantity: 0
         foodItemSprite: {fileID: -7376048997147925194, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Garnish
-        quantity: 0
+        quantity: 1
         foodItemSprite: {fileID: -797234318600969935, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Grapes
         quantity: 0
@@ -2527,14 +2574,16 @@ MonoBehaviour:
         quantity: 0
         foodItemSprite: {fileID: -7697116855385614072, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       isServed: 0
-      conversation1: 
-      conversation2: 
+      conversation0: i cant believe I am the only person that can see through her
+      conversation1: yum!!! \n  looks delicious
+      conversation2: i am sure, I just have to get her to admit that she killed her
+        husband, and they have to reopen that case
     - suspect: {fileID: 6005352612164674842, guid: 016b3cd060395b142aafe2a713d5b21e, type: 3}
       hand: {fileID: 5266195450174147428, guid: de5f3501b5c04da4183b08b140034fb8, type: 3}
-      spawnCoordinates: {x: -50, y: 0, z: 0}
+      spawnCoordinates: {x: 0, y: 0, z: -9}
       foodItems:
       - foodItemId: BlueBerries
-        quantity: 1
+        quantity: 0
         foodItemSprite: {fileID: -6080153740424670305, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Cheese
         quantity: 0
@@ -2558,10 +2607,10 @@ MonoBehaviour:
         quantity: 0
         foodItemSprite: {fileID: -2048464571593184402, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Nuts
-        quantity: 0
+        quantity: 2
         foodItemSprite: {fileID: 3750132874793683344, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Oranges
-        quantity: 1
+        quantity: 0
         foodItemSprite: {fileID: -1725846796255364204, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Pickles
         quantity: 0
@@ -2570,14 +2619,17 @@ MonoBehaviour:
         quantity: 0
         foodItemSprite: {fileID: -648068547666614581, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Strawberry
-        quantity: 1
+        quantity: 0
         foodItemSprite: {fileID: -7697116855385614072, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       isServed: 0
-      conversation1: 
-      conversation2: 
+      conversation0: hey there, start working, i dont pay you to stay arround, let
+        me see that charcuterie tray
+      conversation1: looks great, please try and keep the Grapes away from the cheese,
+        <color=#FFD966>I am allergic to Grapes</color>
+      conversation2: great job, please offer food to all the other clients
     - suspect: {fileID: 6005352612164674842, guid: dbd471d496f5cd444a3b41c3734ce0cf, type: 3}
       hand: {fileID: 5266195450174147428, guid: 2a66b65aa46eefb44a913dfafd8b1bae, type: 3}
-      spawnCoordinates: {x: -50, y: 0, z: 0}
+      spawnCoordinates: {x: 32, y: 0, z: 0}
       foodItems:
       - foodItemId: BlueBerries
         quantity: 0
@@ -2613,17 +2665,20 @@ MonoBehaviour:
         quantity: 0
         foodItemSprite: {fileID: 3052231692086169073, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Salami
-        quantity: 3
+        quantity: 1
         foodItemSprite: {fileID: -648068547666614581, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Strawberry
         quantity: 0
         foodItemSprite: {fileID: -7697116855385614072, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       isServed: 0
-      conversation1: 
-      conversation2: 
+      conversation0: hey come here, im sooo hungry!!!
+      conversation1: oh yeaah, all this food looks great, though not as good as miss
+        amelia
+      conversation2: dang that hit the spot, hey wont you be a pal and be my wingman,
+        <color=#FFD966>i need to get it on with miss amelia</color>
     - suspect: {fileID: 4510430641581738031, guid: a8392fe46d8f28846a1efc097f80c317, type: 3}
       hand: {fileID: 5266195450174147428, guid: 85fd62b42363787498acda5dde61aeeb, type: 3}
-      spawnCoordinates: {x: -50, y: 0, z: 0}
+      spawnCoordinates: {x: 1, y: 0, z: 12}
       foodItems:
       - foodItemId: BlueBerries
         quantity: 0
@@ -2635,7 +2690,7 @@ MonoBehaviour:
         quantity: 0
         foodItemSprite: {fileID: 7360157024177469201, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Cheese Slices
-        quantity: 1
+        quantity: 0
         foodItemSprite: {fileID: -4609095546709445191, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Cracker
         quantity: 0
@@ -2644,7 +2699,7 @@ MonoBehaviour:
         quantity: 0
         foodItemSprite: {fileID: -797234318600969935, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Grapes
-        quantity: 0
+        quantity: 1
         foodItemSprite: {fileID: -8949105817906397048, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Half Salami
         quantity: 0
@@ -2665,11 +2720,14 @@ MonoBehaviour:
         quantity: 0
         foodItemSprite: {fileID: -7697116855385614072, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       isServed: 0
-      conversation1: 
-      conversation2: 
+      conversation0: hey come here, the baron told me I could get some food
+      conversation1: yum good stuff, you and me we are in the same situation, living
+        paycheck to paycheck, but let me tell you something i got a plan
+      conversation2: you see that woman over there, she is a recent widow, and she
+        inhererited a lot of money, that my friend is how you get an easy life
     - suspect: {fileID: 4117511751265744529, guid: cc1acc51b47926a4b87ec6690078bf98, type: 3}
       hand: {fileID: 5266195450174147428, guid: 671d9af8ae5ef8649abc67f1ea08560a, type: 3}
-      spawnCoordinates: {x: -50, y: 0, z: 0}
+      spawnCoordinates: {x: 16, y: 0, z: 8}
       foodItems:
       - foodItemId: BlueBerries
         quantity: 0
@@ -2681,7 +2739,7 @@ MonoBehaviour:
         quantity: 0
         foodItemSprite: {fileID: 7360157024177469201, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Cheese Slices
-        quantity: 0
+        quantity: 2
         foodItemSprite: {fileID: -4609095546709445191, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Cracker
         quantity: 0
@@ -2708,11 +2766,20 @@ MonoBehaviour:
         quantity: 0
         foodItemSprite: {fileID: -648068547666614581, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Strawberry
-        quantity: 1
+        quantity: 0
         foodItemSprite: {fileID: -7697116855385614072, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       isServed: 0
-      conversation1: 
-      conversation2: 
+      conversation0: uhhh, oh hey there, can you please come here a sec
+      conversation1: i need your help, this creep the "Mayor" is clearly drunk and
+        wont leave me alone, can you be a dear and get rid of him
+      conversation2: ok fine, can you at least tell your friend to stop serving him
+        alocohol, he is drunk enough as it is
+    hasVictim: 1
+    victimInfo:
+      victim: {fileID: 4117511751265744529, guid: d22b7bfcf6099d341856661069cc49fe, type: 3}
+      spawnCoordinates: {x: 16, y: 0, z: -12}
+      conversation0: hey, im very nervous arround so many rich people, i feel like
+        im going to screw up
   CharactersParent: {fileID: 942661512}
   Player: {fileID: 1924154322}
   charcuterieFoodParent: {fileID: 1309673798}
@@ -2751,7 +2818,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 209411292}
   m_LocalRotation: {x: 0, y: 0, z: -0.99150175, w: 0.13009357}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2999,7 +3066,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8574264152740004483, guid: 9fd4ace6cccd9cd44ba4a13040de59b6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8574264152740004483, guid: 9fd4ace6cccd9cd44ba4a13040de59b6, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3074,7 +3141,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 223375506}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3675,7 +3742,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1193354434980615184, guid: 4591248b9dad9704b9eb3685fb7f30de, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -9
+      value: 8.089935
       objectReference: {fileID: 0}
     - target: {fileID: 1193354434980615184, guid: 4591248b9dad9704b9eb3685fb7f30de, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3975,7 +4042,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 364742348}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4327,7 +4394,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 418006934}
   m_LocalRotation: {x: 0, y: 0, z: -0.41802564, w: 0.9084353}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4476,7 +4543,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3907527903367605452, guid: 99a9cef48d044284f983a9401025f020, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3907527903367605452, guid: 99a9cef48d044284f983a9401025f020, type: 3}
       propertyPath: m_LocalRotation.w
@@ -4578,7 +4645,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1193354434980615184, guid: 4591248b9dad9704b9eb3685fb7f30de, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -11.67917
+      value: -14.03917
       objectReference: {fileID: 0}
     - target: {fileID: 1193354434980615184, guid: 4591248b9dad9704b9eb3685fb7f30de, type: 3}
       propertyPath: m_LocalRotation.w
@@ -5755,7 +5822,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 508409790}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6085,7 +6152,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 553390841}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6214,7 +6281,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3260861638834122555, guid: 2462142bcda5dad45975add9996018e1, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -8.61
+      value: 8.539935
       objectReference: {fileID: 0}
     - target: {fileID: 3260861638834122555, guid: 2462142bcda5dad45975add9996018e1, type: 3}
       propertyPath: m_LocalRotation.w
@@ -6536,7 +6603,7 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7038e5b9ee55a3a4092c806d5504ca4c, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -6603,7 +6670,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &571802311
@@ -7808,7 +7875,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1193354434980615184, guid: 4591248b9dad9704b9eb3685fb7f30de, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -11.279106
+      value: -13.639107
       objectReference: {fileID: 0}
     - target: {fileID: 1193354434980615184, guid: 4591248b9dad9704b9eb3685fb7f30de, type: 3}
       propertyPath: m_LocalRotation.w
@@ -8090,7 +8157,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 677848301}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8561,7 +8628,7 @@ MonoBehaviour:
   - {fileID: 752979474}
   - {fileID: 839389289}
   - {fileID: 117992002}
-  boardCapacity: 20
+  boardCapacity: 50
   foodPrefabs:
   - {fileID: 3309292579336335050, guid: 99a9cef48d044284f983a9401025f020, type: 3}
   - {fileID: 3451509647251433702, guid: 066dec54e27299841919f34fef79dbfb, type: 3}
@@ -8584,6 +8651,9 @@ MonoBehaviour:
   headerHeight: 74
   hint: Hold right click on a plate to take food and drag it onto the board. Drop
     it back on the plates to take it off. Press E to leave.
+  boardFullMessage: The board is full. Take something off it before adding more.
+  boardFullMessageSeconds: 2.5
+  boardFullMessageHeight: 90
 --- !u!1 &705255950
 GameObject:
   m_ObjectHideFlags: 0
@@ -8879,7 +8949,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 742188248}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9380,7 +9450,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 811785182}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9580,7 +9650,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 823669663}
   m_LocalRotation: {x: 0, y: 0, z: 0.65671736, w: 0.75413686}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10310,8 +10380,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 100, y: 0}
-  m_SizeDelta: {x: -200, y: 0}
+  m_AnchoredPosition: {x: 95, y: 0}
+  m_SizeDelta: {x: -210, y: -20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &867435400
 MonoBehaviour:
@@ -10335,7 +10405,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7038e5b9ee55a3a4092c806d5504ca4c, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -10402,7 +10472,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &867435401
@@ -11209,8 +11279,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 100, y: 0}
-  m_SizeDelta: {x: -200, y: 0}
+  m_AnchoredPosition: {x: 95, y: 0}
+  m_SizeDelta: {x: -210, y: -20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &971659029
 MonoBehaviour:
@@ -11234,8 +11304,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7038e5b9ee55a3a4092c806d5504ca4c, type: 2}
+  m_sharedMaterial: {fileID: -8705020708512728537, guid: 7038e5b9ee55a3a4092c806d5504ca4c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -11262,8 +11332,8 @@ MonoBehaviour:
   m_fontSize: 50
   m_fontSizeBase: 50
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 6
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 2
@@ -11414,7 +11484,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 975303583}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -11888,7 +11958,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1011446599}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -13111,7 +13181,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1128433598}
   m_LocalRotation: {x: 0, y: 0, z: 0.65671736, w: 0.75413686}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -13233,7 +13303,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1147610919}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -13643,7 +13713,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1209801758}
   m_LocalRotation: {x: -0, y: 0, z: -0.9238796, w: -0.38268328}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -14278,7 +14348,7 @@ Transform:
   m_GameObject: {fileID: 1259510072}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071069, y: -0, z: 0.000000029802322, w: 0.7071067}
-  m_LocalPosition: {x: 16.145653, y: -0.98066664, z: 0.07993567}
+  m_LocalPosition: {x: -15.514345, y: -0.98066664, z: 5.2699356}
   m_LocalScale: {x: 1000.0001, y: 1000, z: 1000}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -14521,7 +14591,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1269341519}
   m_LocalRotation: {x: 0, y: 0, z: -0.8069603, w: 0.5906058}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -14724,7 +14794,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1294528494}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -14968,7 +15038,7 @@ Transform:
   m_GameObject: {fileID: 1333396235}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071069, y: -0, z: 0.000000029802322, w: 0.7071067}
-  m_LocalPosition: {x: 31.11, y: -0.98066664, z: -7.5200005}
+  m_LocalPosition: {x: 31.11, y: -0.98066664, z: 9.569935}
   m_LocalScale: {x: 1000.0001, y: 1000, z: 1000}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -15222,7 +15292,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3907527903367605452, guid: 99a9cef48d044284f983a9401025f020, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3907527903367605452, guid: 99a9cef48d044284f983a9401025f020, type: 3}
       propertyPath: m_LocalRotation.w
@@ -15321,7 +15391,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1357468069}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -15866,7 +15936,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3260861638834122555, guid: 2462142bcda5dad45975add9996018e1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 16.06
+      value: -15.599998
       objectReference: {fileID: 0}
     - target: {fileID: 3260861638834122555, guid: 2462142bcda5dad45975add9996018e1, type: 3}
       propertyPath: m_LocalPosition.y
@@ -15874,7 +15944,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3260861638834122555, guid: 2462142bcda5dad45975add9996018e1, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.67
+      value: 4.5199995
       objectReference: {fileID: 0}
     - target: {fileID: 3260861638834122555, guid: 2462142bcda5dad45975add9996018e1, type: 3}
       propertyPath: m_LocalRotation.w
@@ -16004,7 +16074,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1419684353}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -16914,7 +16984,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1484426379}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -17652,7 +17722,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9157924271501443928, guid: 755ee32b773522244b5669c29d5ebd96, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -11.74
+      value: -14.1
       objectReference: {fileID: 0}
     - target: {fileID: 9157924271501443928, guid: 755ee32b773522244b5669c29d5ebd96, type: 3}
       propertyPath: m_LocalRotation.w
@@ -17873,7 +17943,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1589980209}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -18070,7 +18140,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1609569002}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -18258,7 +18328,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1644573422}
   m_LocalRotation: {x: -0, y: 0, z: -0.6045992, w: -0.79652995}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -18494,8 +18564,8 @@ MonoBehaviour:
 
     3/6'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7038e5b9ee55a3a4092c806d5504ca4c, type: 2}
+  m_sharedMaterial: {fileID: -8705020708512728537, guid: 7038e5b9ee55a3a4092c806d5504ca4c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -19236,7 +19306,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1193354434980615184, guid: 4591248b9dad9704b9eb3685fb7f30de, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 13.16
+      value: -18.5
       objectReference: {fileID: 0}
     - target: {fileID: 1193354434980615184, guid: 4591248b9dad9704b9eb3685fb7f30de, type: 3}
       propertyPath: m_LocalPosition.y
@@ -19244,7 +19314,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1193354434980615184, guid: 4591248b9dad9704b9eb3685fb7f30de, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1
+      value: 4.19
       objectReference: {fileID: 0}
     - target: {fileID: 1193354434980615184, guid: 4591248b9dad9704b9eb3685fb7f30de, type: 3}
       propertyPath: m_LocalRotation.w
@@ -19370,7 +19440,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8574264152740004483, guid: 9fd4ace6cccd9cd44ba4a13040de59b6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8574264152740004483, guid: 9fd4ace6cccd9cd44ba4a13040de59b6, type: 3}
       propertyPath: m_LocalRotation.w
@@ -19921,7 +19991,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1842830621}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -20774,7 +20844,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8574264152740004483, guid: 9fd4ace6cccd9cd44ba4a13040de59b6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8574264152740004483, guid: 9fd4ace6cccd9cd44ba4a13040de59b6, type: 3}
       propertyPath: m_LocalRotation.w
@@ -21353,7 +21423,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1193354434980615184, guid: 4591248b9dad9704b9eb3685fb7f30de, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -8.599936
+      value: 8.49
       objectReference: {fileID: 0}
     - target: {fileID: 1193354434980615184, guid: 4591248b9dad9704b9eb3685fb7f30de, type: 3}
       propertyPath: m_LocalRotation.w
@@ -21754,7 +21824,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2010157859}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -21910,8 +21980,8 @@ MonoBehaviour:
 
     to exit Memory'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7038e5b9ee55a3a4092c806d5504ca4c, type: 2}
+  m_sharedMaterial: {fileID: -8705020708512728537, guid: 7038e5b9ee55a3a4092c806d5504ca4c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -22369,7 +22439,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2043140684}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -22574,7 +22644,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1193354434980615184, guid: 4591248b9dad9704b9eb3685fb7f30de, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -10.19917
+      value: -12.559171
       objectReference: {fileID: 0}
     - target: {fileID: 1193354434980615184, guid: 4591248b9dad9704b9eb3685fb7f30de, type: 3}
       propertyPath: m_LocalRotation.w
@@ -22855,7 +22925,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2097237758}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -23272,6 +23342,15 @@ MonoBehaviour:
   uiSortingOffset: 10
   servedExitDelay: 1
   plateSpread: 0.8
+  timerRingSize: 54
+  timerRingNudge: {x: 0, y: 0}
+  timerRingColor: {r: 0.49411765, g: 0.19215687, b: 0.58431375, a: 0.95}
+  charactersPerSecond: 28
+  lineReadPause: 2
+  highlightColor: {r: 1, g: 0.85, b: 0.4, a: 1}
+  waveAmplitude: 4
+  waveFrequency: 6
+  waveCharacterStep: 0.55
 --- !u!1001 &2143345915
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23582,7 +23661,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6569370146804409232, guid: f6110646c1ae3b6429053eddd626b211, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6569370146804409232, guid: f6110646c1ae3b6429053eddd626b211, type: 3}
       propertyPath: m_LocalRotation.w
@@ -23703,7 +23782,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8146908427794422894, guid: 83df760fa803cb744b644a2fdec3fdb3, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8146908427794422894, guid: 83df760fa803cb744b644a2fdec3fdb3, type: 3}
       propertyPath: m_LocalRotation.w
@@ -23796,7 +23875,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 122779448408800621, guid: 8f1ad7630b73eb14ea5f0dcaae16f48a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 122779448408800621, guid: 8f1ad7630b73eb14ea5f0dcaae16f48a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -23896,9 +23975,33 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1183991466}
     - target: {fileID: 1566921568050635018, guid: 7cd7a16d6f90b544e82e600194e5526d, type: 3}
+      propertyPath: ConversationUI
+      value: 
+      objectReference: {fileID: 719603271}
+    - target: {fileID: 1566921568050635018, guid: 7cd7a16d6f90b544e82e600194e5526d, type: 3}
+      propertyPath: suspectPortrait
+      value: 
+      objectReference: {fileID: 1108408701}
+    - target: {fileID: 1566921568050635018, guid: 7cd7a16d6f90b544e82e600194e5526d, type: 3}
       propertyPath: CharcuterieBoard
       value: 
       objectReference: {fileID: 2128110197}
+    - target: {fileID: 1566921568050635018, guid: 7cd7a16d6f90b544e82e600194e5526d, type: 3}
+      propertyPath: conversationText
+      value: 
+      objectReference: {fileID: 971659029}
+    - target: {fileID: 1566921568050635018, guid: 7cd7a16d6f90b544e82e600194e5526d, type: 3}
+      propertyPath: timerRingColor.b
+      value: 0.5849056
+      objectReference: {fileID: 0}
+    - target: {fileID: 1566921568050635018, guid: 7cd7a16d6f90b544e82e600194e5526d, type: 3}
+      propertyPath: timerRingColor.g
+      value: 0.19312915
+      objectReference: {fileID: 0}
+    - target: {fileID: 1566921568050635018, guid: 7cd7a16d6f90b544e82e600194e5526d, type: 3}
+      propertyPath: timerRingColor.r
+      value: 0.49566346
+      objectReference: {fileID: 0}
     - target: {fileID: 5246600033495868016, guid: 7cd7a16d6f90b544e82e600194e5526d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -24032,7 +24135,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6887912394223660824, guid: 6354f4f51aa3ea840ac9217a3c00e25d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6887912394223660824, guid: 6354f4f51aa3ea840ac9217a3c00e25d, type: 3}
       propertyPath: m_LocalRotation.w
@@ -24153,7 +24256,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8574264152740004483, guid: 9fd4ace6cccd9cd44ba4a13040de59b6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8574264152740004483, guid: 9fd4ace6cccd9cd44ba4a13040de59b6, type: 3}
       propertyPath: m_LocalRotation.w
@@ -24379,7 +24482,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7730003862702684395, guid: f055bb36a81ecbd4888658968defe996, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7730003862702684395, guid: f055bb36a81ecbd4888658968defe996, type: 3}
       propertyPath: m_LocalRotation.w
@@ -24476,7 +24579,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3907527903367605452, guid: 99a9cef48d044284f983a9401025f020, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3907527903367605452, guid: 99a9cef48d044284f983a9401025f020, type: 3}
       propertyPath: m_LocalRotation.w
@@ -24617,7 +24720,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7155426234823836578, guid: 91cf948e10cf2614db4d8ab99b248208, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7155426234823836578, guid: 91cf948e10cf2614db4d8ab99b248208, type: 3}
       propertyPath: m_LocalRotation.w
@@ -24718,7 +24821,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8822435082342034406, guid: 066dec54e27299841919f34fef79dbfb, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8822435082342034406, guid: 066dec54e27299841919f34fef79dbfb, type: 3}
       propertyPath: m_LocalRotation.w
@@ -24863,7 +24966,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9123123716212724147, guid: 4fea347ca1353c64496986644ba4def8, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9123123716212724147, guid: 4fea347ca1353c64496986644ba4def8, type: 3}
       propertyPath: m_LocalRotation.w
@@ -24956,7 +25059,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6630924631582722618, guid: 46fc467335a89e74e8d8fc5253cebdd9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6630924631582722618, guid: 46fc467335a89e74e8d8fc5253cebdd9, type: 3}
       propertyPath: m_LocalRotation.w
@@ -25077,7 +25180,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 439975981920530278, guid: 41ca7c3c36381744e9394462e77d23c0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 439975981920530278, guid: 41ca7c3c36381744e9394462e77d23c0, type: 3}
       propertyPath: m_LocalRotation.w
@@ -25226,7 +25329,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7905134016962420490, guid: 82ed1042027b79547b9bd2f86065f76f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7905134016962420490, guid: 82ed1042027b79547b9bd2f86065f76f, type: 3}
       propertyPath: m_LocalRotation.w
@@ -25319,7 +25422,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2684344417918014213, guid: b90b410022fc7824cbb0b8f8277c16c1, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2684344417918014213, guid: b90b410022fc7824cbb0b8f8277c16c1, type: 3}
       propertyPath: m_LocalRotation.w
