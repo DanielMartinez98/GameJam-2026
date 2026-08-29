@@ -40,12 +40,32 @@ public class CharcuterieBoardMinigame : MonoBehaviour
     [SerializeField, Range(0.05f, 1f)] private float faceHeight = 0.18f;
     [SerializeField] private Vector2 facePivot = new Vector2(0.5f, 0.88f);
     [SerializeField] private GameObject Conversation;
+    //The Hand sits outside the board panel and is drawn after it, so the moment it picks something up
+    //that food rides over everything inside the panel - the suspect's line, their order, the prompt -
+    //on its way to the plate. Reordering inside the panel cannot fix that, because the hand is not in
+    //the panel to be reordered against. The panels below are lifted onto a sorting layer of their own
+    //instead, above the board and therefore above anything the hand is carrying across it.
+    [Header("UI layering")]
+    [SerializeField] private int uiSortingOffset = 10;
+    //The order being complete and the screen going away are two things, not one. Closing on the frame
+    //the last item lands snatches the finished plate away before the player has seen it, so the board
+    //is held for a beat with everything already done and only then handed back to the dining room.
+    [Header("Serving")]
+    [SerializeField] private float servedExitDelay = 1f;
+    //How much of the plate gets used when an item is set down. Every item is given its own spot when
+    //it is picked up, so a finished plate reads as laid out rather than as one pile in the middle.
+    //Below 1 the outer ring of the plate is left clear, which keeps food off the rim.
+    [SerializeField, Range(0.1f, 1f)] private float plateSpread = 0.8f;
+    //counting down while the finished board is being held; negative means nothing is pending
+    private float servedExitCountdown = -1f;
     private PlayerControlsDiningRoom playerControls;
     private GameObject currentSuspect;
     private GameObject handPrefab;
     private GameObject carriedFood;
     private GameDirectorMemories.FoodItem carriedFoodItem;
     private Transform carriedFoodOriginalParent;
+    //the spot on the plate the item in hand is being carried to, chosen when it was picked up
+    private Vector3 carriedFoodTarget;
     private GameDirectorMemories.SuspectSpawnInfo currentSuspectInfo;
     private readonly List<FoodItemEntry> foodItemEntries = new List<FoodItemEntry>();
     private readonly HashSet<string> unknownFoodTags = new HashSet<string>();
@@ -102,6 +122,7 @@ public class CharcuterieBoardMinigame : MonoBehaviour
         carriedFood = null;
         carriedFoodItem = null;
         carriedFoodOriginalParent = null;
+        servedExitCountdown = -1f;
         ResolvePlayerControls();
         if (playerControls != null)
         {
@@ -119,6 +140,53 @@ public class CharcuterieBoardMinigame : MonoBehaviour
         }
         BuildFoodItemsUI();
         ShowConversation();
+        LiftInformationUI();
+    }
+
+    //Sibling order is no help here: the panels are inside the board and the hand is outside it, so no
+    //amount of reordering within the board lifts them past it. A nested canvas is what does - turning
+    //on overrideSorting pulls an object out of the board's one draw list and gives it a layer of its
+    //own above it, and it does that without moving or relaying out a thing.
+    private void LiftInformationUI()
+    {
+        //the minigame lives on the board's own canvas, which is the thing these panels have to beat
+        Canvas boardCanvas = GetComponent<Canvas>();
+        if (boardCanvas == null)
+        {
+            boardCanvas = GetComponentInParent<Canvas>();
+        }
+        if (boardCanvas == null)
+        {
+            return;
+        }
+        LiftAboveBoard(foodItemUI, boardCanvas);
+        LiftAboveBoard(ConversationUI, boardCanvas);
+        LiftAboveBoard(foodItems, boardCanvas);
+    }
+
+    private void LiftAboveBoard(GameObject uiObject, Canvas boardCanvas)
+    {
+        if (uiObject == null)
+        {
+            return;
+        }
+        Canvas canvas = uiObject.GetComponent<Canvas>();
+        if (canvas == null)
+        {
+            canvas = uiObject.AddComponent<Canvas>();
+        }
+        canvas.overrideSorting = true;
+        //The board is on a sorting layer of its own. Layer is compared before order, so a nested canvas
+        //left on the default layer would sort behind the very thing it is meant to sit on top of - it
+        //has to join the board's layer first and win on order there.
+        canvas.sortingLayerID = boardCanvas.sortingLayerID;
+        canvas.sortingOrder = boardCanvas.sortingOrder + uiSortingOffset;
+        //a nested canvas is also its own raycast root, so without a raycaster of its own nothing inside
+        //it answers the mouse any more, however it behaved before it was lifted
+        if (uiObject.GetComponent<GraphicRaycaster>() == null)
+        {
+            uiObject.AddComponent<GraphicRaycaster>();
+        }
     }
 
     // Update is called once per frame
@@ -133,6 +201,19 @@ public class CharcuterieBoardMinigame : MonoBehaviour
         // in the food item display the food that the suspect desires should be displayed. with a counter of how many items are left to serve.
         //once the suspect eats all the food they desire the suspects served status should be set to true in the game director's memories
         // and the minigame should end and return to the dining room.
+        //The order is already complete and the screen is on its way out, so the rest of this is done
+        //with: the hand has nothing left to fetch, and no prompt should appear over the finished board
+        //in the beat before it goes.
+        if(servedExitCountdown >= 0f)
+        {
+            servedExitCountdown -= Time.deltaTime;
+            if(servedExitCountdown <= 0f)
+            {
+                servedExitCountdown = -1f;
+                playerControls.CloseCharcuterieBoard();
+            }
+            return;
+        }
         if(currentSuspectInfo != null && Hand != null && plate != null)
         {
             UpdateHand();
@@ -152,10 +233,25 @@ public class CharcuterieBoardMinigame : MonoBehaviour
             }
             if(allFoodServed)
             {
-                //set the suspect's served status to true in the game director's memories
+                //set the suspect's served status to true in the game director's memories. This is the
+                //moment they are served, not the moment the screen closes: the count and their focus
+                //light out in the room should follow the plate, not the beat that comes after it.
                 gameDirector.GetComponent<GameDirectorMemories>().SetSuspectServed(currentSuspect, true);
-                //end the minigame and return to the dining room
-                playerControls.CloseCharcuterieBoard();
+                //nothing is owed any more, so the "go and get more food" prompt has no business being
+                //up while the finished board is held
+                if(foodItemUI != null)
+                {
+                    foodItemUI.SetActive(false);
+                }
+                //hold the finished board, then return to the dining room
+                if(servedExitDelay > 0f)
+                {
+                    servedExitCountdown = servedExitDelay;
+                }
+                else
+                {
+                    playerControls.CloseCharcuterieBoard();
+                }
                 return;
             }
         }
@@ -196,9 +292,12 @@ public class CharcuterieBoardMinigame : MonoBehaviour
     {
         if (carriedFood != null)
         {
-            //carrying, so head for the plate and let go once the hand is properly over it
-            MoveHandTowards(plate.transform.position);
-            if (Reached(plate))
+            //carrying, so head for this item's own spot on the plate and let go once the hand is over
+            //it. Steering to the spot rather than to the plate is what puts the food there: aiming at
+            //the plate as a whole meant arriving wherever its edge was first crossed, which from a hand
+            //that always comes in from the same side is the same place every time.
+            MoveHandTowards(carriedFoodTarget);
+            if (ReachedPoint(carriedFoodTarget, carriedFood))
             {
                 DropCarriedFoodOnPlate();
             }
@@ -240,11 +339,64 @@ public class CharcuterieBoardMinigame : MonoBehaviour
         return Vector3.Distance(Hand.transform.position, target.transform.position) <= tolerance;
     }
 
+    //Arrived at a bare point rather than at an object. A spot on the plate has no rect of its own, so
+    //the tolerance comes from the item being carried instead - the same rule the pickups run on, which
+    //is why a nut is set down more precisely than a salami. Measured flat, because the hand only ever
+    //moves in x and y and any gap in z would be one it could never close.
+    private bool ReachedPoint(Vector3 target, GameObject carried)
+    {
+        if (carried == null)
+        {
+            return false;
+        }
+        float tolerance = ToleranceFor(carried);
+        if (tolerance <= 0f)
+        {
+            return false;
+        }
+        return Vector2.Distance(Hand.transform.position, target) <= tolerance;
+    }
+
+    //A spot on the plate for one item to be set down on, drawn fresh for every item picked up. The
+    //plate is round, so the point comes from a disc rather than a rect - which stays on the plate for a
+    //square one too, should the art ever change. The square root on the radius spreads the draws evenly
+    //across the disc; without it they crowd towards the middle, which is the very thing being fixed
+    //here. The item's own footprint is held back off the edge so nothing is left hanging off the plate.
+    private Vector3 RandomPointOnPlate(GameObject food)
+    {
+        RectTransform plateRect = plate.transform as RectTransform;
+        if (plateRect == null)
+        {
+            return plate.transform.position;
+        }
+        Vector3[] corners = new Vector3[4];
+        plateRect.GetWorldCorners(corners);
+        //the corners' own midpoint, so the plate's pivot has no say in where its middle is
+        Vector3 centre = (corners[0] + corners[2]) * 0.5f;
+        float radius = HalfExtent(plateRect) * plateSpread - HalfExtent(food.transform as RectTransform);
+        if (radius <= 0f)
+        {
+            //a plate no bigger than what is going on it: the middle is the only spot there is
+            return centre;
+        }
+        float angle = Random.value * Mathf.PI * 2f;
+        float distance = radius * Mathf.Sqrt(Random.value);
+        //stepped out along the plate's own axes, so the spread follows the plate however it is turned
+        return centre
+            + plateRect.right * (Mathf.Cos(angle) * distance)
+            + plateRect.up * (Mathf.Sin(angle) * distance);
+    }
+
     //half the target's shorter side, measured off its drawn corners so it already carries whatever
     //scaling the canvas is under, then trimmed by grabMargin
     private float ToleranceFor(GameObject target)
     {
-        RectTransform rect = target.transform as RectTransform;
+        return HalfExtent(target.transform as RectTransform) * grabMargin;
+    }
+
+    //half the shorter side as drawn, which is zero for anything the canvas has not laid out yet
+    private static float HalfExtent(RectTransform rect)
+    {
         if (rect == null)
         {
             return 0f;
@@ -253,7 +405,7 @@ public class CharcuterieBoardMinigame : MonoBehaviour
         rect.GetWorldCorners(corners);
         float width = Vector3.Distance(corners[0], corners[3]);
         float height = Vector3.Distance(corners[0], corners[1]);
-        return Mathf.Min(width, height) * 0.5f * grabMargin;
+        return Mathf.Min(width, height) * 0.5f;
     }
 
     private GameDirectorMemories.FoodItem FindWantedFoodItem(string foodTag)
@@ -275,7 +427,15 @@ public class CharcuterieBoardMinigame : MonoBehaviour
         carriedFood = food;
         carriedFoodItem = wantedFoodItem;
         carriedFoodOriginalParent = food.transform.parent;
+        //where this one is going, decided now so the hand can carry it straight there
+        carriedFoodTarget = RandomPointOnPlate(food);
         food.transform.SetParent(Hand.transform, true);
+        food.transform.position = new Vector3(food.transform.position.x, food.transform.position.y, 1);
+        //Drawn behind the hand art but in front of the board. This canvas is Screen Space - Overlay, so
+        //what stacks UI is sibling order, not z: parenting alone appends the food after the art and it
+        //covers the fingers. Sending it to the front of the Hand puts the art back over it, and because
+        //the Hand is itself the last child of the canvas the food still clears every unserved item.
+        food.transform.SetAsFirstSibling();
     }
 
     private void DropCarriedFoodOnPlate()
@@ -283,6 +443,10 @@ public class CharcuterieBoardMinigame : MonoBehaviour
         //reached the plate, so the food stops being a child of the hand and becomes one of the plate,
         //which is also what lets the next suspect start from a clean plate
         carriedFood.transform.SetParent(plate.transform, true);
+        //set down exactly on the spot it was carried to. The hand stops as soon as it is within the
+        //item's own footprint of it, so without this the last fraction of the approach - and which side
+        //it came in from - would still show in where the food ends up sitting.
+        carriedFood.transform.position = carriedFoodTarget;
         carriedFood.tag = "Served";
         if (carriedFoodItem != null && carriedFoodItem.remaining > 0)
         {
@@ -373,7 +537,6 @@ public class CharcuterieBoardMinigame : MonoBehaviour
         handRect.anchoredPosition = Vector2.zero;
         handRect.localRotation = Quaternion.identity;
         handRect.localScale = Vector3.one;
-        AlignFingersToHand(handRect);
     }
 
     //Slides the whole arm so its drawn fingers sit on the Hand, which is the point everything else

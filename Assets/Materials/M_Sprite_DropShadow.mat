@@ -21,7 +21,7 @@ Material:
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
-  m_LockedProperties:
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -36,10 +36,10 @@ Material:
     m_Ints: []
     m_Floats:
     - _CastShadowCutoff: 0.5
-    - _NormalInfluence: 0.6
-    - _Roundness: 0.6
     - _ColorMask: 15
     - _Lighting: 3
+    - _NormalInfluence: 0.6
+    - _Roundness: 0.6
     - _ShadowAnchorY: -10.62
     - _ShadowSkew: -0.6
     - _ShadowSoftness: 4
@@ -61,4 +61,4 @@ Material:
     - _ShadowScale: {r: 1, g: 0.35, b: 0, a: 0}
     - _UVRect: {r: 0, g: 0, b: 1, a: 1}
   m_BuildTextureStacks: []
-  m_AllowLocalePropertyOverride: 0
+  m_AllowLocking: 1

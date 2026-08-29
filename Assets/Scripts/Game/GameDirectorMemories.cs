@@ -12,7 +12,14 @@ public class GameDirectorMemories : MonoBehaviour
     private TMPro.TextMeshProUGUI suspectsStatusText;
     private int shownServedCount = -1;
     private int shownSuspectCount = -1;
+    //Every suspect still owed their order carries a light of their own, so the room reads at a glance
+    //as who is left to serve. The field is the template the copies are cut from, and is switched off
+    //itself: a template lighting the room would be one spotlight nobody is standing under.
     [SerializeField] private GameObject focusLight;
+    //A suspect stands about 17 units tall, so 25 clears their head. The template's Light needs a Range
+    //that can cover the drop from up there, or the light hangs above the room lighting nothing.
+    [SerializeField] private Vector3 focusLightOffset = new Vector3(0f, 25f, 0f);
+    private readonly Dictionary<GameObject, GameObject> focusLights = new Dictionary<GameObject, GameObject>();
     // Update is called once per frame
     [SerializeField] private MemoryInfo[] memories; // array of MemoryInfo for each memory in the game
     [SerializeField] private GameObject CharactersParent; // parent object that will hold all the characters in the scene
@@ -33,6 +40,12 @@ public class GameDirectorMemories : MonoBehaviour
 
     private void Awake()
     {
+        //the template is only ever copied, never lit in place. A prefab asset dropped into the field
+        //has no scene of its own and is already inert, so it is left alone.
+        if (focusLight != null && focusLight.scene.IsValid())
+        {
+            focusLight.SetActive(false);
+        }
         if (uiSuspectsStatusDisplay != null)
         {
             suspectsStatusText = uiSuspectsStatusDisplay.GetComponentInChildren<TMPro.TextMeshProUGUI>(true);
@@ -58,6 +71,7 @@ public class GameDirectorMemories : MonoBehaviour
         activeMemoryIndex = memoryIndex;
         MemoryInfo memory = memories[memoryIndex];
         ResetOrders(memory);
+        ClearFocusLights();
         foreach (SuspectSpawnInfo suspectInfo in memory.suspectSpawnInfos)
         {
             if (suspectInfo.suspect != null)
@@ -67,6 +81,17 @@ public class GameDirectorMemories : MonoBehaviour
                 // You can implement this logic based on your game's requirements
                 //remove the (clone) from the name of the suspectInstance
                 suspectInstance.name = suspectInstance.name.Replace("(Clone)", "").Trim();
+                //sorted against the player, and against each other, from where they stand
+                if (suspectInstance.GetComponent<CharacterDepthSort>() == null)
+                {
+                    suspectInstance.AddComponent<CharacterDepthSort>();
+                }
+                //a suspect who still owes an order gets lit. ResetOrders has just cleared the flags, so
+                //in practice that is every one of them, but the check keeps the light honest either way.
+                if (!suspectInfo.isServed)
+                {
+                    SpawnFocusLight(suspectInstance);
+                }
             }
             else
             {
@@ -343,6 +368,56 @@ public class GameDirectorMemories : MonoBehaviour
         return null;
     }
 
+    //The light is hung on the suspect it belongs to, so it stays over their head and is destroyed along
+    //with them when the room is cleared for the next memory. It is placed in world space first and then
+    //re-parented keeping that placement, so the offset means the same thing whatever transform the
+    //suspect prefab happens to arrive with.
+    private void SpawnFocusLight(GameObject suspect)
+    {
+        if (focusLight == null || suspect == null || focusLights.ContainsKey(suspect))
+        {
+            return;
+        }
+        GameObject spawnedLight = Instantiate(focusLight, suspect.transform.position + focusLightOffset, focusLight.transform.rotation);
+        spawnedLight.name = "Focus Lighting - " + suspect.name;
+        spawnedLight.transform.SetParent(suspect.transform, true);
+        //the template is switched off, so the copy comes out of it switched off too
+        spawnedLight.SetActive(true);
+        focusLights[suspect] = spawnedLight;
+    }
+
+    private void RemoveFocusLight(GameObject suspect)
+    {
+        if (suspect == null)
+        {
+            return;
+        }
+        GameObject spawnedLight;
+        if (focusLights.TryGetValue(suspect, out spawnedLight))
+        {
+            focusLights.Remove(suspect);
+            if (spawnedLight != null)
+            {
+                Destroy(spawnedLight);
+            }
+        }
+    }
+
+    //Starting a memory clears the room, and the lights are children of the suspects being cleared, so
+    //this is mostly dropping bookkeeping that is about to point at destroyed objects. It still destroys
+    //what it holds, in case a light ever outlives the suspect it was hung on.
+    private void ClearFocusLights()
+    {
+        foreach (GameObject spawnedLight in focusLights.Values)
+        {
+            if (spawnedLight != null)
+            {
+                Destroy(spawnedLight);
+            }
+        }
+        focusLights.Clear();
+    }
+
     public SuspectSpawnInfo GetSuspectSpawnInfo(GameObject suspect)
     {
         return FindSuspectSpawnInfo(suspect);
@@ -360,6 +435,15 @@ public class GameDirectorMemories : MonoBehaviour
         if (suspectInfo != null)
         {
             suspectInfo.isServed = served;
+            //the light means "still waiting", so it goes out the moment the order is filled
+            if (served)
+            {
+                RemoveFocusLight(suspect);
+            }
+            else
+            {
+                SpawnFocusLight(suspect);
+            }
             RefreshSuspectsStatusDisplay();
         }
     }
