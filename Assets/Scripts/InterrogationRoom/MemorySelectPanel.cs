@@ -78,13 +78,16 @@ namespace InterrogationRoom
             {
                 return option.title + "   (locked)";
             }
-            if (CaseFile.IsMemoryCompleted(option.memoryIndex))
-            {
-                return option.title + "   (served)";
-            }
+            //Being part way through one is asked first, because it is the more useful thing to know and
+            //the more specific: it is true of exactly one memory, and it stays readable when everything
+            //is reading as finished - which is every memory while Unlock All Memories is on.
             if (CaseFile.UnfinishedMemory == option.memoryIndex)
             {
                 return option.title + "   (in progress)";
+            }
+            if (CaseFile.IsMemoryCompleted(option.memoryIndex))
+            {
+                return option.title + "   (served)";
             }
             return option.title;
         }

@@ -10,7 +10,7 @@ public class PlayerControlsDiningRoom : MonoBehaviour
     [SerializeField] private float[] cameraMaxLimits = new float[4] { -28f, 10f, -10f, 4f };
     [SerializeField] private float[] playerMaxLimits = new float[4] { -50f, 33f, -10f, 20f };
     [SerializeField] private float cameraFollowSpeed = 5f;
-    [SerializeField] private float playerMoveSpeed = 5f;
+    [SerializeField] private float playerMoveSpeed = 30f;
     [SerializeField] private GameObject popup;
     [SerializeField] private GameObject focusLight;
     [SerializeField] private GameObject CharcuterieBoard;
@@ -197,7 +197,7 @@ public class PlayerControlsDiningRoom : MonoBehaviour
             moveHorizontal,
             0,
             moveVertical
-        ) * Time.deltaTime * 30f);
+        ) * Time.deltaTime * playerMoveSpeed);
 
         //Read the raw keys for the animation, not the smoothed axes: those coast back through zero when
         //the player turns around, which reads as a frame or two of standing still in the middle of a

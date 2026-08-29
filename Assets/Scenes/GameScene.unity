@@ -2281,7 +2281,7 @@ MonoBehaviour:
         husband, and they have to reopen that case
     - suspect: {fileID: 6005352612164674842, guid: 016b3cd060395b142aafe2a713d5b21e, type: 3}
       hand: {fileID: 5266195450174147428, guid: de5f3501b5c04da4183b08b140034fb8, type: 3}
-      spawnCoordinates: {x: 0, y: 0, z: -9}
+      spawnCoordinates: {x: -35, y: 0, z: 3.5}
       foodItems:
       - foodItemId: BlueBerries
         quantity: 0
@@ -2330,7 +2330,7 @@ MonoBehaviour:
       conversation2: great job, please offer food to all the other clients
     - suspect: {fileID: 6005352612164674842, guid: dbd471d496f5cd444a3b41c3734ce0cf, type: 3}
       hand: {fileID: 5266195450174147428, guid: 2a66b65aa46eefb44a913dfafd8b1bae, type: 3}
-      spawnCoordinates: {x: 32, y: 0, z: 0}
+      spawnCoordinates: {x: -13, y: 0, z: 3}
       foodItems:
       - foodItemId: BlueBerries
         quantity: 0
@@ -2484,7 +2484,7 @@ MonoBehaviour:
   - suspectSpawnInfos:
     - suspect: {fileID: 6005352612164674842, guid: d1cd7c6e5784546448afe4a7735bbade, type: 3}
       hand: {fileID: 5266195450174147428, guid: 663565842d91c6b4f8d50f4271548ff8, type: 3}
-      spawnCoordinates: {x: -50, y: 0, z: 5}
+      spawnCoordinates: {x: -50, y: 0, z: -4}
       foodItems:
       - foodItemId: BlueBerries
         quantity: 1
@@ -2532,7 +2532,7 @@ MonoBehaviour:
         and everyone. remember that
     - suspect: {fileID: 6005352612164674842, guid: d0f8bbb778fc0724d822efa7e7fb403c, type: 3}
       hand: {fileID: 5266195450174147428, guid: 15f373097b371384fa199b81e0877704, type: 3}
-      spawnCoordinates: {x: -13, y: 0, z: 3}
+      spawnCoordinates: {x: -25, y: 0, z: 10}
       foodItems:
       - foodItemId: BlueBerries
         quantity: 0
@@ -2580,7 +2580,7 @@ MonoBehaviour:
         husband, and they have to reopen that case
     - suspect: {fileID: 6005352612164674842, guid: 016b3cd060395b142aafe2a713d5b21e, type: 3}
       hand: {fileID: 5266195450174147428, guid: de5f3501b5c04da4183b08b140034fb8, type: 3}
-      spawnCoordinates: {x: 0, y: 0, z: -9}
+      spawnCoordinates: {x: -33, y: 0, z: -3}
       foodItems:
       - foodItemId: BlueBerries
         quantity: 0
@@ -2629,7 +2629,7 @@ MonoBehaviour:
       conversation2: great job, please offer food to all the other clients
     - suspect: {fileID: 6005352612164674842, guid: dbd471d496f5cd444a3b41c3734ce0cf, type: 3}
       hand: {fileID: 5266195450174147428, guid: 2a66b65aa46eefb44a913dfafd8b1bae, type: 3}
-      spawnCoordinates: {x: 32, y: 0, z: 0}
+      spawnCoordinates: {x: -13, y: 0, z: 7}
       foodItems:
       - foodItemId: BlueBerries
         quantity: 0
@@ -2677,7 +2677,7 @@ MonoBehaviour:
       conversation2: dang that hit the spot, hey wont you be a pal and be my wingman,
         <color=#FFD966>i need to get it on with miss amelia</color>
     - suspect: {fileID: 4510430641581738031, guid: a8392fe46d8f28846a1efc097f80c317, type: 3}
-      hand: {fileID: 5266195450174147428, guid: 85fd62b42363787498acda5dde61aeeb, type: 3}
+      hand: {fileID: 5266195450174147428, guid: e6dcffd7a1cebc544b5a4f4b2ff724a1, type: 3}
       spawnCoordinates: {x: 1, y: 0, z: 12}
       foodItems:
       - foodItemId: BlueBerries
@@ -2726,7 +2726,7 @@ MonoBehaviour:
       conversation2: you see that woman over there, she is a recent widow, and she
         inhererited a lot of money, that my friend is how you get an easy life
     - suspect: {fileID: 4117511751265744529, guid: cc1acc51b47926a4b87ec6690078bf98, type: 3}
-      hand: {fileID: 5266195450174147428, guid: 671d9af8ae5ef8649abc67f1ea08560a, type: 3}
+      hand: {fileID: 5266195450174147428, guid: 267d36b7d746bf3409da30f7b86299a6, type: 3}
       spawnCoordinates: {x: 16, y: 0, z: 8}
       foodItems:
       - foodItemId: BlueBerries
@@ -2774,7 +2774,7 @@ MonoBehaviour:
         wont leave me alone, can you be a dear and get rid of him
       conversation2: ok fine, can you at least tell your friend to stop serving him
         alocohol, he is drunk enough as it is
-    hasVictim: 1
+    hasVictim: 0
     victimInfo:
       victim: {fileID: 4117511751265744529, guid: d22b7bfcf6099d341856661069cc49fe, type: 3}
       spawnCoordinates: {x: 16, y: 0, z: -12}
@@ -2786,6 +2786,9 @@ MonoBehaviour:
   minFoodTypesPerSuspect: 1
   maxFoodTypesPerSuspect: 3
   maxQuantityPerFood: 3
+  interrogationSceneName: MainScene
+  leaveMemoryKey: 27
+  refillStation: {fileID: 0}
 --- !u!224 &202694375 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6630924631582722618, guid: 46fc467335a89e74e8d8fc5253cebdd9, type: 3}
@@ -20603,8 +20606,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 4, y: 16.322535, z: 7.7101393}
-  m_Center: {x: -0.29999995, y: 12.091273, z: -0.14492989}
+  m_Size: {x: 4, y: 16.322535, z: 7.050399}
+  m_Center: {x: -0.29999995, y: 12.091273, z: -0.4748001}
 --- !u!54 &1924154327
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -23979,6 +23982,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 719603271}
     - target: {fileID: 1566921568050635018, guid: 7cd7a16d6f90b544e82e600194e5526d, type: 3}
+      propertyPath: playerMoveSpeed
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1566921568050635018, guid: 7cd7a16d6f90b544e82e600194e5526d, type: 3}
       propertyPath: suspectPortrait
       value: 
       objectReference: {fileID: 1108408701}
@@ -24001,6 +24008,10 @@ PrefabInstance:
     - target: {fileID: 1566921568050635018, guid: 7cd7a16d6f90b544e82e600194e5526d, type: 3}
       propertyPath: timerRingColor.r
       value: 0.49566346
+      objectReference: {fileID: 0}
+    - target: {fileID: 1566921568050635018, guid: 7cd7a16d6f90b544e82e600194e5526d, type: 3}
+      propertyPath: 'playerMaxLimits.Array.data[2]'
+      value: -14
       objectReference: {fileID: 0}
     - target: {fileID: 5246600033495868016, guid: 7cd7a16d6f90b544e82e600194e5526d, type: 3}
       propertyPath: m_LocalPosition.x

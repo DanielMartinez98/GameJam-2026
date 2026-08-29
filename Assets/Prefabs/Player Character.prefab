@@ -154,7 +154,7 @@ MonoBehaviour:
   - -10
   - 20
   cameraFollowSpeed: 5
-  playerMoveSpeed: 5
+  playerMoveSpeed: 30
   popup: {fileID: 0}
   focusLight: {fileID: 0}
   CharcuterieBoard: {fileID: 0}

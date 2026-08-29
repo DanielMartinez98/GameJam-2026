@@ -202,8 +202,21 @@ namespace InterrogationRoom
             }
         }
 
+        //While the game is being built there is no patience for playing memory one through to unlock
+        //memory two every time something in memory three needs looking at. With this on, every memory
+        //answers as finished and so every memory is open.
+        //
+        //Deliberately not written to the save: it is an answer given while the question is being asked,
+        //not a fact recorded about the case. Switching it off hands back the real progress underneath,
+        //with nothing to undo and no save to repair.
+        public static bool UnlockEverything;
+
         public static bool IsMemoryCompleted(int memoryIndex)
         {
+            if (UnlockEverything)
+            {
+                return true;
+            }
             Load();
             return completedMemories.Contains(memoryIndex);
         }

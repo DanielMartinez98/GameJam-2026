@@ -117,6 +117,13 @@ namespace InterrogationRoom
         [Header("The dining room")]
         [SerializeField] private string memorySceneName = "GameScene";
 
+        [Header("Development")]
+        //Every memory counts as finished, so every memory can be walked into without playing the one
+        //before it. On while the game is being built; turn it off before anyone else plays it, or the
+        //whole case is open from the first minute. It changes nothing on disk, so switching it off
+        //gives back whatever progress was really made.
+        [SerializeField] private bool unlockAllMemories = true;
+
         //whichever screen is up, or null when the player is looking at the room
         private RoomPanel openPanel;
 
@@ -145,6 +152,15 @@ namespace InterrogationRoom
 
         private void Start()
         {
+            CaseFile.UnlockEverything = unlockAllMemories;
+            if (unlockAllMemories)
+            {
+                //said out loud every run, because the one way this setting goes wrong is nobody
+                //noticing it is still on
+                Debug.LogWarning("Interrogation room: every memory is unlocked for development. "
+                    + "Turn off Unlock All Memories on the director to play the case properly.", this);
+            }
+
             //The screens are behaviour, not scenery: there is nothing to place, nothing to position and
             //one of each. Leaving them off the director is the normal case, so they are made here rather
             //than being four more objects to remember to drag in. Wiring one up by hand still wins.
