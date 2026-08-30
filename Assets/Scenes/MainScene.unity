@@ -3903,8 +3903,8 @@ MonoBehaviour:
     profession: Oil baron
     information: 
     alibi: I have no relationship to the man, I did not hire him, never spoke to
-      him, and have no involvement in his death. I was at all times too busy
-      enjoying my birthday party.
+      him, and have no involvement in his death. I was at all times too busy enjoying
+      my birthday party.
     autopsyReport: 
     phoneNumber: 555-0101
     isPlayerCharacter: 0
@@ -3939,8 +3939,8 @@ MonoBehaviour:
     portrait: {fileID: 1981988077203840921, guid: 8eb3f60dbdc418d41a0e2a53c9167d4a, type: 3}
     profession: The Baron's henchman (second in command)
     information: 
-    alibi: Spent most of the night overseeing that the party went well, I never
-      even spoke to other guests.
+    alibi: Spent most of the night overseeing that the party went well, I never even
+      spoke to other guests.
     autopsyReport: 
     phoneNumber: 555-0103
     isPlayerCharacter: 0
@@ -3957,8 +3957,8 @@ MonoBehaviour:
     portrait: {fileID: 7013461482648977957, guid: 2f84cc8ed0784f84697c198183833b47, type: 3}
     profession: City mayor
     information: 
-    alibi: I was too busy enjoying the party, drinking alcohol. I was drunk all
-      night - too drunk to drive, let alone kill somebody.
+    alibi: I was too busy enjoying the party, drinking alcohol. I was drunk all night
+      - too drunk to drive, let alone kill somebody.
     autopsyReport: 
     phoneNumber: 555-0104
     isPlayerCharacter: 0
@@ -3975,8 +3975,7 @@ MonoBehaviour:
     portrait: {fileID: -3193609833581253918, guid: 3b92aae0b8493cc4c8f1c1b40023ed01, type: 3}
     profession: Professional pianist
     information: 
-    alibi: I was too busy playing piano all night, I had no time to get into a
-      fight.
+    alibi: I was too busy playing piano all night, I had no time to get into a fight.
     autopsyReport: 
     phoneNumber: 555-0105
     isPlayerCharacter: 0
@@ -3993,8 +3992,8 @@ MonoBehaviour:
     portrait: {fileID: -7825434849577156940, guid: be64d059493e99c46a799bdc768b0f91, type: 3}
     profession: Billionaire widow
     information: 
-    alibi: I barely spoke to him, and I am already rich - what would I need his
-      ring for?
+    alibi: I barely spoke to him, and I am already rich - what would I need his ring
+      for?
     autopsyReport: 
     phoneNumber: 555-0106
     isPlayerCharacter: 0
@@ -5312,6 +5311,7 @@ GameObject:
   - component: {fileID: 1256078725}
   - component: {fileID: 1256078724}
   - component: {fileID: 1256078723}
+  - component: {fileID: 1256078726}
   m_Layer: 5
   m_Name: Phone
   m_TagString: Untagged
@@ -5328,7 +5328,7 @@ RectTransform:
   m_GameObject: {fileID: 1256078721}
   m_LocalRotation: {x: 0, y: 0, z: -0.050593015, w: 0.9987194}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.15, y: 0.2, z: 0.2}
+  m_LocalScale: {x: 0.20967497, y: 0.2, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2118888458}
@@ -5402,7 +5402,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 566821134336819949, guid: e77a1813942d4a048add5c920d4e87a8, type: 3}
+  m_Sprite: {fileID: 4599401821959982607, guid: 2125da3dd35e0fe419df486b939aa4c5, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -5420,6 +5420,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1256078721}
   m_CullTransparentMesh: 1
+--- !u!114 &1256078726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1256078721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fed0244bac052145beb26db212a37c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Hover
+  hoverScale: 1.05
+  clickScale: 0.9
+  clickDuration: 0.1
 --- !u!1 &1308177497
 GameObject:
   m_ObjectHideFlags: 0
@@ -6157,6 +6172,7 @@ GameObject:
   - component: {fileID: 1504141972}
   - component: {fileID: 1504141971}
   - component: {fileID: 1504141970}
+  - component: {fileID: 1504141973}
   m_Layer: 5
   m_Name: Case Information
   m_TagString: Untagged
@@ -6171,17 +6187,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1504141968}
-  m_LocalRotation: {x: 0, y: 0, z: -0.17708474, w: 0.98419565}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_LocalScale: {x: 0.5860799, y: 0.5860799, z: 0.5860799}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 2118888458}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -20.4}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 51.6, y: 161.3}
-  m_SizeDelta: {x: 1139.7, y: 645}
+  m_AnchoredPosition: {x: 70, y: 161}
+  m_SizeDelta: {x: 387.7117, y: 361.658}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1504141970
 MonoBehaviour:
@@ -6247,7 +6263,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1877911884840573016, guid: 90691d150b8c4554796735040a54c987, type: 3}
+  m_Sprite: {fileID: 2321344958371498161, guid: e426b4a5e03ea37499f5b77d3eea224b, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -6265,6 +6281,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1504141968}
   m_CullTransparentMesh: 1
+--- !u!114 &1504141973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1504141968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fed0244bac052145beb26db212a37c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Hover
+  hoverScale: 1.05
+  clickScale: 0.9
+  clickDuration: 0.1
 --- !u!1 &1537293516
 GameObject:
   m_ObjectHideFlags: 0
@@ -7275,6 +7306,7 @@ GameObject:
   - component: {fileID: 1913958797}
   - component: {fileID: 1913958796}
   - component: {fileID: 1913958798}
+  - component: {fileID: 1913958799}
   m_Layer: 5
   m_Name: Notebook
   m_TagString: Untagged
@@ -7383,6 +7415,21 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1913958799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1913958794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fed0244bac052145beb26db212a37c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Hover
+  hoverScale: 1.05
+  clickScale: 0.9
+  clickDuration: 0.1
 --- !u!1 &1966262704
 GameObject:
   m_ObjectHideFlags: 0
