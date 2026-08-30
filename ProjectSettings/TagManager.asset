@@ -5,6 +5,24 @@ TagManager:
   serializedVersion: 3
   tags:
   - Clickable
+  - Suspect
+  - BlueBerries
+  - Cheese Blocks
+  - Cheese Rectangle
+  - Cheese
+  - Cracker
+  - Garnish
+  - Grapes
+  - Half Salami
+  - Nuts
+  - Oranges
+  - Pickles
+  - Plate
+  - Salami
+  - Strawberry
+  - Cheese Slices
+  - Served
+  - Refill Station
   layers:
   - Default
   - TransparentFX
@@ -41,6 +59,9 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: UI
+    uniqueID: 10934805
     locked: 0
   m_RenderingLayers:
   - Default

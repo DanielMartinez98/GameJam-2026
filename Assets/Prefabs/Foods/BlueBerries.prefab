@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6233260293964902624}
   m_Layer: 0
   m_Name: BlueBerries
-  m_TagString: Untagged
+  m_TagString: BlueBerries
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
