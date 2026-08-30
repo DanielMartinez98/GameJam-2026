@@ -16,6 +16,10 @@
     "  specialClueId  the id this suspect's special clue is unlocked under, so another suspect's",
     "                 correctClueKey can point at it and the calls chain together",
     "  specialClue    the text of that special clue, read on the phone and written in the notebook",
+    "  stages         a confrontation that takes more than one clue, walked in the order written. Each",
+    "                 step has a clueKey it wants, a 'waiting' line asking for it without naming it, and",
+    "                 a 'response' read a paragraph at a time once it lands. A suspect with stages",
+    "                 ignores correct, explanation and correctClueKey - it is all in the steps.",
     "",
     "The detective (the player character) is not on the phone, so there is no entry for them here.",
     "",
@@ -24,26 +28,51 @@
     "",
     "  cuts on his hands -> Pianist  -> knifeFight    -> Chief -> knifeInGarage   (the weapon)",
     "  the ring          -> Widow    -> ringFromMayor -> Mayor -> ringWasDiamonds (the reason)",
-    "  the grape order   -> Henchman -> theNote       -> Baron -> the confession  (the killer)",
+    "  the grape order   -> Henchman -> theNote       (the appointment)",
     "",
-    "Only the note breaks the Baron. The other two strands end in evidence rather than in another",
-    "phone number, and they are what make his confession mean anything."
+    "All three ends meet on the Baron, who is confronted in steps: the note, then the knife, then the",
+    "ring. He concedes each one and asks for the next without saying what it is, so the case cannot be",
+    "closed until every strand has been walked."
   ],
   "suspects": [
     {
       "name": "The Baron",
       "basic": "Baron speaking. Make it quick, detective.",
       "nonsense": "That means nothing to me, detective, and I have people waiting.",
-      "correct": "...she kept it. Nine years of picking up after me and she kept it.",
-      "explanation": [
-        "Diamond would not sell. I made him three offers and he laughed at the third one, so I stopped making offers.",
-        "I paid a man to make it look like a burglary. He did it well enough that your own chief of police spent two years telling a widow she had done it herself.",
-        "I never paid him the rest of what was owed. Why would I? Where was he going to take that complaint? He put the ring in his pocket instead and told himself that made us even.",
-        "Then he turned up at my own birthday party carrying a tray, and poured a full glass of wine down my front so he could stand close enough to say a number in my ear. At my table, in my house, with the mayor sitting four feet away.",
-        "So I wrote him a note and I went out to the garage to settle it. He put his hands on me. There was a knife on the shelf out there that was not mine and had no business being there at all, and the whole thing took less time than it takes to tell you about it.",
-        "I paid him in the end, detective. Just not in money."
+      "stages": [
+        {
+          "clueKey": "theNote",
+          "waiting": "",
+          "response": [
+            "...she kept it. Nine years of picking up after me and she kept it.",
+            "Very well. I wrote to him. I write fifty notes in a day, detective, and I am not going to stand here pretending my own hand is a forgery.",
+            "But look at what you are holding. That note says I wanted a word with a member of my staff. It does not say I got one."
+          ]
+        },
+        {
+          "clueKey": "knifeInGarage",
+          "waiting": "You are still on the line, so I take it you believe you have more than my handwriting. A note is not a body, detective. If you mean to tell me how a man died in my garage, start with what did it.",
+          "response": [
+            "A knife. On a shelf. In a garage, which is where a household keeps its tools.",
+            "Half that party walked past that shelf on the way to their cars, and one of them was your own chief of police, who put it there himself and has said nothing about it since.",
+            "So you have a weapon that anybody at all could have lifted. You still cannot put it in my hand."
+          ]
+        },
+        {
+          "clueKey": "ringWasDiamonds",
+          "waiting": "A note, and a knife half the county could have held. What you do not have is a reason. I had never spoken to the man in my life. Tell me why someone in my position would trouble himself with a waiter, and then you and I can discuss what became of him.",
+          "response": [
+            "...he swore to me that ring went in the river. He looked me in the face and told me it was gone.",
+            "Diamond would not sell. I made him three offers and he laughed at the third one, so I stopped making offers.",
+            "I paid a man to make it look like a burglary. He did it well enough that your own chief of police spent two years telling a widow she had done it herself.",
+            "I never paid him the rest of what was owed. Why would I? Where was he going to take that complaint? He kept the ring instead and told himself that made us even.",
+            "Then he turned up at my own birthday party carrying a tray, and poured a full glass of wine down my front so he could stand close enough to say a number in my ear. At my table, in my house, with the mayor sitting four feet away.",
+            "So yes. I wrote him a note, and I went out to the garage to settle it. He put his hands on me. There was a knife on that shelf that was not mine and had no business being there at all, and the whole thing took less time than it takes to tell you about it.",
+            "I paid him in the end, detective. Just not in money."
+          ]
+        }
       ],
-      "correctClueKey": "theNote",
+      "correctClueKey": "",
       "specialClueId": "",
       "specialClue": "",
       "endsCase": true

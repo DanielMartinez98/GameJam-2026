@@ -3903,8 +3903,8 @@ MonoBehaviour:
     profession: Oil baron
     information: 
     alibi: I have no relationship to the man, I did not hire him, never spoke to
-      him, and have no involvement in his death. I was at all times too busy
-      enjoying my birthday party.
+      him, and have no involvement in his death. I was at all times too busy enjoying
+      my birthday party.
     autopsyReport: 
     phoneNumber: 555-0101
     isPlayerCharacter: 0
@@ -3934,14 +3934,15 @@ MonoBehaviour:
     correctClueKey: 
     specialClueId: 
     specialClue: 
+    endsCase: 0
   - displayName: The Henchman
     realName: Amara Steel
     prefabName: Henchman
     portrait: {fileID: 1981988077203840921, guid: 8eb3f60dbdc418d41a0e2a53c9167d4a, type: 3}
     profession: The Baron's henchman (second in command)
     information: 
-    alibi: Spent most of the night overseeing that the party went well, I never
-      even spoke to other guests.
+    alibi: Spent most of the night overseeing that the party went well, I never even
+      spoke to other guests.
     autopsyReport: 
     phoneNumber: 555-0103
     isPlayerCharacter: 0
@@ -3952,14 +3953,15 @@ MonoBehaviour:
     correctClueKey: 
     specialClueId: 
     specialClue: 
+    endsCase: 0
   - displayName: The Mayor
     realName: Merrick Ruby
     prefabName: Mayor
     portrait: {fileID: 7013461482648977957, guid: 2f84cc8ed0784f84697c198183833b47, type: 3}
     profession: City mayor
     information: 
-    alibi: I was too busy enjoying the party, drinking alcohol. I was drunk all
-      night - too drunk to drive, let alone kill somebody.
+    alibi: I was too busy enjoying the party, drinking alcohol. I was drunk all night
+      - too drunk to drive, let alone kill somebody.
     autopsyReport: 
     phoneNumber: 555-0104
     isPlayerCharacter: 0
@@ -3970,14 +3972,14 @@ MonoBehaviour:
     correctClueKey: 
     specialClueId: 
     specialClue: 
+    endsCase: 0
   - displayName: The Pianist
     realName: Idris Bronze
     prefabName: Pianist
     portrait: {fileID: -3193609833581253918, guid: 3b92aae0b8493cc4c8f1c1b40023ed01, type: 3}
     profession: Professional pianist
     information: 
-    alibi: I was too busy playing piano all night, I had no time to get into a
-      fight.
+    alibi: I was too busy playing piano all night, I had no time to get into a fight.
     autopsyReport: 
     phoneNumber: 555-0105
     isPlayerCharacter: 0
@@ -3988,14 +3990,15 @@ MonoBehaviour:
     correctClueKey: 
     specialClueId: 
     specialClue: 
+    endsCase: 0
   - displayName: The Widow
     realName: Amelia Diamond
     prefabName: Widow
     portrait: {fileID: -7825434849577156940, guid: be64d059493e99c46a799bdc768b0f91, type: 3}
     profession: Billionaire widow
     information: 
-    alibi: I barely spoke to him, and I am already rich - what would I need his
-      ring for?
+    alibi: I barely spoke to him, and I am already rich - what would I need his ring
+      for?
     autopsyReport: 
     phoneNumber: 555-0106
     isPlayerCharacter: 0
@@ -4006,6 +4009,7 @@ MonoBehaviour:
     correctClueKey: 
     specialClueId: 
     specialClue: 
+    endsCase: 0
   - displayName: The Waiter
     realName: Dan Silver
     prefabName: Player Character
@@ -4023,9 +4027,10 @@ MonoBehaviour:
     correctClueKey: 
     specialClueId: 
     specialClue: 
+    endsCase: 0
   clueTemplates:
   - templateId: allergyOrder
-    menuLabel: '... is allergic to ..., and still ordered it at ...'
+    menuLabel: ... is allergic to ..., and still ordered it at ...
     sentence: '{0} is allergic to {1}, and still ordered {1} at {2}'
     slots:
     - kind: 0
@@ -4238,9 +4243,22 @@ MonoBehaviour:
   memorySceneName: GameScene
   endingImage: {fileID: 6370348715488920441, guid: 9ea21b75ab52a3a49858c9ea2b3bb010, type: 3}
   endingTitle: Ending
-  endingText: "they took magnus saphire out of his own house before the sun was properly up. he was still telling them who he was when they put him in the car.\n\nthe diamond case is open again. the chief handed in the knife himself, and his badge with it. the mayor gave a statement, and then a press conference, in that order.\n\nnobody at that party is going to remember the waiter who spilled the wine.\n\ni will."
+  endingText: 'they took magnus saphire out of his own house before the sun was properly
+    up. he was still telling them who he was when they put him in the car.
+
+
+    the
+    diamond case is open again. the chief handed in the knife himself, and his badge
+    with it. the mayor gave a statement, and then a press conference, in that order.
+
+
+    nobody
+    at that party is going to remember the waiter who spilled the wine.
+
+
+    i will.'
   endingSceneName: MainMenu
-  unlockAllMemories: 1
+  unlockAllMemories: 0
 --- !u!114 &830888179
 MonoBehaviour:
   m_ObjectHideFlags: 0

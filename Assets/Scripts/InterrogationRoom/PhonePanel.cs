@@ -8,6 +8,14 @@ namespace InterrogationRoom
     //off, and the one true clue for that suspect breaks them open, plays their explanation, and unlocks
     //a special clue you can then put to the others. That is how the case comes apart, one call feeding
     //the next.
+    //
+    //A confrontation can also take more than one clue. Written as steps, the suspect concedes each one
+    //and then asks for the next without saying what it is, which is what makes the last of them need
+    //the whole case rather than one lucky guess. Both kinds are played the same way from here: a
+    //suspect with no steps of their own simply has one.
+    //
+    //Either way it is read one thing at a time. The card is put back to its top every time it is
+    //redrawn, so a confession laid out all at once would have half of it below the fold, unread.
     public class PhonePanel : RoomPanel
     {
         [Header("Phone")]
@@ -33,6 +41,17 @@ namespace InterrogationRoom
         private bool cluePresented;
         private string presentedText;
         private bool presentedBroke;
+        //how far through what they are saying the player has pressed, once a clue has broken them. The
+        //call shows one part at a time and this is which one, so it goes back to the start whenever the
+        //subject changes.
+        private int revealedPart;
+        //which step of this suspect's confrontation the call is on. Most of them have only the one.
+        private int stage;
+        //How far each confrontation has been carried, kept so that hanging up on a man half way through
+        //and calling him back picks up where it stopped. It lives here rather than in the case file
+        //because it is where a conversation got to, not a fact about the case: walking into a memory
+        //and coming back puts everyone on their first line again.
+        private readonly Dictionary<string, int> stagesReached = new Dictionary<string, int>();
 
         protected override string Title
         {
@@ -104,6 +123,9 @@ namespace InterrogationRoom
             }
         }
 
+        //A call is read the way it would be heard: one thing said at a time. Nothing is stacked up on
+        //the screen, because the list is put back to its top every time it is redrawn - a confession
+        //laid out all at once would run off the bottom of the card with its last half unread.
         private void PopulateCall()
         {
             if (!HasBackButton)
@@ -113,46 +135,169 @@ namespace InterrogationRoom
 
             AddPortrait(calledSuspect.portrait);
 
-            //they always pick up with their basic line before anything is put to them
-            AddText(calledSuspect.displayName + ": \"" + calledLines.basic + "\"", PanelText.Body);
+            List<ConfrontationStage> steps = Confrontation();
+            ConfrontationStage step = stage >= 0 && stage < steps.Count ? steps[stage] : null;
 
-            if (cluePresented)
+            //Nothing put to them yet: the line they answered with, or, once they have been walked part
+            //of the way, whatever they are waiting on - which is them asking for the next thing without
+            //naming it.
+            if (!cluePresented)
             {
-                AddText("\nYou: \"" + presentedText + "\"", PanelText.Dim);
-                if (presentedBroke)
+                AddText(Says(Waiting(step)), PanelText.Body);
+                PopulateClueOptions();
+                return;
+            }
+
+            //what you put to them stays above their answer, so a long one is still read against it
+            AddText("You: \"" + presentedText + "\"", PanelText.Dim);
+
+            if (!presentedBroke)
+            {
+                AddText(Says(calledLines.nonsense), PanelText.Body);
+                //A confrontation in steps is only as clear as the ask, and the ask is deliberately
+                //vague, so it is put back in front of the player rather than lost behind a brush off.
+                if (step != null && !string.IsNullOrEmpty(step.waiting))
                 {
-                    AddText(calledSuspect.displayName + ": \"" + calledLines.correct + "\"", PanelText.Note);
-                    //line 4 - them explaining themselves, each authored section its own paragraph
-                    if (calledLines.explanation != null)
-                    {
-                        foreach (string section in calledLines.explanation)
-                        {
-                            if (!string.IsNullOrEmpty(section))
-                            {
-                                AddText(section, PanelText.Body);
-                            }
-                        }
-                    }
-                    if (!string.IsNullOrEmpty(calledLines.specialClue))
-                    {
-                        AddText("\nNew clue: " + calledLines.specialClue, PanelText.Note);
-                    }
-                    //The murderer. There is no next number to call and nothing left to bring up, so the
-                    //call ends on the one thing left to do rather than on the list of clues.
-                    if (calledLines.endsCase)
-                    {
-                        AddText("\nThat is the case.", PanelText.Dim);
-                        AddEntry("> Close the case", CloseTheCase);
-                        return;
-                    }
+                    AddText(Says(step.waiting), PanelText.Body);
                 }
-                else
+                PopulateClueOptions();
+                return;
+            }
+
+            //it landed: what they say about it, a section at a time
+            List<string> parts = PartsOf(step);
+            if (parts.Count > 0)
+            {
+                int part = Mathf.Clamp(revealedPart, 0, parts.Count - 1);
+                //the first of them is the moment they know they are caught, which is worth catching the
+                //eye; everything after it is them talking
+                AddText(Says(parts[part]), part == 0 ? PanelText.Note : PanelText.Body);
+                if (part < parts.Count - 1)
                 {
-                    AddText(calledSuspect.displayName + ": \"" + calledLines.nonsense + "\"", PanelText.Body);
+                    //still talking, so there is nothing to do but hear the rest of it
+                    AddEntry("> Go on", GoOn);
+                    return;
                 }
             }
 
+            //Done with this step but not with them: they go back to waiting, one step further along,
+            //and the next thing they want is the next thing the player has to go and find.
+            if (stage < steps.Count - 1)
+            {
+                AddEntry("> Go on", NextStep);
+                return;
+            }
+
+            //they have finished: what the call turned up, and what there is left to do about it
+            if (!string.IsNullOrEmpty(calledLines.specialClue))
+            {
+                AddText("\nNew clue: " + calledLines.specialClue, PanelText.Note);
+            }
+            //The murderer. There is no next number to call and nothing left to bring up, so the call
+            //ends on the one thing left to do rather than on the list of clues.
+            if (calledLines.endsCase)
+            {
+                AddText("\nThat is the case.", PanelText.Dim);
+                AddEntry("> Close the case", CloseTheCase);
+                return;
+            }
+
             PopulateClueOptions();
+        }
+
+        //one side of the call, written the way the other side is
+        private string Says(string line)
+        {
+            return calledSuspect.displayName + ": \"" + line + "\"";
+        }
+
+        //The confrontation as a list of steps, however it happens to have been written. A suspect with
+        //steps of their own is walked through them in order; everyone else has exactly one - the clue
+        //that breaks them and everything they say when it lands - so both play the same way from here.
+        private List<ConfrontationStage> Confrontation()
+        {
+            List<ConfrontationStage> steps = new List<ConfrontationStage>();
+            if (calledLines.stages != null)
+            {
+                foreach (ConfrontationStage authored in calledLines.stages)
+                {
+                    //a step with nothing to ask for could never be got past
+                    if (authored != null && !string.IsNullOrEmpty(authored.clueKey))
+                    {
+                        steps.Add(authored);
+                    }
+                }
+            }
+            if (steps.Count == 0)
+            {
+                steps.Add(new ConfrontationStage
+                {
+                    clueKey = calledLines.correctClueKey,
+                    response = BrokenParts()
+                });
+            }
+            return steps;
+        }
+
+        //what they say while a step is still owed, falling back to the line they answered the phone with
+        private string Waiting(ConfrontationStage step)
+        {
+            return step != null && !string.IsNullOrEmpty(step.waiting) ? step.waiting : calledLines.basic;
+        }
+
+        //what a step has them say, with anything left blank dropped rather than shown as an empty press
+        private static List<string> PartsOf(ConfrontationStage step)
+        {
+            List<string> parts = new List<string>();
+            if (step != null && step.response != null)
+            {
+                foreach (string section in step.response)
+                {
+                    if (!string.IsNullOrEmpty(section))
+                    {
+                        parts.Add(section);
+                    }
+                }
+            }
+            return parts;
+        }
+
+        //Everything a plainly written suspect says once they are broken, in the order they say it: the
+        //moment the clue lands, then each section of their explanation. This is the one step a
+        //confrontation without steps of its own is built from.
+        private string[] BrokenParts()
+        {
+            List<string> parts = new List<string>();
+            if (!string.IsNullOrEmpty(calledLines.correct))
+            {
+                parts.Add(calledLines.correct);
+            }
+            if (calledLines.explanation != null)
+            {
+                parts.AddRange(calledLines.explanation);
+            }
+            return parts.ToArray();
+        }
+
+        //let them say the next part of it
+        private void GoOn()
+        {
+            revealedPart++;
+            Refresh();
+        }
+
+        //Done with this step: they stop talking and go back to waiting for the next thing. How far each
+        //confrontation has been carried is remembered, so hanging up on a man half way through and
+        //calling him back does not put him at the beginning again.
+        private void NextStep()
+        {
+            stage++;
+            if (calledSuspect != null && !string.IsNullOrEmpty(calledSuspect.displayName))
+            {
+                stagesReached[calledSuspect.displayName] = stage;
+            }
+            ClearPresented();
+            Refresh();
         }
 
         //The suspect's picture at the top of the call, shown the same way as in the case file: filled
@@ -210,6 +355,10 @@ namespace InterrogationRoom
         {
             calledSuspect = suspect;
             calledLines = PhoneScript.Resolve(suspect);
+            //picked up where this one was left, which for all but a staged confrontation is the start
+            int reached;
+            stage = suspect != null && suspect.displayName != null
+                && stagesReached.TryGetValue(suspect.displayName, out reached) ? reached : 0;
             ClearPresented();
             Refresh();
         }
@@ -221,8 +370,14 @@ namespace InterrogationRoom
         {
             cluePresented = true;
             presentedText = clue.text;
-            presentedBroke = !string.IsNullOrEmpty(calledLines.correctClueKey)
-                && clue.key == calledLines.correctClueKey;
+            //a new subject starts them talking from the beginning, whatever was said about the last one
+            revealedPart = 0;
+            //only the thing they are waiting for lands. A confrontation in steps will not take the last
+            //of them early: put out of order, a clue is just another thing they have nothing to say to.
+            List<ConfrontationStage> steps = Confrontation();
+            ConfrontationStage step = stage >= 0 && stage < steps.Count ? steps[stage] : null;
+            presentedBroke = step != null && !string.IsNullOrEmpty(step.clueKey)
+                && clue.key == step.clueKey;
             if (presentedBroke)
             {
                 //a written clue that broke someone is struck off in the notebook; a special clue has no
@@ -232,9 +387,13 @@ namespace InterrogationRoom
                 {
                     CaseFile.MarkClueUsed(written);
                 }
-                //the call turned something up: it goes to the special clues so it survives the phone
-                //going down and can be put to the other suspects
-                CaseFile.AddSpecialClue(calledLines.specialClueId, calledLines.specialClue);
+                //The call turned something up: it goes to the special clues so it survives the phone
+                //going down and can be put to the other suspects. Only the last step turns anything up,
+                //since a confrontation half walked has not finished telling you anything yet.
+                if (stage >= steps.Count - 1)
+                {
+                    CaseFile.AddSpecialClue(calledLines.specialClueId, calledLines.specialClue);
+                }
             }
             Refresh();
         }
@@ -268,6 +427,7 @@ namespace InterrogationRoom
             cluePresented = false;
             presentedText = null;
             presentedBroke = false;
+            revealedPart = 0;
         }
 
         //A suspect is broken once the special clue they unlock has been turned up. A suspect who unlocks

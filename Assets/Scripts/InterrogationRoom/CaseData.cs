@@ -45,6 +45,24 @@ namespace InterrogationRoom
         public ClueSlot[] slots;
     }
 
+    //One step of a confrontation that has to be walked rather than won in a single call. The player is
+    //asked for something without being told what it is, and only the right thing moves it on.
+    //
+    //A suspect with no steps of their own is confronted the plain way, on the one clue in
+    //correctClueKey. A suspect with a list of them has to be shown each one in order, which is how the
+    //last of them comes to need the whole case rather than one lucky guess.
+    [System.Serializable]
+    public class ConfrontationStage
+    {
+        //what has to be put to them here: a notebook clue key, or another suspect's specialClueId
+        public string clueKey;
+        //What they say while this step is still owed - the ask, made vaguely. Left empty on the first
+        //step they simply answer the phone the way they always do.
+        [TextArea(2, 4)] public string waiting;
+        //what they say once it lands, each section read on its own before the next is offered
+        [TextArea(3, 10)] public string[] response;
+    }
+
     //A suspect as the police file and the phone know them. The dining room knows them as a prefab; the
     //two are tied together by prefabName so a clue made about "the Mayor" reaches the same character
     //the player served.
@@ -95,6 +113,10 @@ namespace InterrogationRoom
         //notebook. Leave both empty for a suspect whose call unlocks nothing new.
         public string specialClueId;
         [TextArea(2, 4)] public string specialClue;
+        //A confrontation that takes more than one clue. Left empty they break on correctClueKey the way
+        //everyone else does; filled in, the steps are walked in the order they are written and
+        //correctClueKey, the correct line and the explanation are not read at all.
+        public ConfrontationStage[] stages;
         //The murderer. Breaking this one is not another link in the chain, it is the end of the case:
         //their confession is followed by the ending rather than by another number to call. Exactly one
         //suspect should carry it, and a case with none simply never ends on its own.
