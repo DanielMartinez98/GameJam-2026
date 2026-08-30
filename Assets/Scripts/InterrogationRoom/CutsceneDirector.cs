@@ -20,6 +20,10 @@ namespace InterrogationRoom
         //where the memory's picture goes. Kept to its own aspect rather than stretched to the frame, so
         //a tall portrait and a wide establishing shot both read as themselves.
         [SerializeField] private Image imageDisplay;
+        //A heading in the strip above the picture, for a screen that wants one. A memory's prologue does
+        //not - it opens straight on the picture - but the ending does, so the player can see the case is
+        //closed rather than merely interrupted. With nothing to say it is switched off entirely.
+        [SerializeField] private TextMeshProUGUI titleLabel;
         //the prologue, read beneath the picture
         [SerializeField] private TextMeshProUGUI prologueLabel;
         //the small line telling the player how to move on
@@ -58,8 +62,21 @@ namespace InterrogationRoom
         //player presses to go on - for a memory that is when the dining room is loaded.
         public void Play(Sprite image, string prologue, Action onDone)
         {
+            Play(image, null, prologue, onDone);
+        }
+
+        //The same screen with a heading over it. Everything a memory shows plus a word for what this
+        //one is, which is what the ending needs and a prologue does not.
+        public void Play(Sprite image, string title, string prologue, Action onDone)
+        {
             EnsureBuilt();
             onComplete = onDone;
+            if (titleLabel != null)
+            {
+                titleLabel.text = title;
+                //no heading asked for, so the label is not left sitting there as an empty gap
+                titleLabel.gameObject.SetActive(!string.IsNullOrEmpty(title));
+            }
             if (imageDisplay != null)
             {
                 imageDisplay.sprite = image;
@@ -157,25 +174,44 @@ namespace InterrogationRoom
             Image background = NewStretchedImage("Background", canvasObject.transform);
             background.color = backgroundColor;
 
-            //the picture, in the upper two-thirds
+            //The picture, given as much of the screen as the words will spare: nearly the full width and
+            //everything from just under the heading down to the passage. It is still fitted to its own
+            //aspect inside that, so the extra room is only ever taken by a picture that can use it.
             GameObject imageObject = new GameObject("Image");
             imageObject.transform.SetParent(canvasObject.transform, false);
             imageDisplay = imageObject.AddComponent<Image>();
             imageDisplay.preserveAspect = true;
             RectTransform imageRect = imageDisplay.rectTransform;
-            imageRect.anchorMin = new Vector2(0.15f, 0.4f);
-            imageRect.anchorMax = new Vector2(0.85f, 0.93f);
+            imageRect.anchorMin = new Vector2(0.06f, 0.32f);
+            imageRect.anchorMax = new Vector2(0.94f, 0.925f);
             imageRect.offsetMin = Vector2.zero;
             imageRect.offsetMax = Vector2.zero;
+
+            //the heading, in the strip above the picture, kept off until a screen asks for one
+            titleLabel = NewLabel("Title", canvasObject.transform, 56f,
+                TextAlignmentOptions.Center, ResolveFont());
+            RectTransform titleRect = titleLabel.rectTransform;
+            titleRect.anchorMin = new Vector2(0.1f, 0.93f);
+            titleRect.anchorMax = new Vector2(0.9f, 0.99f);
+            titleRect.offsetMin = Vector2.zero;
+            titleRect.offsetMax = Vector2.zero;
+            titleLabel.gameObject.SetActive(false);
 
             //the prologue, read beneath it
             prologueLabel = NewLabel("Prologue", canvasObject.transform, 34f,
                 TextAlignmentOptions.Top, ResolveFont());
             RectTransform prologueRect = prologueLabel.rectTransform;
-            prologueRect.anchorMin = new Vector2(0.12f, 0.1f);
-            prologueRect.anchorMax = new Vector2(0.88f, 0.37f);
+            prologueRect.anchorMin = new Vector2(0.1f, 0.095f);
+            prologueRect.anchorMax = new Vector2(0.9f, 0.31f);
             prologueRect.offsetMin = Vector2.zero;
             prologueRect.offsetMax = Vector2.zero;
+            //An ending has several paragraphs to say where a memory has a line or two, and giving the
+            //picture the room above means the words have to live in what is left. Fitted rather than
+            //fixed, so a long passage shrinks to fit instead of running off the bottom of the screen,
+            //and a short one is still read at full size.
+            prologueLabel.enableAutoSizing = true;
+            prologueLabel.fontSizeMin = 18f;
+            prologueLabel.fontSizeMax = 34f;
 
             //the line telling the player how to move on
             continueHint = NewLabel("Continue Hint", canvasObject.transform, 24f,

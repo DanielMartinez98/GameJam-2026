@@ -137,6 +137,14 @@ namespace InterrogationRoom
                     {
                         AddText("\nNew clue: " + calledLines.specialClue, PanelText.Note);
                     }
+                    //The murderer. There is no next number to call and nothing left to bring up, so the
+                    //call ends on the one thing left to do rather than on the list of clues.
+                    if (calledLines.endsCase)
+                    {
+                        AddText("\nThat is the case.", PanelText.Dim);
+                        AddEntry("> Close the case", CloseTheCase);
+                        return;
+                    }
                 }
                 else
                 {
@@ -229,6 +237,16 @@ namespace InterrogationRoom
                 CaseFile.AddSpecialClue(calledLines.specialClueId, calledLines.specialClue);
             }
             Refresh();
+        }
+
+        //The confession has been read and the player is done with it: the phone goes down for the last
+        //time and the room hands the case over to its ending.
+        private void CloseTheCase()
+        {
+            if (director != null)
+            {
+                director.ShowEnding();
+            }
         }
 
         //One step back at a time: dropping the clue keeps the call, hanging up returns to the list.

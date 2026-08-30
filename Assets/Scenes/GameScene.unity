@@ -2276,11 +2276,11 @@ MonoBehaviour:
         quantity: 0
         foodItemSprite: {fileID: -7697116855385614072, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       isServed: 0
-      conversation0: look at what you did, you clumbsy oaf
-      conversation1: now i am going to get in a load of trouble for having hired
-        you.
-      conversation2: hey you there , i dont pay you to stand still serve everyone
-        their refreshments.
+      conversation0: did you see what he just did? that clumsy oaf, all over the baron.
+      conversation1: <color=#FFD966>i hired the pair of you</color>, so it is my name
+        on this, not his.
+      conversation2: get moving, and keep him away from the baron for the rest of the
+        night.
     - suspect: {fileID: 6005352612164674842, guid: d0f8bbb778fc0724d822efa7e7fb403c, type: 3}
       hand: {fileID: 5266195450174147428, guid: 15f373097b371384fa199b81e0877704, type: 3}
       spawnCoordinates: {x: -13, y: 0, z: 3}
@@ -2323,9 +2323,6 @@ MonoBehaviour:
         foodItemSprite: {fileID: -648068547666614581, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Strawberry
         quantity: 0
-        foodItemSprite: {fileID: -7697116855385614072, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: knife
-        quantity: 1
         foodItemSprite: {fileID: -7697116855385614072, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       isServed: 0
       conversation0: comon tell me the truth, just admit you killed your husband
@@ -2377,11 +2374,12 @@ MonoBehaviour:
         quantity: 0
         foodItemSprite: {fileID: -7697116855385614072, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       isServed: 0
-      conversation0: I blew it, and when i thought it was such an easy job
-      conversation1: 'oh and that stupid waiter. cant believe he *<color=#FFD966>
-        cut me off and i cant drink more alochol</color>* '
-      conversation2: i cant believe it and he spilled wine on the baron, that guy
-        sure know how to kil the mood.
+      conversation0: i blew it. i had miss amelia listening to me for a whole minute
+        and i lost my nerve.
+      conversation1: and that stupid waiter <color=#FFD966>cut me off, i cant get
+        another drink in this room</color>.
+      conversation2: fine. i keep a bottle in the car anyway. <color=#FFD966>i will be
+        out by the garage</color> if anybody important asks after me.
     - suspect: {fileID: 4510430641581738031, guid: a8392fe46d8f28846a1efc097f80c317, type: 3}
       hand: {fileID: 5266195450174147428, guid: 85fd62b42363787498acda5dde61aeeb, type: 3}
       spawnCoordinates: {x: 1, y: 0, z: 12}
@@ -2426,9 +2424,11 @@ MonoBehaviour:
         quantity: 0
         foodItemSprite: {fileID: -7697116855385614072, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       isServed: 0
-      conversation0: look at that dumb officer, bothering the miss
-      conversation1: i tell you what no decent man would bother such a pretty thing
-      conversation2: i just realized, this is my one shot, this is my easy ticket.
+      conversation0: look at that officer, still at the poor woman. he has been on her
+        all night.
+      conversation1: i tell you what, no decent man talks to a lady like that.
+      conversation2: you know what, this is my one shot. <color=#FFD966>somebody has to
+        say something to him</color>, and it might as well be me.
     - suspect: {fileID: 4117511751265744529, guid: cc1acc51b47926a4b87ec6690078bf98, type: 3}
       hand: {fileID: 5266195450174147428, guid: 671d9af8ae5ef8649abc67f1ea08560a, type: 3}
       spawnCoordinates: {x: 16, y: 0, z: 8}
@@ -2481,57 +2481,10 @@ MonoBehaviour:
     victimInfo:
       victim: {fileID: 4117511751265744529, guid: d22b7bfcf6099d341856661069cc49fe, type: 3}
       spawnCoordinates: {x: -44, y: 0, z: 17}
-      conversation0: Oh I am so sorry, i got distracted, i cant believe i spilt wine
-        on top of you im so gonna get fired
+      conversation0: did you see that? a whole glass, straight down the front of the
+        baron. i was apologising right in his ear for a good ten seconds before he
+        shoved me off. i thought he was going to have me thrown out.
   - suspectSpawnInfos:
-    - suspect: {fileID: 6005352612164674842, guid: d1cd7c6e5784546448afe4a7735bbade, type: 3}
-      hand: {fileID: 5266195450174147428, guid: 663565842d91c6b4f8d50f4271548ff8, type: 3}
-      spawnCoordinates: {x: -50, y: 0, z: -4}
-      foodItems:
-      - foodItemId: BlueBerries
-        quantity: 1
-        foodItemSprite: {fileID: -6080153740424670305, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Cheese
-        quantity: 0
-        foodItemSprite: {fileID: -3455651903386829094, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Cheese Blocks
-        quantity: 0
-        foodItemSprite: {fileID: 7360157024177469201, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Cheese Slices
-        quantity: 0
-        foodItemSprite: {fileID: -4609095546709445191, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Cracker
-        quantity: 0
-        foodItemSprite: {fileID: -7376048997147925194, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Garnish
-        quantity: 0
-        foodItemSprite: {fileID: -797234318600969935, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Grapes
-        quantity: 0
-        foodItemSprite: {fileID: -8949105817906397048, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Half Salami
-        quantity: 0
-        foodItemSprite: {fileID: -2048464571593184402, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Nuts
-        quantity: 0
-        foodItemSprite: {fileID: 3750132874793683344, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Oranges
-        quantity: 0
-        foodItemSprite: {fileID: -1725846796255364204, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Pickles
-        quantity: 1
-        foodItemSprite: {fileID: 3052231692086169073, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Salami
-        quantity: 0
-        foodItemSprite: {fileID: -648068547666614581, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      - foodItemId: Strawberry
-        quantity: 0
-        foodItemSprite: {fileID: -7697116855385614072, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
-      isServed: 0
-      conversation0: So, yo are the person amara hired? let me check out the refreshments
-      conversation1: looks great, this party is going to be great
-      conversation2: I will only give you one piece, of advice, money buys everything
-        and everyone. remember that
     - suspect: {fileID: 6005352612164674842, guid: d0f8bbb778fc0724d822efa7e7fb403c, type: 3}
       hand: {fileID: 5266195450174147428, guid: 15f373097b371384fa199b81e0877704, type: 3}
       spawnCoordinates: {x: -25, y: 0, z: 10}
@@ -2576,10 +2529,11 @@ MonoBehaviour:
         quantity: 0
         foodItemSprite: {fileID: -7697116855385614072, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       isServed: 0
-      conversation0: i cant believe I am the only person that can see through her
-      conversation1: yum!!! \n  looks delicious
-      conversation2: i am sure, I just have to get her to admit that she killed her
-        husband, and they have to reopen that case
+      conversation0: over here. i am not hungry, just give me something to hold, i need
+        my hands busy.
+      conversation1: fine. that is fine. thank you.
+      conversation2: and if anybody asks you later, <color=#FFD966>i never left this room
+        tonight</color>. not once.
     - suspect: {fileID: 6005352612164674842, guid: 016b3cd060395b142aafe2a713d5b21e, type: 3}
       hand: {fileID: 5266195450174147428, guid: de5f3501b5c04da4183b08b140034fb8, type: 3}
       spawnCoordinates: {x: -33, y: 0, z: -3}
@@ -2603,7 +2557,7 @@ MonoBehaviour:
         quantity: 0
         foodItemSprite: {fileID: -797234318600969935, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Grapes
-        quantity: 0
+        quantity: 1
         foodItemSprite: {fileID: -8949105817906397048, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       - foodItemId: Half Salami
         quantity: 0
@@ -2624,11 +2578,11 @@ MonoBehaviour:
         quantity: 0
         foodItemSprite: {fileID: -7697116855385614072, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       isServed: 0
-      conversation0: hey there, start working, i dont pay you to stay arround, let
-        me see that charcuterie tray
-      conversation1: looks great, please try and keep the Grapes away from the cheese,
-        <color=#FFD966>I am allergic to Grapes</color>
-      conversation2: great job, please offer food to all the other clients
+      conversation0: you. stop whatever you are doing and make me up a plate, and be
+        quick about it.
+      conversation1: and put <color=#FFD966>grapes</color> on it. i dont care what else
+        goes on there, just make sure there are grapes.
+      conversation2: good. now stay in this room, dont wait up, and dont follow me.
     - suspect: {fileID: 6005352612164674842, guid: dbd471d496f5cd444a3b41c3734ce0cf, type: 3}
       hand: {fileID: 5266195450174147428, guid: 2a66b65aa46eefb44a913dfafd8b1bae, type: 3}
       spawnCoordinates: {x: -13, y: 0, z: 7}
@@ -2673,11 +2627,12 @@ MonoBehaviour:
         quantity: 0
         foodItemSprite: {fileID: -7697116855385614072, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       isServed: 0
-      conversation0: hey come here, im sooo hungry!!!
-      conversation1: oh yeaah, all this food looks great, though not as good as miss
-        amelia
-      conversation2: dang that hit the spot, hey wont you be a pal and be my wingman,
-        <color=#FFD966>i need to get it on with miss amelia</color>
+      conversation0: there he is!! come here come here, i have to tell somebody or i
+        will burst.
+      conversation1: i gave miss amelia something tonight. <color=#FFD966>no other man
+        in this room would have thought of it</color>, and i did it, me.
+      conversation2: where did i get it? a gentleman <color=#FFD966>does not ask and
+        does not tell</color>. now be a pal and find me a drink.
     - suspect: {fileID: 4510430641581738031, guid: a8392fe46d8f28846a1efc097f80c317, type: 3}
       hand: {fileID: 5266195450174147428, guid: e6dcffd7a1cebc544b5a4f4b2ff724a1, type: 3}
       spawnCoordinates: {x: 1, y: 0, z: 12}
@@ -2722,11 +2677,10 @@ MonoBehaviour:
         quantity: 0
         foodItemSprite: {fileID: -7697116855385614072, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       isServed: 0
-      conversation0: hey come here, the baron told me I could get some food
-      conversation1: yum good stuff, you and me we are in the same situation, living
-        paycheck to paycheck, but let me tell you something i got a plan
-      conversation2: you see that woman over there, she is a recent widow, and she
-        inhererited a lot of money, that my friend is how you get an easy life
+      conversation0: psst. over here, and dont make a fuss about it.
+      conversation1: no, i am not playing again tonight. <color=#FFD966>my hands</color>.
+        i caught them on something, that is all.
+      conversation2: you did not see anything. and neither did i.
     - suspect: {fileID: 4117511751265744529, guid: cc1acc51b47926a4b87ec6690078bf98, type: 3}
       hand: {fileID: 5266195450174147428, guid: 267d36b7d746bf3409da30f7b86299a6, type: 3}
       spawnCoordinates: {x: 16, y: 0, z: 8}
@@ -2771,17 +2725,18 @@ MonoBehaviour:
         quantity: 0
         foodItemSprite: {fileID: -7697116855385614072, guid: 7b8cbd35e2a58dd4c9698c1d7d392a72, type: 3}
       isServed: 0
-      conversation0: uhhh, oh hey there, can you please come here a sec
-      conversation1: i need your help, this creep the "Mayor" is clearly drunk and
-        wont leave me alone, can you be a dear and get rid of him
-      conversation2: ok fine, can you at least tell your friend to stop serving him
-        alocohol, he is drunk enough as it is
+      conversation0: oh. it is you. come here a moment, i do not want to be stood on
+        my own right now.
+      conversation1: somebody gave me something tonight. i cannot give it back and i
+        cannot explain it either, so i am just going to stand here holding it.
+      conversation2: no. dont look at my hand. please, just leave it.
     hasVictim: 0
     victimInfo:
       victim: {fileID: 4117511751265744529, guid: d22b7bfcf6099d341856661069cc49fe, type: 3}
       spawnCoordinates: {x: 16, y: 0, z: -12}
-      conversation0: hey, im very nervous arround so many rich people, i feel like
-        im going to screw up
+      conversation0: hey, cover my tables for ten minutes will you. somebody here owes
+        me for a job from a while back and tonight he is finally going to pay it. after
+        tonight you wont see me around here again.
   CharactersParent: {fileID: 942661512}
   Player: {fileID: 1924154322}
   charcuterieFoodParent: {fileID: 1309673798}

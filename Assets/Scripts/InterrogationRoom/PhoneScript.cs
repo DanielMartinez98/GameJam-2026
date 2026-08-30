@@ -24,6 +24,7 @@ namespace InterrogationRoom
             public string correctClueKey;
             public string specialClueId;
             public string specialClue;
+            public bool endsCase;
         }
 
         //The shapes below are what JsonUtility reads, so the field names are the JSON keys. Renaming one
@@ -52,6 +53,10 @@ namespace InterrogationRoom
             //what breaking them unlocks: the id the others' correctClueKey can point at, and its text
             public string specialClueId;
             public string specialClue;
+            //true for the murderer, whose confession ends the case rather than opening another call.
+            //Unlike the lines above there is no telling a false here from a field nobody wrote, so this
+            //one can only ever add to the scene: it marks a suspect, it cannot unmark one.
+            public bool endsCase;
         }
 
         private static Document document;
@@ -134,6 +139,7 @@ namespace InterrogationRoom
                 lines.correctClueKey = suspect.correctClueKey;
                 lines.specialClueId = suspect.specialClueId;
                 lines.specialClue = suspect.specialClue;
+                lines.endsCase = suspect.endsCase;
             }
             Entry entry = Find(suspect);
             if (entry != null)
@@ -145,6 +151,8 @@ namespace InterrogationRoom
                 if (!string.IsNullOrEmpty(entry.correctClueKey)) lines.correctClueKey = entry.correctClueKey;
                 if (!string.IsNullOrEmpty(entry.specialClueId)) lines.specialClueId = entry.specialClueId;
                 if (!string.IsNullOrEmpty(entry.specialClue)) lines.specialClue = entry.specialClue;
+                //a bool has no blank, so the document can only say yes here - see the field's own note
+                if (entry.endsCase) lines.endsCase = true;
             }
             return lines;
         }
