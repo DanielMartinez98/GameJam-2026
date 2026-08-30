@@ -20,8 +20,8 @@
       "title": "the first memory",
       "clues": [
         {
-          "key": "allergy|The Mayor|Grapes",
-          "note": "The Mayor says it out loud in his own conversation line."
+          "key": "allergy|The Henchman|Grapes",
+          "note": "At 7pm the Henchman lets slip she is allergic to grapes."
         }
       ]
     },
@@ -30,15 +30,28 @@
       "title": "the second memory",
       "clues": [
         {
-          "key": "served|The Widow|Nuts",
-          "note": "Placeholder - replace with a real clue for this memory."
+          "key": "took|The Chief|the knife|10 PM",
+          "note": "At 10pm the Chief took the knife (the murder weapon)."
         }
       ]
     },
     {
       "memoryIndex": 2,
       "title": "the third memory",
-      "clues": []
+      "clues": [
+        {
+          "key": "ordered|The Henchman|Grapes|1 AM",
+          "note": "At 1am the Henchman ordered grapes - despite the allergy."
+        },
+        {
+          "key": "hadAt|The Widow|the victim's ring|1 AM",
+          "note": "At 1am the Widow was wearing the victim's ring."
+        },
+        {
+          "key": "hadAt|The Pianist|cuts on his hands|1 AM",
+          "note": "At 1am the Pianist had cuts on his hands."
+        }
+      ]
     }
   ]
 }

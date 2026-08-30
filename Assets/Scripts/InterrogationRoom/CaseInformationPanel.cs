@@ -1,6 +1,4 @@
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace InterrogationRoom
 {
@@ -10,11 +8,17 @@ namespace InterrogationRoom
     //
     //The suspect pages are not authored separately: they are the same profiles the phone dials and the
     //notebook names, so a suspect can never appear in the file under one name and be called under
-    //another.
+    //another. Both kinds of page are set out the same way, as findings with the photographs beside them,
+    //so the file reads as one document rather than as two shapes of page bound together.
     public class CaseInformationPanel : RoomPanel
     {
-        [SerializeField] private float portraitHeight = 220f;
-        [SerializeField] private float navHeight = 54f;
+        [Header("Case file prefabs")]
+        //the two columns a page of findings is laid out in
+        [SerializeField] private FindingsRow findingsRowPrefab;
+        //one line of a report: its name, and what it says
+        [SerializeField] private CaseFinding findingPrefab;
+        //one captioned photograph in the stack down the side of the page
+        [SerializeField] private CasePlate platePrefab;
 
         private int pageIndex;
 
@@ -40,9 +44,30 @@ namespace InterrogationRoom
             pageIndex = 0;
         }
 
+        //the file has a front and a back, so the arrows come off the card at either end of it rather
+        //than turning a page that is not there
+        protected override bool CanGoBack
+        {
+            get { return pageIndex > 0; }
+        }
+
+        protected override void GoBack()
+        {
+            TurnPage(-1);
+        }
+
+        protected override bool CanGoForward
+        {
+            get { return pageIndex < PageCount - 1; }
+        }
+
+        protected override void GoForward()
+        {
+            TurnPage(1);
+        }
+
         protected override void Populate()
         {
-            BuildNavigation();
             SuspectProfile suspect = SuspectAt(pageIndex);
             if (suspect != null)
             {
@@ -55,80 +80,117 @@ namespace InterrogationRoom
                 BuildCasePage(page);
                 return;
             }
-            AddText("Nothing has been filed on this case yet.", 22f, PanelUI.DimTextColor);
+            AddText("Nothing has been filed on this case yet.", PanelText.Dim);
         }
 
+        //Their name is the one finding always on file; the rest appear as they are written, so a suspect
+        //nothing is known about yet is a name and a face rather than a page of "no details on file".
         private void BuildSuspectPage(SuspectProfile suspect)
         {
-            AddPortrait(suspect.portrait);
-            AddText(suspect.displayName, 30f, PanelUI.HighlightColor);
-            AddText(string.IsNullOrEmpty(suspect.information) ? "No details on file." : suspect.information,
-                22f, PanelUI.TextColor);
-            AddText("\nAlibi given", 24f, PanelUI.HighlightColor);
-            AddText(string.IsNullOrEmpty(suspect.alibi) ? "No alibi on record." : suspect.alibi,
-                22f, PanelUI.TextColor);
+            //the file names the person, not the handle the phone and clues use
+            string name = string.IsNullOrEmpty(suspect.realName) ? suspect.displayName : suspect.realName;
+            AddFindings(new CaseFact[]
+            {
+                new CaseFact
+                {
+                    label = "Name",
+                    value = name,
+                    image = suspect.portrait,
+                    //every one of them is drawn standing, head to shoe
+                    cropImage = true,
+                    imageLabel = name
+                },
+                new CaseFact { label = "Profession", value = suspect.profession },
+                new CaseFact { label = "Alibi", value = suspect.alibi },
+                new CaseFact { label = "Autopsy report", value = suspect.autopsyReport }
+            });
+            //anything the department knows that is not one of the findings above
+            if (!string.IsNullOrEmpty(suspect.information))
+            {
+                AddText(suspect.information, PanelText.Body);
+            }
         }
 
         private void BuildCasePage(CasePage page)
         {
-            AddPortrait(page.image);
-            AddText(page.title, 30f, PanelUI.HighlightColor);
-            AddText(page.body, 22f, PanelUI.TextColor);
+            bool written = page.facts != null && page.facts.Length > 0;
+            //A page of findings is already titled by the file it is filed in, at the top of the card, so
+            //saying it again over the findings is the same words twice and a line of the page gone.
+            if (!written)
+            {
+                AddText(page.title, PanelText.Note);
+            }
+            AddFindings(page.facts);
+            //a page written as findings has nothing else to say, and an empty run of text here would
+            //still take a line of the page
+            if (!string.IsNullOrEmpty(page.body))
+            {
+                AddText(page.body, PanelText.Body);
+            }
         }
 
-        //A page with no art skips the frame entirely rather than leaving a hole where one would be, so
-        //the autopsy report reads as a page of text instead of a page of text with a gap over it.
-        private void AddPortrait(Sprite sprite)
+        //A finding with nothing written in it is not on file yet, and a blank line under its name says
+        //less than leaving it out. Its picture, if it has one, is still a picture.
+        private void AddFindings(CaseFact[] facts)
         {
-            if (sprite == null)
+            if (facts == null || facts.Length == 0)
             {
                 return;
             }
-            GameObject frame = new GameObject("Portrait", typeof(RectTransform), typeof(Image), typeof(LayoutElement));
-            frame.layer = column.gameObject.layer;
-            ((RectTransform)frame.transform).SetParent(column, false);
-            Image image = frame.GetComponent<Image>();
-            image.sprite = sprite;
-            image.preserveAspect = true;
-            image.raycastTarget = false;
-            LayoutElement element = frame.GetComponent<LayoutElement>();
-            element.minHeight = portraitHeight;
-            element.preferredHeight = portraitHeight;
-        }
-
-        //the two arrows, side by side on one row so turning the page does not cost two rows of the page
-        private void BuildNavigation()
-        {
-            GameObject row = new GameObject("Turn Page", typeof(RectTransform), typeof(HorizontalLayoutGroup),
-                typeof(LayoutElement));
-            row.layer = column.gameObject.layer;
-            ((RectTransform)row.transform).SetParent(column, false);
-            HorizontalLayoutGroup layout = row.GetComponent<HorizontalLayoutGroup>();
-            layout.spacing = entrySpacing;
-            layout.childControlWidth = true;
-            layout.childControlHeight = true;
-            layout.childForceExpandWidth = true;
-            LayoutElement element = row.GetComponent<LayoutElement>();
-            element.minHeight = navHeight;
-            element.preferredHeight = navHeight;
-
-            Button previous = PanelUI.CreateButton(row.transform, "Previous", "< Previous", 22f);
-            previous.onClick.AddListener(delegate { TurnPage(-1); });
-            previous.interactable = pageIndex > 0;
-            CentreLabel(previous);
-
-            Button next = PanelUI.CreateButton(row.transform, "Next", "Next >", 22f);
-            next.onClick.AddListener(delegate { TurnPage(1); });
-            next.interactable = pageIndex < PageCount - 1;
-            CentreLabel(next);
-        }
-
-        private static void CentreLabel(Button button)
-        {
-            TextMeshProUGUI label = button.GetComponentInChildren<TextMeshProUGUI>(true);
-            if (label != null)
+            int lines = 0;
+            int pictures = 0;
+            foreach (CaseFact fact in facts)
             {
-                label.alignment = TextAlignmentOptions.Center;
+                if (fact == null)
+                {
+                    continue;
+                }
+                if (!string.IsNullOrEmpty(fact.value))
+                {
+                    lines++;
+                }
+                if (fact.image != null)
+                {
+                    pictures++;
+                }
+            }
+            if (lines == 0 && pictures == 0)
+            {
+                return;
+            }
+            if (findingsRowPrefab == null || itemsParent == null)
+            {
+                Missing("Findings Row Prefab");
+                return;
+            }
+            FindingsRow row = Instantiate(findingsRowPrefab, itemsParent);
+            row.ShowColumns(lines > 0, pictures > 0);
+
+            foreach (CaseFact fact in facts)
+            {
+                if (fact == null)
+                {
+                    continue;
+                }
+                if (!string.IsNullOrEmpty(fact.value) && row.Facts != null)
+                {
+                    if (findingPrefab == null)
+                    {
+                        Missing("Finding Prefab");
+                        return;
+                    }
+                    Instantiate(findingPrefab, row.Facts).Set(fact.label, fact.value);
+                }
+                if (fact.image != null && row.Plates != null)
+                {
+                    if (platePrefab == null)
+                    {
+                        Missing("Plate Prefab");
+                        return;
+                    }
+                    string caption = string.IsNullOrEmpty(fact.imageLabel) ? fact.label : fact.imageLabel;
+                    Instantiate(platePrefab, row.Plates).Set(caption, fact.image, fact.cropImage);
+                }
             }
         }
 

@@ -3,16 +3,36 @@ using UnityEngine;
 
 namespace InterrogationRoom
 {
-    //Where suspects get confronted. A call is never made empty handed: the clue is picked first and the
-    //suspect second, so what the player is doing is always putting one specific accusation to one
-    //specific person, and the answer can be written for exactly that pairing.
+    //Where suspects get confronted. You call someone first - anyone but yourself - and they pick up with
+    //their basic line. From there you can put a clue to them: a clue that means nothing gets the brush
+    //off, and the one true clue for that suspect breaks them open, plays their explanation, and unlocks
+    //a special clue you can then put to the others. That is how the case comes apart, one call feeding
+    //the next.
     public class PhonePanel : RoomPanel
     {
-        //the accusation being made, or null while the player is still choosing which one to make
-        private CaseFile.Clue selectedClue;
-        //who was called and what they said back, held until something else is pressed
+        [Header("Phone")]
+        //the suspect's picture, shown at the top of the call. The same captioned photograph the case
+        //file uses, so a face looks the same in both places; left empty, a call simply shows no portrait.
+        [SerializeField] private CasePlate portraitPrefab;
+
+        //One thing the player can put to a suspect: a clue written in the notebook, or a special clue
+        //an earlier call turned up. Both are matched to a suspect the same way, by their key.
+        private struct Presentable
+        {
+            public string key;
+            public string text;
+            public bool isSpecial;
+        }
+
+        //who is on the line, or null while the player is still deciding who to call
         private SuspectProfile calledSuspect;
-        private string answer;
+        //their lines with the centralized phone script folded over the scene, resolved once on the call
+        private PhoneScript.Lines calledLines;
+        //the clue currently put to them, held so the answer stays on screen while the options to bring
+        //up something else sit under it. Cleared when the subject is changed or the phone goes down.
+        private bool cluePresented;
+        private string presentedText;
+        private bool presentedBroke;
 
         protected override string Title
         {
@@ -22,138 +42,222 @@ namespace InterrogationRoom
                 {
                     return "Phone - " + calledSuspect.displayName;
                 }
-                if (selectedClue != null)
-                {
-                    return "Phone - who do you call?";
-                }
-                return "Phone - pick a clue";
+                return "Phone - who do you call?";
             }
         }
 
         protected override void OnOpened()
         {
             //the phone is put down between openings, so it is not still holding last call's line
-            selectedClue = null;
             calledSuspect = null;
-            answer = null;
+            ClearPresented();
         }
 
         protected override void Populate()
         {
-            if (calledSuspect != null)
-            {
-                PopulateAnswer();
-            }
-            else if (selectedClue == null)
-            {
-                PopulateClueList();
-            }
-            else
+            if (calledSuspect == null)
             {
                 PopulateSuspectList();
             }
+            else
+            {
+                PopulateCall();
+            }
         }
 
-        private void PopulateClueList()
+        //One step back at a time: while a clue is on the line, backing out drops the clue but keeps the
+        //call; on the bare call it hangs up; on the list of people there is nowhere left to go.
+        protected override bool CanGoBack
         {
-            IList<CaseFile.Clue> clues = CaseFile.Clues;
-            if (clues.Count == 0)
-            {
-                AddText("You have nothing to say to anyone yet.\nOpen the notebook and write a clue first.",
-                    22f, PanelUI.DimTextColor);
-                return;
-            }
-            AddText("What are you calling about?", 22f, PanelUI.DimTextColor);
-            foreach (CaseFile.Clue clue in clues)
-            {
-                CaseFile.Clue chosen = clue;
-                //a spent clue can still be read out, it just will not land twice, so it is listed
-                //greyed rather than hidden
-                string label = clue.used ? clue.text + "   (already used)" : clue.text;
-                AddEntry(label, delegate { SelectClue(chosen); }).interactable = !clue.used;
-            }
+            get { return calledSuspect != null; }
+        }
+
+        protected override void GoBack()
+        {
+            Back();
         }
 
         private void PopulateSuspectList()
         {
-            AddEntry("< Back", Back);
-            AddText("\"" + selectedClue.text + "\"", 22f, PanelUI.HighlightColor);
             SuspectProfile[] suspects = director != null ? director.Suspects : null;
             if (suspects == null || suspects.Length == 0)
             {
-                AddText("There are no numbers in the book.", 22f, PanelUI.DimTextColor);
+                AddText("There are no numbers in the book.", PanelText.Dim);
                 return;
             }
+            AddText("Who do you call?", PanelText.Dim);
             foreach (SuspectProfile suspect in suspects)
             {
-                if (suspect == null)
+                //you cannot call yourself: the detective is on the suspect list for the file, not the phone
+                if (suspect == null || suspect.isPlayerCharacter)
                 {
                     continue;
                 }
                 SuspectProfile chosen = suspect;
-                AddEntry(suspect.displayName + "   " + suspect.phoneNumber, delegate { Call(chosen); });
+                //a suspect already broken open is marked, so the player can see who is left to work on
+                string label = suspect.displayName + "   " + suspect.phoneNumber;
+                if (IsBroken(suspect))
+                {
+                    label += "   (spoken to)";
+                }
+                AddEntry(label, delegate { Call(chosen); });
             }
         }
 
-        private void PopulateAnswer()
+        private void PopulateCall()
         {
-            AddEntry("< Hang up", Back);
-            AddText("You: \"" + selectedClue.text + "\"", 22f, PanelUI.DimTextColor);
-            AddText(calledSuspect.displayName + ": \"" + answer + "\"", 24f, PanelUI.TextColor);
-        }
-
-        private void SelectClue(CaseFile.Clue clue)
-        {
-            selectedClue = clue;
-            Refresh();
-        }
-
-        //One step back at a time: hanging up returns to the list of people to call, and backing out of
-        //that returns to the clues, so a wrong pick never costs the player the whole call.
-        private void Back()
-        {
-            if (calledSuspect != null)
+            if (!HasBackButton)
             {
-                calledSuspect = null;
-                answer = null;
+                AddEntry(cluePresented ? "< Change the subject" : "< Hang up", Back);
             }
-            else
+
+            AddPortrait(calledSuspect.portrait);
+
+            //they always pick up with their basic line before anything is put to them
+            AddText(calledSuspect.displayName + ": \"" + calledLines.basic + "\"", PanelText.Body);
+
+            if (cluePresented)
             {
-                selectedClue = null;
+                AddText("\nYou: \"" + presentedText + "\"", PanelText.Dim);
+                if (presentedBroke)
+                {
+                    AddText(calledSuspect.displayName + ": \"" + calledLines.correct + "\"", PanelText.Note);
+                    //line 4 - them explaining themselves, each authored section its own paragraph
+                    if (calledLines.explanation != null)
+                    {
+                        foreach (string section in calledLines.explanation)
+                        {
+                            if (!string.IsNullOrEmpty(section))
+                            {
+                                AddText(section, PanelText.Body);
+                            }
+                        }
+                    }
+                    if (!string.IsNullOrEmpty(calledLines.specialClue))
+                    {
+                        AddText("\nNew clue: " + calledLines.specialClue, PanelText.Note);
+                    }
+                }
+                else
+                {
+                    AddText(calledSuspect.displayName + ": \"" + calledLines.nonsense + "\"", PanelText.Body);
+                }
             }
-            Refresh();
+
+            PopulateClueOptions();
+        }
+
+        //The suspect's picture at the top of the call, shown the same way as in the case file: filled
+        //into its frame and cropped from the top, which on a standing figure is the head.
+        private void AddPortrait(Sprite portrait)
+        {
+            if (portrait == null)
+            {
+                return;
+            }
+            if (portraitPrefab == null || itemsParent == null)
+            {
+                Missing("Portrait Prefab");
+                return;
+            }
+            Instantiate(portraitPrefab, itemsParent).Set(string.Empty, portrait, true);
+        }
+
+        private void PopulateClueOptions()
+        {
+            List<Presentable> options = GatherClues();
+            if (options.Count == 0)
+            {
+                AddText("\nYou have nothing to bring up yet.\nOpen the notebook and write a clue first.",
+                    PanelText.Dim);
+                return;
+            }
+            AddText("\nBring something up:", PanelText.Dim);
+            foreach (Presentable option in options)
+            {
+                Presentable chosen = option;
+                //a special clue is marked so the player knows it came off the phone, not their notebook
+                string label = option.isSpecial ? option.text + "   (special)" : option.text;
+                AddEntry(label, delegate { Present(chosen); });
+            }
+        }
+
+        //Everything the player could put to a suspect: the clues they have written down, then the
+        //special clues the phone has turned up, each keyed so it can be matched to whoever it breaks.
+        private static List<Presentable> GatherClues()
+        {
+            List<Presentable> options = new List<Presentable>();
+            foreach (CaseFile.Clue clue in CaseFile.Clues)
+            {
+                options.Add(new Presentable { key = clue.Key, text = clue.text, isSpecial = false });
+            }
+            foreach (CaseFile.SpecialClue special in CaseFile.SpecialClues)
+            {
+                options.Add(new Presentable { key = special.id, text = special.text, isSpecial = true });
+            }
+            return options;
         }
 
         private void Call(SuspectProfile suspect)
         {
             calledSuspect = suspect;
-            ClueResponse response = FindResponse(suspect, selectedClue.Key);
-            answer = response != null && !string.IsNullOrEmpty(response.line) ? response.line : suspect.brushOffLine;
-            //A clue that actually broke someone has done its work, and the phone stops offering it. A
-            //clue that got a brush off is left alone: the same accusation may well land on someone else.
-            if (response != null && response.isBreakthrough)
+            calledLines = PhoneScript.Resolve(suspect);
+            ClearPresented();
+            Refresh();
+        }
+
+        //Puts one clue to whoever is on the line. The one true clue for this suspect breaks them open:
+        //it spends the written clue, plays the explanation, and drops their special clue where the other
+        //suspects can be confronted with it. Anything else gets the brush off and costs nothing.
+        private void Present(Presentable clue)
+        {
+            cluePresented = true;
+            presentedText = clue.text;
+            presentedBroke = !string.IsNullOrEmpty(calledLines.correctClueKey)
+                && clue.key == calledLines.correctClueKey;
+            if (presentedBroke)
             {
-                //through the case file rather than set here, so the breakthrough is written to disk
-                //along with it and is still spent after a quit
-                CaseFile.MarkClueUsed(selectedClue);
+                //a written clue that broke someone is struck off in the notebook; a special clue has no
+                //notebook row to mark, so FindClue simply finds nothing and nothing is struck
+                CaseFile.Clue written = CaseFile.FindClue(clue.key);
+                if (written != null)
+                {
+                    CaseFile.MarkClueUsed(written);
+                }
+                //the call turned something up: it goes to the special clues so it survives the phone
+                //going down and can be put to the other suspects
+                CaseFile.AddSpecialClue(calledLines.specialClueId, calledLines.specialClue);
             }
             Refresh();
         }
 
-        private static ClueResponse FindResponse(SuspectProfile suspect, string clueKey)
+        //One step back at a time: dropping the clue keeps the call, hanging up returns to the list.
+        private void Back()
         {
-            if (suspect.responses == null)
+            if (cluePresented)
             {
-                return null;
+                ClearPresented();
             }
-            foreach (ClueResponse response in suspect.responses)
+            else
             {
-                if (response != null && response.clueKey == clueKey)
-                {
-                    return response;
-                }
+                calledSuspect = null;
             }
-            return null;
+            Refresh();
+        }
+
+        private void ClearPresented()
+        {
+            cluePresented = false;
+            presentedText = null;
+            presentedBroke = false;
+        }
+
+        //A suspect is broken once the special clue they unlock has been turned up. A suspect who unlocks
+        //nothing can never read as broken, which is fine - there is no chain hanging off them. The id is
+        //resolved through the script so a special clue moved to the document still marks them.
+        private static bool IsBroken(SuspectProfile suspect)
+        {
+            return suspect != null && CaseFile.HasSpecialClue(PhoneScript.Resolve(suspect).specialClueId);
         }
     }
 }

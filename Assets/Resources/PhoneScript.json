@@ -1,0 +1,102 @@
+{
+  "_comment": [
+    "The phone script: everything the suspects say when you call them, in one place.",
+    "",
+    "Edit this file to rewrite any conversation - it is read at runtime, so nothing needs rebuilding.",
+    "Each suspect is matched to the scene by 'name' (their display name, e.g. 'The Mayor', or their",
+    "prefab name, e.g. 'Mayor'). Any field left blank here falls back to what the suspect was authored",
+    "with on the Interrogation Room Director in MainScene.",
+    "",
+    "  basic          line 1 - what they say when they pick up, before any clue is put to them",
+    "  nonsense       line 2 - their answer to a clue that means nothing to them",
+    "  correct        line 3 - the moment the one true clue lands and they know they are caught",
+    "  explanation    line 4 - them explaining themselves, one array entry per paragraph (can be long)",
+    "  correctClueKey the clue that breaks them: a notebook clue key (see the director's 'List Clue",
+    "                 Keys' context menu) or another suspect's specialClueId",
+    "  specialClueId  the id this suspect's special clue is unlocked under, so another suspect's",
+    "                 correctClueKey can point at it and the calls chain together",
+    "  specialClue    the text of that special clue, read on the phone and written in the notebook",
+    "",
+    "The detective (the player character) is not on the phone, so there is no entry for them here."
+  ],
+  "suspects": [
+    {
+      "name": "The Baron",
+      "basic": "Baron speaking. Make it quick, detective.",
+      "nonsense": "I have nothing to say about that, detective.",
+      "correct": "...how could you possibly know that?",
+      "explanation": [
+        "Fine. Yes. I was there that night, and I have kept quiet about it ever since.",
+        "But you have to understand what was really going on at that table."
+      ],
+      "correctClueKey": "",
+      "specialClueId": "",
+      "specialClue": ""
+    },
+    {
+      "name": "The Chief",
+      "basic": "Chief here. This had better be important.",
+      "nonsense": "I have nothing to say about that, detective.",
+      "correct": "...how could you possibly know that?",
+      "explanation": [
+        "You think you have it all worked out. You do not.",
+        "Let me tell you what actually happened."
+      ],
+      "correctClueKey": "",
+      "specialClueId": "",
+      "specialClue": ""
+    },
+    {
+      "name": "The Henchman",
+      "basic": "Yeah? Who is this?",
+      "nonsense": "I have nothing to say about that, detective.",
+      "correct": "...how could you possibly know that?",
+      "explanation": [
+        "Alright, alright. I did what I was told, same as always.",
+        "But I never signed up for what happened after."
+      ],
+      "correctClueKey": "",
+      "specialClueId": "",
+      "specialClue": ""
+    },
+    {
+      "name": "The Mayor",
+      "basic": "You have reached the Mayor's office. Speak.",
+      "nonsense": "I have nothing to say about that, detective.",
+      "correct": "...how could you possibly know that?",
+      "explanation": [
+        "I have a reputation to protect, detective, and that reputation is the only reason I am still talking to you.",
+        "Here is the truth, and it goes no further than this call."
+      ],
+      "correctClueKey": "",
+      "specialClueId": "",
+      "specialClue": ""
+    },
+    {
+      "name": "The Pianist",
+      "basic": "Hello? I was in the middle of practising.",
+      "nonsense": "I have nothing to say about that, detective.",
+      "correct": "...how could you possibly know that?",
+      "explanation": [
+        "I see everything from that piano and no one ever notices me there.",
+        "So yes, I saw it. Let me tell you exactly what I saw."
+      ],
+      "correctClueKey": "",
+      "specialClueId": "",
+      "specialClue": ""
+    },
+    {
+      "name": "The Widow",
+      "basic": "Yes? Who is calling at this hour?",
+      "nonsense": "I have nothing to say about that, detective.",
+      "correct": "...how could you possibly know that?",
+      "explanation": [
+        "I have grieved quietly and let everyone believe what they wanted to believe.",
+        "But you have earned the truth, so here it is."
+      ],
+      "correctClueKey": "",
+      "specialClueId": "",
+      "specialClue": ""
+    }
+  ]
+}

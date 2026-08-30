@@ -23,6 +23,18 @@ namespace InterrogationRoom
             pendingIndex = -1;
         }
 
+        //there is only ever one step to take back here: the memory waiting on a yes
+        protected override bool CanGoBack
+        {
+            get { return pendingIndex >= 0; }
+        }
+
+        protected override void GoBack()
+        {
+            pendingIndex = -1;
+            Refresh();
+        }
+
         protected override void Populate()
         {
             if (pendingIndex >= 0)
@@ -33,7 +45,7 @@ namespace InterrogationRoom
             MemoryOption[] options = director != null ? director.Memories : null;
             if (options == null || options.Length == 0)
             {
-                AddText("No memories have been set up on the director.", 22f, PanelUI.DimTextColor);
+                AddText("No memories have been set up on the director.", PanelText.Dim);
                 return;
             }
             foreach (MemoryOption option in options)
@@ -50,11 +62,11 @@ namespace InterrogationRoom
                 if (!unlocked)
                 {
                     AddText("  Serve everyone in " + PreviousTitle(options, option.memoryIndex) + " first.",
-                        20f, PanelUI.DimTextColor);
+                        PanelText.Dim);
                 }
                 else if (!string.IsNullOrEmpty(option.description))
                 {
-                    AddText("  " + option.description, 20f, PanelUI.DimTextColor);
+                    AddText("  " + option.description, PanelText.Dim);
                 }
             }
         }
@@ -95,13 +107,13 @@ namespace InterrogationRoom
         private void PopulateConfirmation()
         {
             AddText("You are part way through another memory.\nGoing back to a memory from the start will lose it.",
-                22f, PanelUI.HighlightColor);
+                PanelText.Note);
             AddEntry("Go back anyway", delegate { Enter(pendingIndex); });
-            AddEntry("< Never mind", delegate
+            //the card's own arrow already says this, so it is not said twice
+            if (!HasBackButton)
             {
-                pendingIndex = -1;
-                Refresh();
-            });
+                AddEntry("< Never mind", GoBack);
+            }
         }
 
         private void Choose(MemoryOption option)

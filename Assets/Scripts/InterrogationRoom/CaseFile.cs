@@ -50,8 +50,20 @@ namespace InterrogationRoom
             return key;
         }
 
+        //Something the phone turned up: an id the suspects' correct clue keys can point at, and the
+        //text the player reads. Kept as a pair rather than plain text so a special clue can be put back
+        //to the other suspects the same way a written clue can, and matched to whoever it breaks.
+        public class SpecialClue
+        {
+            public string id;
+            public string text;
+        }
+
         private static readonly List<Clue> clues = new List<Clue>();
         private static readonly HashSet<int> completedMemories = new HashSet<int>();
+        //Notes the phone turned up, written down on their own page. The player never adds these by
+        //hand: a call that breaks open drops one here, and they are read back but not struck off.
+        private static readonly List<SpecialClue> specialClues = new List<SpecialClue>();
 
         //The memory the player walked out of without serving everyone. -1 means there is none, which is
         //what greys out the Memory button in the interrogation room.
@@ -64,6 +76,50 @@ namespace InterrogationRoom
         public static IList<Clue> Clues
         {
             get { Load(); return clues; }
+        }
+
+        //The special clues the phone has turned up so far, oldest first.
+        public static IList<SpecialClue> SpecialClues
+        {
+            get { Load(); return specialClues; }
+        }
+
+        //Whether a special clue with this id has already been turned up, which is what marks the
+        //suspect who unlocks it as broken open.
+        public static bool HasSpecialClue(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return false;
+            }
+            Load();
+            foreach (SpecialClue special in specialClues)
+            {
+                if (special.id == id)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        //Dropped in automatically when a call breaks open. An empty id writes nothing, and a special
+        //clue already turned up is kept once, so re-making a call that already landed does not unlock
+        //the same thing twice.
+        public static bool AddSpecialClue(string id, string text)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return false;
+            }
+            Load();
+            if (HasSpecialClue(id))
+            {
+                return false;
+            }
+            specialClues.Add(new SpecialClue { id = id, text = text });
+            Save();
+            return true;
         }
 
         //Writing the same accusation twice would put two identical lines in the notebook and give the
@@ -268,6 +324,7 @@ namespace InterrogationRoom
             loaded = true;
             clues.Clear();
             completedMemories.Clear();
+            specialClues.Clear();
             UnfinishedMemory = -1;
             pendingMemory = -1;
             snapshot = null;
@@ -283,6 +340,7 @@ namespace InterrogationRoom
         {
             public List<SavedClue> clues = new List<SavedClue>();
             public List<int> completedMemories = new List<int>();
+            public List<SavedSpecialClue> specialClues = new List<SavedSpecialClue>();
         }
 
         [System.Serializable]
@@ -292,6 +350,13 @@ namespace InterrogationRoom
             public string[] picks;
             public string text;
             public bool used;
+        }
+
+        [System.Serializable]
+        private class SavedSpecialClue
+        {
+            public string id;
+            public string text;
         }
 
         private static bool loaded;
@@ -354,6 +419,17 @@ namespace InterrogationRoom
                     completedMemories.Add(memoryIndex);
                 }
             }
+            specialClues.Clear();
+            if (state.specialClues != null)
+            {
+                foreach (SavedSpecialClue special in state.specialClues)
+                {
+                    if (special != null && !string.IsNullOrEmpty(special.id))
+                    {
+                        specialClues.Add(new SpecialClue { id = special.id, text = special.text });
+                    }
+                }
+            }
         }
 
         //Written out whenever any of it changes. The case is a handful of short strings, so there is
@@ -374,6 +450,10 @@ namespace InterrogationRoom
             foreach (int memoryIndex in completedMemories)
             {
                 state.completedMemories.Add(memoryIndex);
+            }
+            foreach (SpecialClue special in specialClues)
+            {
+                state.specialClues.Add(new SavedSpecialClue { id = special.id, text = special.text });
             }
             try
             {

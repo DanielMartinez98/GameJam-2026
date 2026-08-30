@@ -4,33 +4,58 @@ using UnityEngine.UI;
 
 namespace InterrogationRoom
 {
+    //Which of the three voices a line of a screen is written in. The look of each one lives in its own
+    //prefab, so this only says which of them a line is, never how it reads.
+    public enum PanelText
+    {
+        //what the screen is actually telling you
+        Body,
+        //an instruction, an empty state, something being read back
+        Dim,
+        //something that has just happened and is worth catching the eye
+        Note
+    }
+
     //A screen that opens over the interrogation room. All four of them - notebook, phone, case file and
-    //memory picker - open and close the same way and are built the same way, so that part lives here and
-    //each screen only has to say what goes in its column.
+    //memory picker - open and close the same way, so that part lives here and each one only has to say
+    //what goes in its list.
     //
-    //The card itself can be handed in from the scene, in which case its contents are still filled in
-    //here and only the look is the scene's. Left empty, the whole card is built, so the room can be
-    //played before any of it has been drawn.
+    //None of them is built. The card is drawn art in the scene, the title and the scrolling list are
+    //objects on it, and every row is a prefab. What this does is switch the card on, put the right words
+    //in the title, and fill the list with copies of the prefabs. Everything about how any of it looks is
+    //settled in the editor and nothing here needs to know about it.
     public abstract class RoomPanel : MonoBehaviour
     {
+        [Header("The card")]
         [SerializeField] protected GameObject panelRoot;
-        //how much of the canvas the card covers when it is built rather than authored
-        [SerializeField] protected Vector2 panelSize = new Vector2(0.72f, 0.82f);
-        [SerializeField] protected float headerHeight = 76f;
-        [SerializeField] protected float entrySpacing = 10f;
-        [SerializeField] protected float entryHeight = 62f;
+        [SerializeField] protected TextMeshProUGUI titleLabel;
+        //the object the rows are dropped into: the scrolling content, not the frame around it
+        [SerializeField] protected RectTransform itemsParent;
+        //put back to the top whenever the list changes. Left empty, the list simply does not scroll.
+        [SerializeField] protected ScrollRect scroll;
+
+        [Header("Buttons on the card")]
+        [SerializeField] protected Button closeButton;
+        //taken off the card when there is nowhere to go back to, rather than sitting there doing nothing
+        [SerializeField] protected Button backButton;
+        [SerializeField] protected Button forwardButton;
+
+        [Header("Row prefabs")]
+        [SerializeField] protected PanelEntry entryPrefab;
+        [SerializeField] protected TextMeshProUGUI bodyTextPrefab;
+        [SerializeField] protected TextMeshProUGUI dimTextPrefab;
+        [SerializeField] protected TextMeshProUGUI noteTextPrefab;
 
         protected InterrogationRoomDirector director;
-        //where the rows go: the scrolling content, not the frame around it
-        protected RectTransform column;
-        protected ScrollRect scroll;
-        protected TextMeshProUGUI header;
+        private bool hooked;
+        //said once and then not again, because it would otherwise be said every time the list changes
+        private bool complained;
 
         //what goes across the top of the card
         protected abstract string Title { get; }
 
-        //fills the column with whatever this screen is showing right now. Called every time something
-        //changes, on a column that has just been emptied.
+        //fills the list with whatever this screen is showing right now. Called every time something
+        //changes, on a list that has just been emptied.
         protected abstract void Populate();
 
         public bool IsOpen
@@ -38,14 +63,37 @@ namespace InterrogationRoom
             get { return panelRoot != null && panelRoot.activeSelf; }
         }
 
+        //Whether the card carries its own step-back arrow. A screen that has one leaves the "back" row
+        //out of its list, so the same step is not offered twice on the same page.
+        protected bool HasBackButton
+        {
+            get { return backButton != null; }
+        }
+
+        protected bool HasForwardButton
+        {
+            get { return forwardButton != null; }
+        }
+
+        //The card sits in the scene where it was drawn, which is to say switched on, so the first thing
+        //that happens to it is being put away. Opening is what puts it back up.
+        private void Awake()
+        {
+            if (panelRoot != null)
+            {
+                panelRoot.SetActive(false);
+            }
+        }
+
         public void Open(InterrogationRoomDirector owner)
         {
             director = owner;
-            Build();
             if (panelRoot == null)
             {
+                Missing("Panel Root");
                 return;
             }
+            HookButtons();
             panelRoot.SetActive(true);
             OnOpened();
             Refresh();
@@ -66,21 +114,41 @@ namespace InterrogationRoom
 
         protected virtual void OnClosed() { }
 
-        //Rebuilds the column from scratch. Every screen here is a short list that changes when something
-        //is pressed, so throwing the rows away and laying them out again is both simpler and cheaper
-        //than keeping them in step with the state behind them.
+        //What the drawn arrows do, for the screens that have them.
+        protected virtual bool CanGoBack { get { return false; } }
+
+        protected virtual void GoBack() { }
+
+        protected virtual bool CanGoForward { get { return false; } }
+
+        protected virtual void GoForward() { }
+
+        //Empties the list and fills it again. Every screen here is a short list that changes when
+        //something is pressed, so throwing the rows away and laying them out again is both simpler and
+        //cheaper than keeping them in step with the state behind them.
         public void Refresh()
         {
-            if (column == null)
+            if (itemsParent == null)
             {
+                Missing("Items Parent");
                 return;
             }
-            PanelUI.ClearChildren(column);
-            if (header != null)
+            PanelUI.ClearChildren(itemsParent);
+            if (titleLabel != null)
             {
-                header.text = Title;
+                titleLabel.text = Title;
             }
             Populate();
+            //the arrows are part of the same page as the rows, so they are put right at the same time
+            //rather than being left offering a step that is no longer there
+            if (backButton != null)
+            {
+                backButton.gameObject.SetActive(CanGoBack);
+            }
+            if (forwardButton != null)
+            {
+                forwardButton.gameObject.SetActive(CanGoForward);
+            }
             //Whatever is being shown now is a different thing from what was there a moment ago - the
             //next page of the file, the answer to a call - so it is shown from its top rather than at
             //however far down the last thing had been scrolled.
@@ -90,42 +158,30 @@ namespace InterrogationRoom
             }
         }
 
-        private void Build()
+        //hooked once, on the first opening, rather than every time the card goes up
+        private void HookButtons()
         {
-            if (column != null)
+            if (hooked)
             {
                 return;
             }
-            if (panelRoot == null)
+            hooked = true;
+            if (closeButton != null)
             {
-                Transform canvas = director != null ? director.PanelParent : null;
-                if (canvas == null)
-                {
-                    Debug.LogWarning(GetType().Name + " has no panel to build into: give the director a Panel Parent or wire a Panel Root.");
-                    return;
-                }
-                //named after the screen rather than after whatever object it was put on, because all
-                //four of them usually sit on the director together and would otherwise share a name
-                panelRoot = PanelUI.CreatePanel(canvas, GetType().Name, panelSize);
-                //built hidden, because Open is what puts it up and Build runs from inside Open
-                panelRoot.SetActive(false);
+                closeButton.onClick.AddListener(OnCloseButton);
             }
-            //an authored card can title itself by putting a "Title" text at its top level; any other
-            //text on it is its own business and is left alone
-            Transform authoredTitle = panelRoot.transform.Find("Title");
-            header = authoredTitle != null ? authoredTitle.GetComponent<TextMeshProUGUI>() : null;
-            if (header == null)
+            if (backButton != null)
             {
-                header = PanelUI.CreateHeader(panelRoot.transform, Title, headerHeight);
+                backButton.onClick.AddListener(OnBackButton);
             }
-            Button close = PanelUI.CreateCloseButton(panelRoot.transform, "X");
-            close.onClick.AddListener(OnCloseButton);
-            column = PanelUI.CreateColumn(panelRoot.transform, "Entries", headerHeight, entrySpacing);
-            scroll = column.GetComponentInParent<ScrollRect>();
+            if (forwardButton != null)
+            {
+                forwardButton.onClick.AddListener(OnForwardButton);
+            }
         }
 
-        //the card's own X. Closing goes back through the director so the room knows nothing is open any
-        //more and can put the table back in reach.
+        //the card's own exit. Closing goes back through the director so the room knows nothing is open
+        //any more and can put the table back in reach.
         private void OnCloseButton()
         {
             if (director != null)
@@ -138,28 +194,82 @@ namespace InterrogationRoom
             }
         }
 
-        //a row in this screen's column, sized by the column and hooked up to what pressing it does
-        protected Button AddEntry(string label, UnityEngine.Events.UnityAction onClick, bool interactable = true)
+        private void OnBackButton()
         {
-            Button button = PanelUI.CreateButton(column, label, label, 24f);
-            PanelUI.SetEntryHeight(button, entryHeight);
-            button.interactable = interactable;
-            if (onClick != null)
+            if (CanGoBack)
             {
-                button.onClick.AddListener(onClick);
+                GoBack();
             }
-            return button;
         }
 
-        //a line of text in the column that is not pressable: an instruction, an answer, an empty state
-        protected TextMeshProUGUI AddText(string text, float fontSize, Color color)
+        private void OnForwardButton()
         {
-            TextMeshProUGUI label = PanelUI.CreateLabel(column, "Text", text, fontSize, TextAlignmentOptions.TopLeft);
-            label.color = color;
-            //deliberately no LayoutElement: the text component works out its own preferred height once
-            //the column has given it a width, and a height pinned here would be measured before that
-            //and cut a long answer off mid sentence.
-            return label;
+            if (CanGoForward)
+            {
+                GoForward();
+            }
+        }
+
+        //a pressable row in this screen's list, and what pressing it does
+        protected PanelEntry AddEntry(string label, UnityEngine.Events.UnityAction onClick,
+            bool interactable = true)
+        {
+            if (entryPrefab == null || itemsParent == null)
+            {
+                Missing("Entry Prefab");
+                return null;
+            }
+            PanelEntry entry = Instantiate(entryPrefab, itemsParent);
+            entry.SetLabel(label);
+            if (entry.Button != null)
+            {
+                entry.Button.interactable = interactable;
+                if (onClick != null)
+                {
+                    entry.Button.onClick.AddListener(onClick);
+                }
+            }
+            return entry;
+        }
+
+        //a line in the list that is not pressable: an instruction, an answer, an empty state
+        protected TextMeshProUGUI AddText(string text, PanelText voice)
+        {
+            TextMeshProUGUI prefab = PrefabFor(voice);
+            if (prefab == null || itemsParent == null)
+            {
+                Missing(voice + " Text Prefab");
+                return null;
+            }
+            TextMeshProUGUI line = Instantiate(prefab, itemsParent);
+            line.text = text;
+            return line;
+        }
+
+        private TextMeshProUGUI PrefabFor(PanelText voice)
+        {
+            switch (voice)
+            {
+                case PanelText.Dim:
+                    return dimTextPrefab;
+                case PanelText.Note:
+                    return noteTextPrefab;
+                default:
+                    return bodyTextPrefab;
+            }
+        }
+
+        //Nothing here can be put together from scratch any more, so a screen missing a piece says which
+        //piece and which screen, once, rather than throwing the same null every time a row is added.
+        protected void Missing(string field)
+        {
+            if (complained)
+            {
+                return;
+            }
+            complained = true;
+            Debug.LogWarning(GetType().Name + " has no " + field + " assigned, so it has nothing to "
+                + "show. Wire it up on the " + GetType().Name + " component.", this);
         }
     }
 }

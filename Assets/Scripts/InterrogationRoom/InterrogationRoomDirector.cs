@@ -30,7 +30,7 @@ namespace InterrogationRoom
         [SerializeField] private Button caseInformationButton;
         [SerializeField] private string caseInformationName = "Case file";
         [SerializeField] private Button playerCharacterButton;
-        [SerializeField] private string playerCharacterName = "Detective";
+        [SerializeField] private string playerCharacterName = "Testimony";
         //Only in the room at all when a memory was walked out of half served. There is no "no memory"
         //state to dress, because in that state the button is not on the table to be looked at.
         [SerializeField] private Button currentMemoryButton;
@@ -39,7 +39,9 @@ namespace InterrogationRoom
         [SerializeField] private TMPro.TextMeshProUGUI currentMemoryLabel;
 
         [Header("Hover name")]
-        //where the hovered object's name is written. Left empty it is built, like everything else here.
+        //Where the hovered object's name is written: the text inside the little pill on the canvas. Its
+        //parent is the pill itself, which is what gets shown, hidden and moved, so the two have to stay
+        //that way round. Left empty, the room simply does not name what the cursor is over.
         [SerializeField] private TMPro.TextMeshProUGUI hoverLabel;
         //clear of the cursor rather than under it, so the pointer is never covering its own label
         [SerializeField] private Vector2 hoverLabelOffset = new Vector2(18f, 18f);
@@ -49,6 +51,9 @@ namespace InterrogationRoom
         [SerializeField] private PhonePanel phonePanel;
         [SerializeField] private CaseInformationPanel caseInformationPanel;
         [SerializeField] private MemorySelectPanel memorySelectPanel;
+        //Plays the picture-and-prologue on the way into a memory. Left empty, one is made here the same
+        //way the screens are; a memory with no prologue drops straight into the dining room regardless.
+        [SerializeField] private CutsceneDirector cutsceneDirector;
         //what a screen is built into when it has no card of its own wired up. Left empty, the canvas the
         //buttons are already on is used, which is where they belong anyway.
         [SerializeField] private Transform panelParent;
@@ -65,7 +70,10 @@ namespace InterrogationRoom
             new SuspectProfile { displayName = "The Henchman", prefabName = "Henchman", phoneNumber = "555-0103" },
             new SuspectProfile { displayName = "The Mayor", prefabName = "Mayor", phoneNumber = "555-0104" },
             new SuspectProfile { displayName = "The Pianist", prefabName = "Pianist", phoneNumber = "555-0105" },
-            new SuspectProfile { displayName = "The Widow", prefabName = "Widow", phoneNumber = "555-0106" }
+            new SuspectProfile { displayName = "The Widow", prefabName = "Widow", phoneNumber = "555-0106" },
+            //the detective's own file: whoever is being asked all this is on the list of people it
+            //could have been, which is the whole reason they are sitting in the room
+            new SuspectProfile { displayName = "The Waiter", prefabName = "Player Character", phoneNumber = "555-0107", isPlayerCharacter = true }
         };
         //Two worked examples, so the notebook has something to write the day it is switched on and the
         //format is there to copy. The real set of sentences replaces them.
@@ -91,6 +99,137 @@ namespace InterrogationRoom
                 {
                     new ClueSlot { kind = ClueSlotKind.Suspect },
                     new ClueSlot { kind = ClueSlotKind.Food }
+                }
+            },
+            new ClueTemplate
+            {
+                templateId = "hurt",
+                menuLabel = "... hurt ...",
+                sentence = "{0} hurt {1}",
+                slots = new ClueSlot[]
+                {
+                    new ClueSlot { kind = ClueSlotKind.Suspect },
+                    new ClueSlot { kind = ClueSlotKind.Suspect }
+                }
+            },
+            new ClueTemplate
+            {
+                templateId = "hadOn",
+                menuLabel = "... had ... on them",
+                sentence = "{0} had {1} on them",
+                slots = new ClueSlot[]
+                {
+                    new ClueSlot { kind = ClueSlotKind.Suspect },
+                    new ClueSlot
+                    {
+                        kind = ClueSlotKind.Custom,
+                        prompt = "What did they have on them?",
+                        customOptions = new string[]
+                        {
+                            "the victim's ring", "cuts on his hands", "a bloodstained apron",
+                            "a gold pocket watch", "muddy boots", "a torn jacket sleeve",
+                            "the victim's cufflinks"
+                        }
+                    }
+                }
+            },
+            new ClueTemplate
+            {
+                templateId = "ateAt",
+                menuLabel = "... ate ... at ...",
+                sentence = "{0} ate {1} at {2}",
+                slots = new ClueSlot[]
+                {
+                    new ClueSlot { kind = ClueSlotKind.Suspect },
+                    new ClueSlot { kind = ClueSlotKind.Food },
+                    new ClueSlot
+                    {
+                        kind = ClueSlotKind.Custom,
+                        prompt = "At what time?",
+                        customOptions = new string[]
+                        {
+                            "8 PM", "9 PM", "10 PM", "11 PM", "12 AM", "1 AM"
+                        }
+                    }
+                }
+            },
+            new ClueTemplate
+            {
+                templateId = "ordered",
+                menuLabel = "... ordered ... at ...",
+                sentence = "{0} ordered {1} at {2}",
+                slots = new ClueSlot[]
+                {
+                    new ClueSlot { kind = ClueSlotKind.Suspect },
+                    new ClueSlot { kind = ClueSlotKind.Food },
+                    new ClueSlot
+                    {
+                        kind = ClueSlotKind.Custom,
+                        prompt = "At what time?",
+                        customOptions = new string[]
+                        {
+                            "8 PM", "9 PM", "10 PM", "11 PM", "12 AM", "1 AM"
+                        }
+                    }
+                }
+            },
+            new ClueTemplate
+            {
+                templateId = "hadAt",
+                menuLabel = "... had ... at ...",
+                sentence = "{0} had {1} at {2}",
+                slots = new ClueSlot[]
+                {
+                    new ClueSlot { kind = ClueSlotKind.Suspect },
+                    new ClueSlot
+                    {
+                        kind = ClueSlotKind.Custom,
+                        prompt = "What did they have?",
+                        customOptions = new string[]
+                        {
+                            "the victim's ring", "cuts on his hands", "a bloodstained apron",
+                            "a gold pocket watch", "muddy boots", "a torn jacket sleeve",
+                            "the victim's cufflinks"
+                        }
+                    },
+                    new ClueSlot
+                    {
+                        kind = ClueSlotKind.Custom,
+                        prompt = "At what time?",
+                        customOptions = new string[]
+                        {
+                            "8 PM", "9 PM", "10 PM", "11 PM", "12 AM", "1 AM"
+                        }
+                    }
+                }
+            },
+            new ClueTemplate
+            {
+                templateId = "took",
+                menuLabel = "... took ... at ...",
+                sentence = "{0} took {1} at {2}",
+                slots = new ClueSlot[]
+                {
+                    new ClueSlot { kind = ClueSlotKind.Suspect },
+                    new ClueSlot
+                    {
+                        kind = ClueSlotKind.Custom,
+                        prompt = "What did they take?",
+                        customOptions = new string[]
+                        {
+                            "the knife", "a wine glass", "a candlestick", "the victim's ring",
+                            "a napkin", "a serving tray"
+                        }
+                    },
+                    new ClueSlot
+                    {
+                        kind = ClueSlotKind.Custom,
+                        prompt = "At what time?",
+                        customOptions = new string[]
+                        {
+                            "8 PM", "9 PM", "10 PM", "11 PM", "12 AM", "1 AM"
+                        }
+                    }
                 }
             }
         };
@@ -168,6 +307,12 @@ namespace InterrogationRoom
             phonePanel = EnsurePanel(phonePanel);
             caseInformationPanel = EnsurePanel(caseInformationPanel);
             memorySelectPanel = EnsurePanel(memorySelectPanel);
+            //the cutscene is behaviour with no card of its own, so like the screens it is made here when
+            //one has not been wired up by hand
+            if (cutsceneDirector == null)
+            {
+                cutsceneDirector = gameObject.AddComponent<CutsceneDirector>();
+            }
 
             HookUp(notebookButton, OpenNotebook);
             HookUp(phoneButton, OpenPhone);
@@ -325,7 +470,6 @@ namespace InterrogationRoom
                 return;
             }
             hoveredSpot = spot;
-            BuildHoverLabel();
             if (hoverLabel == null)
             {
                 return;
@@ -359,20 +503,6 @@ namespace InterrogationRoom
         private RectTransform HoverPill
         {
             get { return (RectTransform)hoverLabel.transform.parent; }
-        }
-
-        private void BuildHoverLabel()
-        {
-            if (hoverLabel != null)
-            {
-                return;
-            }
-            Transform canvas = PanelParent;
-            if (canvas == null)
-            {
-                return;
-            }
-            hoverLabel = PanelUI.CreateHoverLabel(canvas, "Hover Name");
         }
 
         private void PlaceHoverLabel()
@@ -444,7 +574,36 @@ namespace InterrogationRoom
                 Debug.LogError("No dining room scene set on the director, so there is nowhere to go back to.");
                 return;
             }
+            //The memory's prologue plays first when it has one, and the dining room is loaded only once
+            //the player presses on; with no prologue there is nothing to hold on and it loads at once.
+            MemoryOption option = OptionFor(memoryIndex);
+            if (cutsceneDirector != null && option != null && option.HasPrologue)
+            {
+                cutsceneDirector.Play(option.prologueImage, option.prologueText, LoadMemoryScene);
+                return;
+            }
+            LoadMemoryScene();
+        }
+
+        private void LoadMemoryScene()
+        {
             SceneManager.LoadScene(memorySceneName);
+        }
+
+        //the authored memory for an index, or null when nothing lines up with it
+        private MemoryOption OptionFor(int memoryIndex)
+        {
+            if (memories != null)
+            {
+                foreach (MemoryOption option in memories)
+                {
+                    if (option != null && option.memoryIndex == memoryIndex)
+                    {
+                        return option;
+                    }
+                }
+            }
+            return null;
         }
 
         public void ResumeMemory()
