@@ -17,86 +17,113 @@
     "                 correctClueKey can point at it and the calls chain together",
     "  specialClue    the text of that special clue, read on the phone and written in the notebook",
     "",
-    "The detective (the player character) is not on the phone, so there is no entry for them here."
+    "The detective (the player character) is not on the phone, so there is no entry for them here.",
+    "",
+    "The case runs as three strands of two calls each. The player opens each strand with one of the",
+    "three answers in Resources/CorrectClues.json:",
+    "",
+    "  cuts on his hands -> Pianist  -> knifeFight    -> Chief -> knifeInGarage   (the weapon)",
+    "  the ring          -> Widow    -> ringFromMayor -> Mayor -> ringWasDiamonds (the reason)",
+    "  the grape order   -> Henchman -> theNote       -> Baron -> the confession  (the killer)",
+    "",
+    "Only the note breaks the Baron. The other two strands end in evidence rather than in another",
+    "phone number, and they are what make his confession mean anything."
   ],
   "suspects": [
     {
       "name": "The Baron",
       "basic": "Baron speaking. Make it quick, detective.",
-      "nonsense": "I have nothing to say about that, detective.",
-      "correct": "...how could you possibly know that?",
+      "nonsense": "That means nothing to me, detective, and I have people waiting.",
+      "correct": "...she kept it. Nine years of picking up after me and she kept it.",
       "explanation": [
-        "Fine. Yes. I was there that night, and I have kept quiet about it ever since.",
-        "But you have to understand what was really going on at that table."
+        "Diamond would not sell. I made him three offers and he laughed at the third one, so I stopped making offers.",
+        "I paid a man to make it look like a burglary. He did it well enough that your own chief of police spent two years telling a widow she had done it herself.",
+        "I never paid him the rest of what was owed. Why would I? Where was he going to take that complaint? He put the ring in his pocket instead and told himself that made us even.",
+        "Then he turned up at my own birthday party carrying a tray, and poured a full glass of wine down my front so he could stand close enough to say a number in my ear. At my table, in my house, with the mayor sitting four feet away.",
+        "So I wrote him a note and I went out to the garage to settle it. He put his hands on me. There was a knife on the shelf out there that was not mine and had no business being there at all, and the whole thing took less time than it takes to tell you about it.",
+        "I paid him in the end, detective. Just not in money."
       ],
-      "correctClueKey": "",
+      "correctClueKey": "theNote",
       "specialClueId": "",
-      "specialClue": ""
+      "specialClue": "",
+      "endsCase": true
     },
     {
       "name": "The Chief",
       "basic": "Chief here. This had better be important.",
-      "nonsense": "I have nothing to say about that, detective.",
-      "correct": "...how could you possibly know that?",
+      "nonsense": "That is not a question, that is a guess. Come back when you have something.",
+      "correct": "...how could you possibly know that? He told you. The piano player told you.",
       "explanation": [
-        "You think you have it all worked out. You do not.",
-        "Let me tell you what actually happened."
+        "Fine. I had the knife. I have said all along that I had no weapon on me, and that was a lie, and standing here now I would tell it again.",
+        "The piano player got mouthy about the way I was talking to Mrs Diamond. I had a knife off the waiter's tray in my hand before I knew I had picked it up, and he took hold of the blade. There was blood on the floor and the mayor was forty feet away.",
+        "I could not walk back into that room holding it, and I could not put it back on the tray with his blood on it. So I went out to the garage and left it on the shelf over the workbench, and I came back inside and stood there and said nothing.",
+        "Thirty one years I have done this job. I left a knife lying where anyone at that party could pick it up. Somebody did."
       ],
-      "correctClueKey": "",
-      "specialClueId": "",
-      "specialClue": ""
+      "correctClueKey": "knifeFight",
+      "specialClueId": "knifeInGarage",
+      "specialClue": "The Chief left the carving knife on the shelf over the workbench in the garage, and there it stayed, in reach of anyone who went out to the cars."
     },
     {
       "name": "The Henchman",
       "basic": "Yeah? Who is this?",
-      "nonsense": "I have nothing to say about that, detective.",
-      "correct": "...how could you possibly know that?",
+      "nonsense": "I have nothing to say about that.",
+      "correct": "...how could you possibly know that? I have not been able to eat a grape since I was nine years old.",
       "explanation": [
-        "Alright, alright. I did what I was told, same as always.",
-        "But I never signed up for what happened after."
+        "The plate was not for me. Anyone who has worked a night with me knows what grapes do to me. I say it out loud at every job so that nobody kills me by accident.",
+        "The baron told me before midnight that he would be outside and that I was to bring him grapes when I had a minute. It was gone one before I got the plate made up, and gone two before the room let go of me long enough to carry it out to him.",
+        "He was on the floor of the garage. Leo. I hired him for that party, I hired both of those boys myself, and he was lying there by the workbench.",
+        "There was a note on the floor by his hand. Meet me at the garage at 12 AM, and the baron's name under it in his own writing, the way he signs everything.",
+        "I put it in my pocket. Nine years of picking things up after that man, and my hand did it before my head could stop it. I have it still, detective, and I am tired of having it."
       ],
-      "correctClueKey": "",
-      "specialClueId": "",
-      "specialClue": ""
+      "correctClueKey": "allergyOrder|The Henchman|Grapes|1 AM",
+      "specialClueId": "theNote",
+      "specialClue": "A note found on the garage floor beside the body, in the Baron's own hand and signed by him - meet me at the garage at 12 AM. Amara Steel kept it."
     },
     {
       "name": "The Mayor",
       "basic": "You have reached the Mayor's office. Speak.",
-      "nonsense": "I have nothing to say about that, detective.",
-      "correct": "...how could you possibly know that?",
+      "nonsense": "No comment, and I would remind you who you are speaking to.",
+      "correct": "...she told you. Of course she told you. I did ask her to keep it between the two of us.",
       "explanation": [
-        "I have a reputation to protect, detective, and that reputation is the only reason I am still talking to you.",
-        "Here is the truth, and it goes no further than this call."
+        "All right. Yes. I bought it, and I bought it standing in a garage, and I am not proud of the setting.",
+        "I had gone out to the car because that waiter cut me off and I keep a bottle in the glovebox. The other one was out there, the young one, and he had a ring in his hand and he wanted cash for it that night.",
+        "I knew that ring, detective. I have sat across a table from that ring at three separate dinners. It was Diamond's.",
+        "And I bought it anyway, because I had spent the entire evening trying to think of something to give Amelia that no other man in that room would have thought of, and there it was in front of me. I did not ask him where he got it. I did not want an answer I would have had to do something about.",
+        "So I put it in her hand and went back to my party feeling like the cleverest man alive. You may write that down."
       ],
-      "correctClueKey": "",
-      "specialClueId": "",
-      "specialClue": ""
+      "correctClueKey": "ringFromMayor",
+      "specialClueId": "ringWasDiamonds",
+      "specialClue": "The Mayor bought the ring off Leo Silvers in the garage that night, and knew it for Mr Diamond's - which puts Leo in the Diamond house the night Diamond died."
     },
     {
       "name": "The Pianist",
       "basic": "Hello? I was in the middle of practising.",
-      "nonsense": "I have nothing to say about that, detective.",
-      "correct": "...how could you possibly know that?",
+      "nonsense": "I do not know anything about that. I only play the piano.",
+      "correct": "...how could you possibly know that? I have not been able to play a scale in a week.",
       "explanation": [
-        "I see everything from that piano and no one ever notices me there.",
-        "So yes, I saw it. Let me tell you exactly what I saw."
+        "My hands. I did not catch them on anything. I put them round a blade.",
+        "That policeman had been at Mrs Diamond all evening, telling half the city she killed her husband. Somebody had to say something to him about it, so I did, out by the service door where the trays go.",
+        "He did not care to be spoken to that way. He took the carving knife off the waiter's tray and held it out at me, and I grabbed it. That is what these are. Anyone who has ever taken hold of a blade by the wrong end has them.",
+        "Then he walked off with it, and I went back to my piano and sat on my hands for the rest of the night. No, I did not report it. Report it to whom, detective? He is the man you report things to."
       ],
-      "correctClueKey": "",
-      "specialClueId": "",
-      "specialClue": ""
+      "correctClueKey": "hadAt|The Pianist|cuts on his hands|1 AM",
+      "specialClueId": "knifeFight",
+      "specialClue": "The Chief took the carving knife off the waiter's tray during a scuffle with the Pianist and walked away with it, an hour before the murder."
     },
     {
       "name": "The Widow",
       "basic": "Yes? Who is calling at this hour?",
-      "nonsense": "I have nothing to say about that, detective.",
-      "correct": "...how could you possibly know that?",
+      "nonsense": "I do not see what that has to do with me.",
+      "correct": "...how could you possibly know that? I have not taken it off. I have not been able to look at it either.",
       "explanation": [
-        "I have grieved quietly and let everyone believe what they wanted to believe.",
-        "But you have earned the truth, so here it is."
+        "The mayor gave it to me. He came in from outside somewhere before midnight, very pleased with himself, and put it in my hand and closed my fingers over it as though he had invented kindness.",
+        "It is my husband's ring. It was on his hand the day he died and it was gone by the time they let me see him. They told me it was a burglary, they closed the case, and they told me to be grateful.",
+        "So a man hands it back to me at a birthday party, while the chief of police is going round that same room telling everyone I murdered my husband for his money. What was I to do, detective? Stand up and announce it?",
+        "I put my hand in my lap and I said nothing. And while I sat there saying nothing, a waiter was dying sixty feet away."
       ],
-      "correctClueKey": "",
-      "specialClueId": "",
-      "specialClue": ""
+      "correctClueKey": "hadAt|The Widow|the victim's ring|1 AM",
+      "specialClueId": "ringFromMayor",
+      "specialClue": "The ring the Widow was wearing is her late husband's, missing since the night he died, and the Mayor put it into her hand before 1 AM."
     }
   ]
 }

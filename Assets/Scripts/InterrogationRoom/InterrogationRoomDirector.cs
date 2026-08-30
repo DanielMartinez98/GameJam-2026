@@ -256,6 +256,19 @@ namespace InterrogationRoom
         [Header("The dining room")]
         [SerializeField] private string memorySceneName = "GameScene";
 
+        [Header("The ending")]
+        //What the case ends on, once the murderer has confessed and the player has pressed to close it.
+        //It is shown the way a memory's prologue is - the whole view, one picture with a passage read
+        //under it - so the case is put down the same way it was picked up.
+        [SerializeField] private Sprite endingImage;
+        //the heading over it, so the player can see the case is closed and not merely put down
+        [SerializeField] private string endingTitle = "Ending";
+        [TextArea(4, 12), SerializeField] private string endingText;
+        //Where the player is sent once they press on. Left empty the ending simply lifts and the room
+        //comes back, which is what you want while writing it; pointed at the menu it ends the game, and
+        //the solved case is cleared on the way out so the next run starts on an empty notebook.
+        [SerializeField] private string endingSceneName = "MainMenu";
+
         [Header("Development")]
         //Every memory counts as finished, so every memory can be walked into without playing the one
         //before it. On while the game is being built; turn it off before anyone else plays it, or the
@@ -588,6 +601,36 @@ namespace InterrogationRoom
         private void LoadMemoryScene()
         {
             SceneManager.LoadScene(memorySceneName);
+        }
+
+        //The end of the case. The phone calls this once the murderer has confessed and the player has
+        //pressed to close it, so the confession is read at the player's own pace and the screen only
+        //comes down when they are done with it.
+        public void ShowEnding()
+        {
+            ClosePanels();
+            if (cutsceneDirector != null && (endingImage != null || !string.IsNullOrEmpty(endingText)))
+            {
+                cutsceneDirector.Play(endingImage, endingTitle, endingText, FinishCase);
+                return;
+            }
+            //nothing written to end on: the case is still over, it just ends quietly
+            FinishCase();
+        }
+
+        //What happens after the last screen: the case is put away and the player is sent wherever the
+        //game ends, or, with nowhere set, the room simply comes back with the case still on the desk.
+        private void FinishCase()
+        {
+            if (string.IsNullOrEmpty(endingSceneName))
+            {
+                RefreshRoomButtons();
+                return;
+            }
+            //This case is solved, so the next game gets a new one rather than reopening a finished
+            //notebook. It is cleared here rather than at the menu because here is where it ended.
+            CaseFile.Reset();
+            SceneManager.LoadScene(endingSceneName);
         }
 
         //the authored memory for an index, or null when nothing lines up with it

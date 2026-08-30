@@ -3915,6 +3915,7 @@ MonoBehaviour:
     correctClueKey: 
     specialClueId: 
     specialClue: 
+    endsCase: 1
   - displayName: The Chief
     realName: Bernardo Copper
     prefabName: Chief
@@ -4022,9 +4023,9 @@ MonoBehaviour:
     specialClueId: 
     specialClue: 
   clueTemplates:
-  - templateId: allergy
-    menuLabel: ... is allergic to ...
-    sentence: '{0} is allergic to {1}'
+  - templateId: allergyOrder
+    menuLabel: '... is allergic to ..., and still ordered it at ...'
+    sentence: '{0} is allergic to {1}, and still ordered {1} at {2}'
     slots:
     - kind: 0
       customOptions: []
@@ -4032,6 +4033,15 @@ MonoBehaviour:
     - kind: 1
       customOptions: []
       prompt: 
+    - kind: 2
+      customOptions:
+      - 8 PM
+      - 9 PM
+      - 10 PM
+      - 11 PM
+      - 12 AM
+      - 1 AM
+      prompt: At what time?
   - templateId: served
     menuLabel: ... was served ...
     sentence: '{0} was served {1}'
@@ -4217,7 +4227,7 @@ MonoBehaviour:
     prologueText: at the very beginning of my second shift the other waiter tripped
       and spilled a full glass of wine on top of the baron,  we were all really surprised.
   - title: 'The Calm Before '
-    description: the third and final shift
+    description: the third and final shift, from 1am
     thumbnail: {fileID: 1772220627499986795, guid: ba69f8e9d78f1294094dd4d75cb711f3, type: 3}
     memoryIndex: 2
     prologueImage: {fileID: 1772220627499986795, guid: ba69f8e9d78f1294094dd4d75cb711f3, type: 3}
@@ -4225,6 +4235,10 @@ MonoBehaviour:
       not an easing calm, more of a cold front. it felt that something as if something
       was coming. little did i know.
   memorySceneName: GameScene
+  endingImage: {fileID: 6370348715488920441, guid: 9ea21b75ab52a3a49858c9ea2b3bb010, type: 3}
+  endingTitle: Ending
+  endingText: "they took magnus saphire out of his own house before the sun was properly up. he was still telling them who he was when they put him in the car.\n\nthe diamond case is open again. the chief handed in the knife himself, and his badge with it. the mayor gave a statement, and then a press conference, in that order.\n\nnobody at that party is going to remember the waiter who spilled the wine.\n\ni will."
+  endingSceneName: MainMenu
   unlockAllMemories: 1
 --- !u!114 &830888179
 MonoBehaviour:

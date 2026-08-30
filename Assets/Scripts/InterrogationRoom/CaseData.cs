@@ -95,6 +95,10 @@ namespace InterrogationRoom
         //notebook. Leave both empty for a suspect whose call unlocks nothing new.
         public string specialClueId;
         [TextArea(2, 4)] public string specialClue;
+        //The murderer. Breaking this one is not another link in the chain, it is the end of the case:
+        //their confession is followed by the ending rather than by another number to call. Exactly one
+        //suspect should carry it, and a case with none simply never ends on its own.
+        public bool endsCase;
     }
 
     //One finding on a report: what it is called, what it says, and the picture of it. The picture goes
