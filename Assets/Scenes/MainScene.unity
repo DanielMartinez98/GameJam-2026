@@ -3934,6 +3934,7 @@ MonoBehaviour:
     correctClueKey: 
     specialClueId: 
     specialClue: 
+    endsCase: 0
   - displayName: The Henchman
     realName: Amara Steel
     prefabName: Henchman
@@ -3952,6 +3953,7 @@ MonoBehaviour:
     correctClueKey: 
     specialClueId: 
     specialClue: 
+    endsCase: 0
   - displayName: The Mayor
     realName: Merrick Ruby
     prefabName: Mayor
@@ -3970,6 +3972,7 @@ MonoBehaviour:
     correctClueKey: 
     specialClueId: 
     specialClue: 
+    endsCase: 0
   - displayName: The Pianist
     realName: Idris Bronze
     prefabName: Pianist
@@ -3987,6 +3990,7 @@ MonoBehaviour:
     correctClueKey: 
     specialClueId: 
     specialClue: 
+    endsCase: 0
   - displayName: The Widow
     realName: Amelia Diamond
     prefabName: Widow
@@ -4005,6 +4009,7 @@ MonoBehaviour:
     correctClueKey: 
     specialClueId: 
     specialClue: 
+    endsCase: 0
   - displayName: The Waiter
     realName: Dan Silver
     prefabName: Player Character
@@ -4022,9 +4027,10 @@ MonoBehaviour:
     correctClueKey: 
     specialClueId: 
     specialClue: 
+    endsCase: 0
   clueTemplates:
   - templateId: allergyOrder
-    menuLabel: '... is allergic to ..., and still ordered it at ...'
+    menuLabel: ... is allergic to ..., and still ordered it at ...
     sentence: '{0} is allergic to {1}, and still ordered {1} at {2}'
     slots:
     - kind: 0
@@ -4237,9 +4243,22 @@ MonoBehaviour:
   memorySceneName: GameScene
   endingImage: {fileID: 6370348715488920441, guid: 9ea21b75ab52a3a49858c9ea2b3bb010, type: 3}
   endingTitle: Ending
-  endingText: "they took magnus saphire out of his own house before the sun was properly up. he was still telling them who he was when they put him in the car.\n\nthe diamond case is open again. the chief handed in the knife himself, and his badge with it. the mayor gave a statement, and then a press conference, in that order.\n\nnobody at that party is going to remember the waiter who spilled the wine.\n\ni will."
+  endingText: 'they took magnus saphire out of his own house before the sun was properly
+    up. he was still telling them who he was when they put him in the car.
+
+
+    the
+    diamond case is open again. the chief handed in the knife himself, and his badge
+    with it. the mayor gave a statement, and then a press conference, in that order.
+
+
+    nobody
+    at that party is going to remember the waiter who spilled the wine.
+
+
+    i will.'
   endingSceneName: MainMenu
-  unlockAllMemories: 1
+  unlockAllMemories: 0
 --- !u!114 &830888179
 MonoBehaviour:
   m_ObjectHideFlags: 0
