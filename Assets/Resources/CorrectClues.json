@@ -1,0 +1,40 @@
+{
+  "_comment": [
+    "The answers to the case: every clue that is actually true, and the memory it can be found in.",
+    "",
+    "'key' is a clue key: the template id and the picks joined by '|', exactly as the notebook builds",
+    "them. Do not guess them - select the GameDirector in MainScene, open the context menu on the",
+    "Interrogation Room Director component and choose 'List Clue Keys'. Every key the game can produce",
+    "is printed to the Console, ready to paste in here.",
+    "",
+    "'memoryIndex' is 0 based and matches the memories on GameDirectorMemories: 0 is the first memory.",
+    "'note' is for whoever is writing this file and is never shown to the player.",
+    "",
+    "All three answers are filed under the third memory because that is where the last piece of each",
+    "one becomes visible, which is what the 'where to go next' hint is for. The grape allergy itself is",
+    "heard in the first memory - the clue cannot be written until the player has both halves.",
+    "",
+    "Everything else in the case comes off the phone. These three are the only things the player has to",
+    "notice for themselves, and each one opens exactly one suspect."
+  ],
+  "memories": [
+    {
+      "memoryIndex": 2,
+      "title": "the third memory",
+      "clues": [
+        {
+          "key": "allergyOrder|The Henchman|Grapes|1 AM",
+          "note": "Amara says she cannot eat grapes in the first memory, then orders grapes at 1 AM in the third. The plate was for the Baron, who is the one person not in the room. Opens the Henchman."
+        },
+        {
+          "key": "hadAt|The Pianist|cuts on his hands|1 AM",
+          "note": "Defensive cuts from grabbing the blade when the Chief pulled the carving knife on him. Opens the Pianist."
+        },
+        {
+          "key": "hadAt|The Widow|the victim's ring|1 AM",
+          "note": "Her husband's ring, bought off Leo in the garage by the Mayor and given to her before 1 AM. Opens the Widow."
+        }
+      ]
+    }
+  ]
+}
